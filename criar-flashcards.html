@@ -1,0 +1,140 @@
+<!-- index.html (Página de Cadastro) -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Flashcards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2A2F4F;
+            --secondary: #917FB3;
+            --background: #FDE2F3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .nav-button {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-creator {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        button {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <h1>📚 Criar Flashcards</h1>
+            <a href="visualizar.html" class="nav-button">Revisar Flashcards</a>
+        </nav>
+
+        <div class="card-creator">
+            <div class="form-group">
+                <label for="pergunta">Pergunta:</label>
+                <textarea id="pergunta" placeholder="Digite sua pergunta..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="resposta">Resposta:</label>
+                <textarea id="resposta" placeholder="Digite a resposta..."></textarea>
+            </div>
+            <button onclick="addFlashcard()">Salvar Flashcard</button>
+        </div>
+    </div>
+
+    <script>
+        function addFlashcard() {
+            const pergunta = document.getElementById('pergunta').value;
+            const resposta = document.getElementById('resposta').value;
+
+            if (pergunta && resposta) {
+                const flashcards = JSON.parse(localStorage.getItem('flashcards')) || [];
+                const newCard = {
+                    id: Date.now(),
+                    pergunta,
+                    resposta
+                };
+
+                flashcards.push(newCard);
+                localStorage.setItem('flashcards', JSON.stringify(flashcards));
+                
+                document.getElementById('pergunta').value = '';
+                document.getElementById('resposta').value = '';
+                alert('Flashcard salvo com sucesso!');
+            }
+        }
+    </script>
+</body>
+</html>

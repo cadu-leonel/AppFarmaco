@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo Revisão Avançado (Dark)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6A8EDD;
+            --secondary: #66C2E0;
+            --success: #2ECC71;
+            --danger: #E74C3C;
+            --background: #121212;
+            --text: #E0E0E0;
+            --card-bg: #1E1E1E;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .start-screen {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .review-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .start-button {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 2rem;
+        }
+
+        .review-interface {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .flashcard-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75vh;
+            width: 100%;
+        }
+
+        .flashcard {
+            background: var(--card-bg);
+            border-radius: 20px;
+            height: 75vh;
+            width: 1366px;
+            max-width: 1200px;
+            box-shadow: 0 10px 30px var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            color: var(--text);
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            padding: 0 2rem;
+        }
+
+        .card-counter {
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .card-face {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .response-buttons {
+            display: none;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .response-button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: black;
+        }
+
+        .stats-report {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            box-shadow: 0 10px 30px var(--shadow);
+            max-width: 100%;
+        }
+
+        .stat-item {
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .time-details {
+            margin-top: 2rem;
+        }
+
+        .time-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            margin: 0.3rem 0;
+            background: #2a2a2a;
+            border-radius: 8px;
+        }
+
+        .time-item.correct {
+            background: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--success);
+        }
+
+        .time-item.incorrect {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--danger);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--secondary);
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .back-button {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .flashcard {
+                min-height: 300px;
+                padding: 1rem;
+            }
+
+            .card-header {
+                padding: 0 1rem;
+            }
+
+            .response-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="start-screen" id="startScreen">
+            <h1 class="review-title">Modo Revisão</h1>
+            <p>Total de flashcards: <span id="totalCards">0</span></p>
+            <button class="start-button" onclick="startReview()">Iniciar Revisão</button>
+        </div>
+
+        <div class="review-interface" id="reviewInterface" style="display: none;">
+            <div class="card-header">
+                <div class="timer" id="timer">00:00</div>
+                <div class="card-counter" id="cardCounter">Card 0/0</div>
+            </div>
+            
+            <div class="flashcard-wrapper">
+                <div class="flashcard" id="flashcard">
+                    <div class="card-face front" id="front">
+                        <div class="card-title">Pergunta</div>
+                        <p id="question"></p>
+                    </div>
+                    <div class="card-face back" id="back" style="display: none;">
+                        <div class="card-title">Resposta</div>
+                        <p id="answer"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="response-buttons" id="responseButtons">
+                <button class="response-button correct" onclick="handleAnswer(true)">✅ Certo</button>
+                <button class="response-button incorrect" onclick="handleAnswer(false)">❌ Errado</button>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+
+        <div class="stats-report" id="statsReport" style="display: none;">
+            <h2>Relatório de Desempenho</h2>
+            <div class="stat-item">
+                <span>Total de Flashcards:</span>
+                <span id="statsTotal">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Respostas Corretas:</span>
+                <span id="statsCorrect">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Respostas Incorretas:</span>
+                <span id="statsIncorrect">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Tempo Total:</span>
+                <span id="statsTotalTime">00:00</span>
+            </div>
+            <div class="stat-item">
+                <span>Tempo Médio por Card:</span>
+                <span id="statsAverageTime">00:00</span>
+            </div>
+            <div class="stat-item">
+                <span>Taxa de Acerto:</span>
+                <span id="statsAccuracy">0%</span>
+            </div>
+
+            <div class="time-details">
+                <h3 style="margin: 1.5rem 0 1rem;">Tempo por Flashcard</h3>
+                <div id="timeDetails"></div>
+            </div>
+            <button class="back-button" onclick="window.location.href='index.html'">Voltar para Início</button>
+        </div>
+    </div>
+
+    <script>
+        let currentCardIndex = 0;
+        let flashcards = JSON.parse(localStorage.getItem('flashcards')) || [];
+        let results = [];
+        let cardStartTime;
+        let totalTime = 0;
+        let timerInterval;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalCardsElement = document.getElementById('totalCards');
+            if(totalCardsElement) {
+                totalCardsElement.textContent = flashcards.length;
+            }
+
+            if (flashcards.length === 0) {
+                document.getElementById('startScreen').innerHTML = `
+                    <h1 class="review-title">Nenhum flashcard encontrado</h1>
+                    <a href="index.html" style="margin-top: 1rem; display: inline-block; color: var(--primary)">
+                        Criar flashcards
+                    </a>`;
+            } else {
+                document.getElementById('flashcard').addEventListener('click', toggleCard);
+            }
+        });
+
+        function startReview() {
+            if (flashcards.length === 0) return;
+
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('reviewInterface').style.display = 'block';
+            showCard(currentCardIndex);
+            startCardTimer();
+        }
+
+        function toggleCard() {
+            const front = document.getElementById('front');
+            const back = document.getElementById('back');
+            const responseButtons = document.getElementById('responseButtons');
+            
+            if (front.style.display === 'none') {
+                front.style.display = 'flex';
+                back.style.display = 'none';
+                responseButtons.style.display = 'none';
+            } else {
+                front.style.display = 'none';
+                back.style.display = 'flex';
+                responseButtons.style.display = 'flex';
+            }
+        }
+
+        function showCard(index) {
+            if(index < 0 || index >= flashcards.length) return;
+
+            const card = flashcards[index];
+            document.getElementById('question').textContent = card.pergunta || "Pergunta não disponível";
+            document.getElementById('answer').textContent = card.resposta || "Resposta não disponível";
+            document.getElementById('cardCounter').textContent = `Card ${index + 1}/${flashcards.length}`;
+            updateProgress(index);
+            startCardTimer();
+        }
+
+        function startCardTimer() {
+            cardStartTime = Date.now();
+            clearInterval(timerInterval);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            const timeElapsed = Math.floor((Date.now() - cardStartTime) / 1000);
+            document.getElementById('timer').textContent = formatTime(timeElapsed);
+        }
+
+        function handleAnswer(isCorrect) {
+            const timeSpent = Math.floor((Date.now() - cardStartTime) / 1000);
+            totalTime += timeSpent;
+
+            results.push({
+                card: flashcards[currentCardIndex],
+                isCorrect,
+                timeSpent,
+                timestamp: new Date().toLocaleTimeString()
+            });
+
+            if (currentCardIndex < flashcards.length - 1) {
+                currentCardIndex++;
+                resetCard();
+                showCard(currentCardIndex);
+            } else {
+                finishReview();
+            }
+        }
+
+        function resetCard() {
+            const front = document.getElementById('front');
+            const back = document.getElementById('back');
+            front.style.display = 'flex';
+            back.style.display = 'none';
+            document.getElementById('responseButtons').style.display = 'none';
+        }
+
+        function updateProgress(index) {
+            const progress = ((index + 1) / flashcards.length) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function finishReview() {
+            clearInterval(timerInterval);
+            document.getElementById('reviewInterface').style.display = 'none';
+            document.getElementById('statsReport').style.display = 'block';
+
+            const total = results.length;
+            const correct = results.filter(r => r.isCorrect).length;
+            const averageTime = total > 0 ? totalTime / total : 0;
+
+            document.getElementById('statsTotal').textContent = total;
+            document.getElementById('statsCorrect').textContent = correct;
+            document.getElementById('statsIncorrect').textContent = total - correct;
+            document.getElementById('statsTotalTime').textContent = formatTime(totalTime);
+            document.getElementById('statsAverageTime').textContent = formatTime(averageTime);
+            document.getElementById('statsAccuracy').textContent = total > 0 ? 
+                `${((correct / total) * 100).toFixed(1)}%` : '0%';
+
+            const timeDetails = document.getElementById('timeDetails');
+            timeDetails.innerHTML = results.map((result, index) => {
+                const question = result.card.pergunta.length > 30 ? 
+                    `${result.card.pergunta.substring(0, 30)}...` : result.card.pergunta;
+                
+                return `
+                    <div class="time-item ${result.isCorrect ? 'correct' : 'incorrect'}">
+                        <span>#${index + 1} - ${question}</span>
+                        <div>
+                            <span>${formatTime(result.timeSpent)}</span>
+                            <small style="color: #666; margin-left: 0.5rem;">${result.timestamp}</small>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
