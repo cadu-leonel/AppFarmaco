@@ -248,21 +248,121 @@
 
     @media (max-width: 768px) {
       .container {
-        padding: 1rem;
+        padding: 0.5rem;
+      }
+
+      .start-screen {
+        padding: 2rem 1rem;
+      }
+
+      .review-title {
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .info-input {
+        max-width: 100%;
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+
+      .start-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      .flashcard-wrapper {
+        height: 60vh;
       }
 
       .flashcard {
-        min-height: 300px;
+        height: 60vh;
         padding: 1rem;
+        max-width: 100%;
       }
 
       .card-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        top: 0.5rem;
         padding: 0 1rem;
       }
 
-      .response-buttons {
-        flex-direction: column;
+      .card-counter {
+        font-size: 0.9rem;
       }
+
+      .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-face {
+        padding: 1rem;
+      }
+
+      .response-button {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+      }
+
+      .stats-report {
+        padding: 1rem;
+      }
+
+      .stat-item {
+        font-size: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+
+      .time-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .flashcard-wrapper {
+        height: 50vh;
+      }
+
+      .flashcard {
+        height: 50vh;
+        padding: 0.5rem;
+      }
+
+      .card-title {
+        font-size: 1.1rem;
+      }
+
+      .card-face p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .timer {
+        font-size: 1rem;
+      }
+
+      .progress-bar {
+        margin: 0.5rem 0;
+      }
+    }
+
+    /* Melhorias de toque */
+    .response-button {
+      min-width: 120px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      touch-action: manipulation;
+    
     }
   </style>
 </head>
@@ -350,6 +450,32 @@
       <button class="back-button" onclick="location.reload()">Nova Revisão</button>
     </div>
   </div>
+  <script>
+    // Adicione este script para melhorar a experiência em mobile
+    document.addEventListener('DOMContentLoaded', () => {
+      // Ajustar altura do flashcard
+      function adjustCardHeight() {
+        const card = document.getElementById('flashcard');
+        const headerHeight = document.querySelector('.card-header').offsetHeight;
+        const windowHeight = window.innerHeight;
+        
+        if(window.innerWidth < 768) {
+          card.style.height = `${windowHeight * 0.6 - headerHeight}px`;
+        }
+      }
+
+      window.addEventListener('resize', adjustCardHeight);
+      adjustCardHeight();
+
+      // Prevenir zoom em inputs
+      document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          input.style.fontSize = '16px';
+        });
+      });
+    });
+  </script>
 
   <script>
     let currentCardIndex = 0;
