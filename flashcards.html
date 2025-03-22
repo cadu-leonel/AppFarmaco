@@ -257,7 +257,7 @@
                 <div class="timer" id="timer">00:00</div>
                 <div class="card-counter" id="cardCounter">Card 0/0</div>
             </div>
-            
+
             <div class="flashcard-wrapper">
                 <div class="flashcard" id="flashcard">
                     <div class="card-face front" id="front">
@@ -318,148 +318,162 @@
 
     <script>
         let currentCardIndex = 0;
-        let flashcards = JSON.parse(localStorage.getItem('flashcards')) || [];
-        let results = [];
-        let cardStartTime;
-        let totalTime = 0;
-        let timerInterval;
+    let flashcards = [
+        {
+            pergunta: "Quais são as quatro câmaras do coração e suas funções principais?",
+            resposta: "Átrio direito (recebe sangue venoso), Átrio esquerdo (recebe sangue arterial), Ventrículo direito (bombeia sangue para os pulmões), Ventrículo esquerdo (bombeia sangue para o corpo)."
+        },
+        {
+            pergunta: "O que é débito cardíaco e como é calculado?",
+            resposta: "Volume de sangue ejetado pelo coração por minuto. Fórmula: DC = Frequência Cardíaca x Volume Sistólico."
+        },
+        {
+            pergunta: "Qual a diferença entre sístole e diástole?",
+            resposta: "Sístole: fase de contração do músculo cardíaco. Diástole: fase de relaxamento e enchimento dos ventrículos."
+        },
+        {
+            pergunta: "Como o sistema nervoso autônomo regula a frequência cardíaca?",
+            resposta: "Simpático: aumenta FC através de noradrenalina (via receptores β1). Parassimpático: diminui FC através de acetilcolina (via receptores muscarínicos)."
+        },
+        {
+            pergunta: "O que é o potencial de ação cardíaco e quais suas fases?",
+            resposta: "Fases: 0 (despolarização rápida - entrada de Na+), 1 (repolarização inicial - saída de K+), 2 (platô - entrada de Ca2+), 3 (repolarização - saída de K+), 4 (potencial de repouso)."
+        }
+    ];
+    let results = [];
+    let cardStartTime;
+    let totalTime = 0;
+    let timerInterval;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const totalCardsElement = document.getElementById('totalCards');
-            if(totalCardsElement) {
-                totalCardsElement.textContent = flashcards.length;
-            }
-
-            if (flashcards.length === 0) {
-                document.getElementById('startScreen').innerHTML = `
-                    <h1 class="review-title">Nenhum flashcard encontrado</h1>
-                    <a href="index.html" style="margin-top: 1rem; display: inline-block; color: var(--primary)">
-                        Criar flashcards
-                    </a>`;
-            } else {
-                document.getElementById('flashcard').addEventListener('click', toggleCard);
-            }
-        });
-
-        function startReview() {
-            if (flashcards.length === 0) return;
-
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('reviewInterface').style.display = 'block';
-            showCard(currentCardIndex);
-            startCardTimer();
+    document.addEventListener('DOMContentLoaded', () => {
+        const totalCardsElement = document.getElementById('totalCards');
+        if (totalCardsElement) {
+            totalCardsElement.textContent = flashcards.length;
         }
 
-        function toggleCard() {
-            const front = document.getElementById('front');
-            const back = document.getElementById('back');
-            const responseButtons = document.getElementById('responseButtons');
-            
-            if (front.style.display === 'none') {
-                front.style.display = 'flex';
-                back.style.display = 'none';
-                responseButtons.style.display = 'none';
-            } else {
-                front.style.display = 'none';
-                back.style.display = 'flex';
-                responseButtons.style.display = 'flex';
-            }
-        }
+        document.getElementById('flashcard').addEventListener('click', toggleCard);
+    });
 
-        function showCard(index) {
-            if(index < 0 || index >= flashcards.length) return;
+    function startReview() {
+        if (flashcards.length === 0) return;
 
-            const card = flashcards[index];
-            document.getElementById('question').textContent = card.pergunta || "Pergunta não disponível";
-            document.getElementById('answer').textContent = card.resposta || "Resposta não disponível";
-            document.getElementById('cardCounter').textContent = `Card ${index + 1}/${flashcards.length}`;
-            updateProgress(index);
-            startCardTimer();
-        }
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('reviewInterface').style.display = 'block';
+        showCard(currentCardIndex);
+        startCardTimer();
+    }
 
-        function startCardTimer() {
-            cardStartTime = Date.now();
-            clearInterval(timerInterval);
-            timerInterval = setInterval(updateTimer, 1000);
-        }
+    function toggleCard() {
+        const front = document.getElementById('front');
+        const back = document.getElementById('back');
+        const responseButtons = document.getElementById('responseButtons');
 
-        function updateTimer() {
-            const timeElapsed = Math.floor((Date.now() - cardStartTime) / 1000);
-            document.getElementById('timer').textContent = formatTime(timeElapsed);
-        }
-
-        function handleAnswer(isCorrect) {
-            const timeSpent = Math.floor((Date.now() - cardStartTime) / 1000);
-            totalTime += timeSpent;
-
-            results.push({
-                card: flashcards[currentCardIndex],
-                isCorrect,
-                timeSpent,
-                timestamp: new Date().toLocaleTimeString()
-            });
-
-            if (currentCardIndex < flashcards.length - 1) {
-                currentCardIndex++;
-                resetCard();
-                showCard(currentCardIndex);
-            } else {
-                finishReview();
-            }
-        }
-
-        function resetCard() {
-            const front = document.getElementById('front');
-            const back = document.getElementById('back');
+        if (front.style.display === 'none') {
             front.style.display = 'flex';
             back.style.display = 'none';
-            document.getElementById('responseButtons').style.display = 'none';
+            responseButtons.style.display = 'none';
+        } else {
+            front.style.display = 'none';
+            back.style.display = 'flex';
+            responseButtons.style.display = 'flex';
         }
+    }
 
-        function updateProgress(index) {
-            const progress = ((index + 1) / flashcards.length) * 100;
-            document.getElementById('progress').style.width = `${progress}%`;
+    function showCard(index) {
+        if (index < 0 || index >= flashcards.length) return;
+
+        const card = flashcards[index];
+        document.getElementById('question').textContent = card.pergunta || "Pergunta não disponível";
+        document.getElementById('answer').textContent = card.resposta || "Resposta não disponível";
+        document.getElementById('cardCounter').textContent = `Card ${index + 1}/${flashcards.length}`;
+        updateProgress(index);
+        startCardTimer();
+    }
+
+    function startCardTimer() {
+        cardStartTime = Date.now();
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+        const timeElapsed = Math.floor((Date.now() - cardStartTime) / 1000);
+        document.getElementById('timer').textContent = formatTime(timeElapsed);
+    }
+
+    function handleAnswer(isCorrect) {
+        const timeSpent = Math.floor((Date.now() - cardStartTime) / 1000);
+        totalTime += timeSpent;
+
+        results.push({
+            card: flashcards[currentCardIndex],
+            isCorrect,
+            timeSpent,
+            timestamp: new Date().toLocaleTimeString()
+        });
+
+        if (currentCardIndex < flashcards.length - 1) {
+            currentCardIndex++;
+            resetCard();
+            showCard(currentCardIndex);
+        } else {
+            finishReview();
         }
+    }
 
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
+    function resetCard() {
+        const front = document.getElementById('front');
+        const back = document.getElementById('back');
+        front.style.display = 'flex';
+        back.style.display = 'none';
+        document.getElementById('responseButtons').style.display = 'none';
+    }
 
-        function finishReview() {
-            clearInterval(timerInterval);
-            document.getElementById('reviewInterface').style.display = 'none';
-            document.getElementById('statsReport').style.display = 'block';
+    function updateProgress(index) {
+        const progress = ((index + 1) / flashcards.length) * 100;
+        document.getElementById('progress').style.width = `${progress}%`;
+    }
 
-            const total = results.length;
-            const correct = results.filter(r => r.isCorrect).length;
-            const averageTime = total > 0 ? totalTime / total : 0;
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
 
-            document.getElementById('statsTotal').textContent = total;
-            document.getElementById('statsCorrect').textContent = correct;
-            document.getElementById('statsIncorrect').textContent = total - correct;
-            document.getElementById('statsTotalTime').textContent = formatTime(totalTime);
-            document.getElementById('statsAverageTime').textContent = formatTime(averageTime);
-            document.getElementById('statsAccuracy').textContent = total > 0 ? 
-                `${((correct / total) * 100).toFixed(1)}%` : '0%';
+    function finishReview() {
+        clearInterval(timerInterval);
+        document.getElementById('reviewInterface').style.display = 'none';
+        document.getElementById('statsReport').style.display = 'block';
 
-            const timeDetails = document.getElementById('timeDetails');
-            timeDetails.innerHTML = results.map((result, index) => {
-                const question = result.card.pergunta.length > 30 ? 
-                    `${result.card.pergunta.substring(0, 30)}...` : result.card.pergunta;
-                
-                return `
-                    <div class="time-item ${result.isCorrect ? 'correct' : 'incorrect'}">
-                        <span>#${index + 1} - ${question}</span>
-                        <div>
-                            <span>${formatTime(result.timeSpent)}</span>
-                            <small style="color: #666; margin-left: 0.5rem;">${result.timestamp}</small>
-                        </div>
+        const total = results.length;
+        const correct = results.filter(r => r.isCorrect).length;
+        const averageTime = total > 0 ? totalTime / total : 0;
+
+        document.getElementById('statsTotal').textContent = total;
+        document.getElementById('statsCorrect').textContent = correct;
+        document.getElementById('statsIncorrect').textContent = total - correct;
+        document.getElementById('statsTotalTime').textContent = formatTime(totalTime);
+        document.getElementById('statsAverageTime').textContent = formatTime(averageTime);
+        document.getElementById('statsAccuracy').textContent = total > 0 ?
+            `${((correct / total) * 100).toFixed(1)}%` : '0%';
+
+        const timeDetails = document.getElementById('timeDetails');
+        timeDetails.innerHTML = results.map((result, index) => {
+            const question = result.card.pergunta.length > 30 ?
+                `${result.card.pergunta.substring(0, 30)}...` : result.card.pergunta;
+
+            return `
+                <div class="time-item ${result.isCorrect ? 'correct' : 'incorrect'}">
+                    <span>#${index + 1} - ${question}</span>
+                    <div>
+                        <span>${formatTime(result.timeSpent)}</span>
+                        <small style="color: #666; margin-left: 0.5rem;">${result.timestamp}</small>
                     </div>
-                `;
-            }).join('');
-        }
+                </div>
+            `;
+        }).join('');
+    }
     </script>
 </body>
+
 </html>

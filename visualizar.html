@@ -2,535 +2,1303 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modo Revisão Avançado (Dark)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #6A8EDD;
-            --secondary: #66C2E0;
-            --success: #2ECC71;
-            --danger: #E74C3C;
-            --background: #121212;
-            --text: #E0E0E0;
-            --card-bg: #1E1E1E;
-            --shadow: rgba(0, 0, 0, 0.3);
-            --border: #333333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modo Revisão Avançado (Dark)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6A8EDD;
+      --secondary: #66C2E0;
+      --success: #2ECC71;
+      --danger: #E74C3C;
+      --background: #121212;
+      --text: #E0E0E0;
+      --card-bg: #1E1E1E;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --border: #333333;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--background);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            flex: 1;
-        }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      flex: 1;
+    }
 
-        .start-screen {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
+    .start-screen {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
 
-        .review-title {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
+    .review-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
 
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
 
-        .info-input {
-            padding: 1rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            background: var(--card-bg);
-            color: var(--text);
-            font-size: 1rem;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
+    .info-input {
+      padding: 1rem;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
 
-        .info-input::placeholder {
-            color: #666;
-        }
+    .info-input::placeholder {
+      color: #666;
+    }
 
-        .start-button {
-            background: var(--primary);
-            color: white;
-            padding: 1.2rem 3rem;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-top: 1rem;
-        }
+    .start-button {
+      background: var(--primary);
+      color: white;
+      padding: 1.2rem 3rem;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 1rem;
+    }
 
-        .review-interface {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px var(--shadow);
-        }
+    .review-interface {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px var(--shadow);
+    }
 
-        .flashcard-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 75vh;
-            width: 100%;
-        }
+    .flashcard-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 75vh;
+      width: 100%;
+    }
 
-        .flashcard {
-            background: var(--card-bg);
-            border-radius: 20px;
-            height: 75vh;
-            width: 1366px;
-            max-width: 1200px;
-            box-shadow: 0 10px 30px var(--shadow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 2rem;
-            color: var(--text);
-            border: 1px solid var(--border);
-            cursor: pointer;
-        }
+    .flashcard {
+      background: var(--card-bg);
+      border-radius: 20px;
+      height: 75vh;
+      width: 1366px;
+      max-width: 1200px;
+      box-shadow: 0 10px 30px var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 2rem;
+      color: var(--text);
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            position: absolute;
-            top: 1rem;
-            left: 0;
-            padding: 0 2rem;
-        }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      position: absolute;
+      top: 1rem;
+      left: 0;
+      padding: 0 2rem;
+    }
 
-        .card-counter {
-            color: var(--secondary);
-            font-weight: 500;
-        }
+    .card-counter {
+      color: var(--secondary);
+      font-weight: 500;
+    }
 
-        .card-face {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            padding: 2rem;
-        }
+    .card-face {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      padding: 2rem;
+    }
 
-        .card-title {
-            font-weight: bold;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
+    .card-title {
+      font-weight: bold;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
 
-        .response-buttons {
-            display: none;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
+    .response-buttons {
+      display: none;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
 
-        .response-button {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: black;
-        }
+    .response-button {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: black;
+    }
 
-        .stats-report {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem auto;
-            box-shadow: 0 10px 30px var(--shadow);
-            max-width: 100%;
-        }
+    .stats-report {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem auto;
+      box-shadow: 0 10px 30px var(--shadow);
+      max-width: 100%;
+    }
 
-        .stat-item {
-            margin: 1rem 0;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border);
-        }
+    .stat-item {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
 
-        .time-details {
-            margin-top: 2rem;
-        }
+    .time-details {
+      margin-top: 2rem;
+    }
 
-        .time-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem;
-            margin: 0.3rem 0;
-            background: #2a2a2a;
-            border-radius: 8px;
-        }
+    .time-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      margin: 0.3rem 0;
+      background: #2a2a2a;
+      border-radius: 8px;
+    }
 
-        .time-item.correct {
-            background: rgba(46, 204, 113, 0.1);
-            border-left: 4px solid var(--success);
-        }
+    .time-item.correct {
+      background: rgba(46, 204, 113, 0.1);
+      border-left: 4px solid var(--success);
+    }
 
-        .time-item.incorrect {
-            background: rgba(231, 76, 60, 0.1);
-            border-left: 4px solid var(--danger);
-        }
+    .time-item.incorrect {
+      background: rgba(231, 76, 60, 0.1);
+      border-left: 4px solid var(--danger);
+    }
 
-        .progress-bar {
-            height: 8px;
-            background: #333;
-            border-radius: 4px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
+    .progress-bar {
+      height: 8px;
+      background: #333;
+      border-radius: 4px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
 
-        .progress {
-            height: 100%;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
+    .progress {
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
 
-        .timer {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--secondary);
-            text-align: center;
-            margin: 1rem 0;
-        }
+    .timer {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--secondary);
+      text-align: center;
+      margin: 1rem 0;
+    }
 
-        .back-button {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-top: 1.5rem;
-            width: 100%;
-        }
+    .back-button {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      width: 100%;
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
 
-            .flashcard {
-                min-height: 300px;
-                padding: 1rem;
-            }
+      .flashcard {
+        min-height: 300px;
+        padding: 1rem;
+      }
 
-            .card-header {
-                padding: 0 1rem;
-            }
+      .card-header {
+        padding: 0 1rem;
+      }
 
-            .response-buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
+      .response-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="start-screen" id="startScreen">
-            <h1 class="review-title">Modo Revisão</h1>
-            <div class="user-info">
-                <input type="text" id="userName" placeholder="Seu nome completo" class="info-input">
-                <input type="text" id="userMatricula" placeholder="Número de matrícula" class="info-input">
-            </div>
-            <p>Total de flashcards: <span id="totalCards">0</span></p>
-            <button class="start-button" onclick="startReview()">Iniciar Revisão</button>
-        </div>
-
-        <div class="review-interface" id="reviewInterface" style="display: none;">
-            <div class="card-header">
-                <div class="timer" id="timer">00:00</div>
-                <div class="card-counter" id="cardCounter">Card 0/0</div>
-            </div>
-
-            <div class="flashcard-wrapper">
-                <div class="flashcard" id="flashcard">
-                    <div class="card-face front" id="front">
-                        <div class="card-title">Pergunta</div>
-                        <p id="question"></p>
-                    </div>
-                    <div class="card-face back" id="back" style="display: none;">
-                        <div class="card-title">Resposta</div>
-                        <p id="answer"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="response-buttons" id="responseButtons">
-                <button class="response-button correct" onclick="handleAnswer(true)">✅ Certo</button>
-                <button class="response-button incorrect" onclick="handleAnswer(false)">❌ Errado</button>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress" id="progress"></div>
-            </div>
-        </div>
-
-        <div class="stats-report" id="statsReport" style="display: none;">
-            <h2>Relatório de Desempenho</h2>
-            <div class="stat-item">
-                <span>Nome:</span>
-                <span id="statsName">-</span>
-            </div>
-            <div class="stat-item">
-                <span>Matrícula:</span>
-                <span id="statsMatricula">-</span>
-            </div>
-            <div class="stat-item">
-                <span>Total de Flashcards:</span>
-                <span id="statsTotal">0</span>
-            </div>
-            <div class="stat-item">
-                <span>Respostas Corretas:</span>
-                <span id="statsCorrect">0</span>
-            </div>
-            <div class="stat-item">
-                <span>Respostas Incorretas:</span>
-                <span id="statsIncorrect">0</span>
-            </div>
-            <div class="stat-item">
-                <span>Tempo Total:</span>
-                <span id="statsTotalTime">00:00</span>
-            </div>
-            <div class="stat-item">
-                <span>Tempo Médio por Card:</span>
-                <span id="statsAverageTime">00:00</span>
-            </div>
-            <div class="stat-item">
-                <span>Taxa de Acerto:</span>
-                <span id="statsAccuracy">0%</span>
-            </div>
-
-            <div class="time-details">
-                <h3 style="margin: 1.5rem 0 1rem;">Tempo por Flashcard</h3>
-                <div id="timeDetails"></div>
-            </div>
-            <button class="back-button" onclick="window.location.href='index.html'">Voltar para Início</button>
-        </div>
+  <div class=" container">
+    <div class="start-screen" id="startScreen">
+      <h1 class="review-title">Modo Revisão</h1>
+      <div class="user-info">
+        <input type="text" id="userName" placeholder="Seu nome completo" class="info-input">
+        <input type="text" id="userMatricula" placeholder="Número de matrícula" class="info-input">
+      </div>
+      <p>Total de flashcards: <span id="totalCards">5</span></p>
+      <button class="start-button" onclick="startReview()">Iniciar Revisão</button>
     </div>
 
-    <script>
-        let currentCardIndex = 0;
-        let flashcards = JSON.parse(localStorage.getItem('flashcards')) || [];
-        let results = [];
-        let cardStartTime;
-        let totalTime = 0;
-        let timerInterval;
+    <div class="review-interface" id="reviewInterface" style="display: none;">
+      <div class="card-header">
+        <div class="timer" id="timer">00:00</div>
+        <div class="card-counter" id="cardCounter">Card 0/20</div>
+      </div>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const totalCardsElement = document.getElementById('totalCards');
-            if (totalCardsElement) {
-                totalCardsElement.textContent = flashcards.length;
-            }
+      <div class="flashcard-wrapper">
+        <div class="flashcard" id="flashcard">
+          <div class="card-face front" id="front">
+            <div class="card-title">Pergunta</div>
+            <p id="question"></p>
+          </div>
+          <div class="card-face back" id="back" style="display: none;">
+            <div class="card-title">Resposta</div>
+            <p id="answer"></p>
+          </div>
+        </div>
+      </div>
 
-            if (flashcards.length === 0) {
-                document.getElementById('startScreen').innerHTML = `
-            <h1 class="review-title">Nenhum flashcard encontrado</h1>
-            <a href="index.html" style="margin-top: 1rem; display: inline-block; color: var(--primary)">
-                Criar flashcards
-            </a>`;
-            } else {
-                document.getElementById('flashcard').addEventListener('click', toggleCard);
-            }
-        });
+      <div class="response-buttons" id="responseButtons">
+        <button class="response-button correct" onclick="handleAnswer(true)">✅ Certo</button>
+        <button class="response-button incorrect" onclick="handleAnswer(false)">❌ Errado</button>
+      </div>
 
-        function startReview() {
-            const userName = document.getElementById('userName').value;
-            const userMatricula = document.getElementById('userMatricula').value;
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
 
-            if (!userName || !userMatricula) {
-                alert('Por favor, preencha seu nome e número de matrícula antes de iniciar!');
-                return;
-            }
+    <div class="stats-report" id="statsReport" style="display: none;">
+      <h2>Relatório de Desempenho</h2>
+      <div class="stat-item">
+        <span>Nome:</span>
+        <span id="statsName">-</span>
+      </div>
+      <div class="stat-item">
+        <span>Matrícula:</span>
+        <span id="statsMatricula">-</span>
+      </div>
+      <div class="stat-item">
+        <span>Total de Flashcards:</span>
+        <span id="statsTotal">20</span>
+      </div>
+      <div class="stat-item">
+        <span>Respostas Corretas:</span>
+        <span id="statsCorrect">0</span>
+      </div>
+      <div class="stat-item">
+        <span>Respostas Incorretas:</span>
+        <span id="statsIncorrect">0</span>
+      </div>
+      <div class="stat-item">
+        <span>Tempo Total:</span>
+        <span id="statsTotalTime">00:00</span>
+      </div>
+      <div class="stat-item">
+        <span>Tempo Médio por Card:</span>
+        <span id="statsAverageTime">00:00</span>
+      </div>
+      <div class="stat-item">
+        <span>Taxa de Acerto:</span>
+        <span id="statsAccuracy">0%</span>
+      </div>
 
-            localStorage.setItem('userData', JSON.stringify({
-                name: userName,
-                matricula: userMatricula
-            }));
+      <div class="time-details">
+        <h3 style="margin: 1.5rem 0 1rem;">Tempo por Flashcard</h3>
+        <div id="timeDetails"></div>
+      </div>
+      <button class="back-button" onclick="location.reload()">Nova Revisão</button>
+    </div>
+  </div>
 
-            if (flashcards.length === 0) return;
+  <script>
+    let currentCardIndex = 0;
+    const allFlashcards = [
+      {
+        pergunta: "Qual o principal íon envolvido na fase de despolarização rápida do potencial de ação cardíaco?",
+        resposta: "O íon sódio (Na+)."
+      },
+      {
+        pergunta: "Qual a principal função dos fármacos antiagregantes plaquetários?",
+        resposta: "Inibir a agregação plaquetária, prevenindo a formação de trombos arteriais."
+      },
+      {
+        pergunta: "Quais são os principais marcadores bioquímicos de lesão miocárdica?",
+        resposta: "Troponina I e T, CK-MB e mioglobina."
+      },
+      {
+        pergunta: "O que caracteriza a insuficiência cardíaca sistólica?",
+        resposta: "Redução da fração de ejeção do ventrículo esquerdo, comprometendo o bombeamento do sangue."
+      },
+      {
+        pergunta: "Qual é o mecanismo de ação dos fármacos β-bloqueadores no tratamento da hipertensão?",
+        resposta: "Reduzem a frequência cardíaca e a contratilidade do miocárdio, diminuindo o débito cardíaco e a pressão arterial."
+      },
+      {
+        pergunta: "Como a biossíntese do colesterol é regulada?",
+        resposta: "Principalmente pela enzima HMG-CoA redutase, que é inibida pelas estatinas."
+      },
+      {
+        pergunta: "O que caracteriza a fase de relaxamento do músculo cardíaco?",
+        resposta: "Reentrada de cálcio no retículo sarcoplasmático e extrusão de cálcio para o meio extracelular, permitindo o relaxamento."
+      },
+      {
+        pergunta: "Qual é a principal complicação microvascular do diabetes relacionada à visão?",
+        resposta: "Retinopatia diabética."
+      },
+      {
+        pergunta: "O que o coagulograma avalia?",
+        resposta: "Avalia os principais parâmetros da coagulação, como o tempo de protrombina (TP), tempo de tromboplastina parcial ativada (TTPa) e INR."
+      },
+      {
+        pergunta: "Qual a principal causa da síndrome coronariana aguda?",
+        resposta: "Ruptura de placa aterosclerótica com formação de trombo sobreposto."
+      },
+      {
+        pergunta: "Qual a principal via envolvida na cascata de coagulação iniciada por lesão vascular?",
+        resposta: "A via extrínseca, desencadeada pela exposição do fator tecidual (fator III)."
+      },
+      {
+        pergunta: "Como os fármacos nitrovasodilatadores atuam no organismo?",
+        resposta: "Liberam óxido nítrico (NO), que promove relaxamento do músculo liso vascular e vasodilatação."
+      },
+      {
+        pergunta: "Qual a principal função do retorno venoso no ciclo cardíaco?",
+        resposta: "Garantir o retorno do sangue ao coração para ser novamente bombeado para a circulação sistêmica."
+      },
+      {
+        pergunta: "O que caracteriza a fisiopatologia da trombose venosa profunda (TVP)?",
+        resposta: "Formação de trombos no sistema venoso profundo, geralmente associada à tríade de Virchow: estase venosa, lesão endotelial e hipercoagulabilidade."
+      },
+      {
+        pergunta: "Qual a principal função dos fármacos hipolipemiantes?",
+        resposta: "Reduzir os níveis de lipídeos no sangue, principalmente colesterol LDL."
+      },
+      {
+        pergunta: "O que ocorre na fase de repolarização do potencial de ação cardíaco?",
+        resposta: "Saída de potássio (K+) da célula, restaurando o potencial de repouso."
+      },
+      {
+        pergunta: "Quais são os principais fatores de risco para a síndrome coronariana aguda?",
+        resposta: "Hipertensão, diabetes, dislipidemias, tabagismo, obesidade e histórico familiar de doenças cardiovasculares."
+      },
+      {
+        pergunta: "Como a insuficiência cardíaca afeta o débito cardíaco?",
+        resposta: "Reduz o débito cardíaco devido à diminuição da capacidade de bombeamento do coração."
+      },
+      {
+        pergunta: "O que a formação dos produtos finais da glicação avançada (AGEs) causa no organismo?",
+        resposta: "Contribui para a inflamação crônica e danos vasculares, especialmente em diabéticos."
+      },
+      {
+        pergunta: "Qual o principal mecanismo de ação dos fármacos digitálicos?",
+        resposta: "Inibem a bomba Na+/K+ ATPase, aumentando os níveis intracelulares de cálcio e melhorando a contratilidade cardíaca."
+      },
+      {
+        pergunta: "Qual a principal função dos fármacos anticoagulantes?",
+        resposta: "Prevenir a formação de coágulos ou inibir a expansão de trombos já formados, agindo em diferentes etapas da cascata de coagulação."
+      },
+      {
+        pergunta: "O que o lipidograma avalia?",
+        resposta: "Avalia os níveis de colesterol total, LDL, HDL e triglicerídeos, sendo fundamental para o diagnóstico de dislipidemias."
+      },
+      {
+        pergunta: "Como a hipertensão arterial sistêmica afeta a hemodinâmica?",
+        resposta: "Aumenta a resistência vascular periférica, sobrecarregando o coração e levando a hipertrofia ventricular esquerda."
+      },
+      {
+        pergunta: "Qual a principal ação dos fármacos trombolíticos?",
+        resposta: "Promover a lise de trombos já formados, restaurando o fluxo sanguíneo em eventos trombóticos agudos."
+      },
+      {
+        pergunta: "Quais são os principais mecanismos de regulação da pressão arterial?",
+        resposta: "Envolvem o sistema nervoso autônomo, o sistema renina-angiotensina-aldosterona (SRAA) e a liberação de fatores vasodilatadores e vasoconstritores."
+      },
+      {
+        pergunta: "O que caracteriza a fisiopatologia do infarto agudo do miocárdio?",
+        resposta: "Oclusão coronariana aguda, resultando em isquemia e necrose do tecido miocárdico."
+      },
+      {
+        pergunta: "Como os fármacos antidiabéticos orais atuam no controle glicêmico?",
+        resposta: "Atuam em diferentes mecanismos, como aumento da secreção de insulina, redução da produção hepática de glicose e aumento da captação periférica de glicose."
+      },
+      {
+        pergunta: "Qual o principal fator de risco para o desenvolvimento de doença arterial periférica?",
+        resposta: "A aterosclerose, agravada por tabagismo, diabetes, hipertensão e dislipidemias."
+      },
+      {
+        pergunta: "O que é o débito cardíaco?",
+        resposta: "É o volume de sangue bombeado pelo coração por minuto, calculado pelo produto da frequência cardíaca pelo volume sistólico."
+      },
+      {
+        pergunta: "Quais são as principais complicações crônicas do diabetes?",
+        resposta: "Retinopatia, nefropatia, neuropatia e pé diabético, associadas a lesões micro e macrovasculares."
+      },
+      {
+        pergunta: "Qual o principal mecanismo de ação dos fármacos anti-hipertensivos inibidores da ECA?",
+        resposta: "Inibem a enzima conversora de angiotensina (ECA), reduzindo a produção de angiotensina II e promovendo vasodilatação."
+      },
+      {
+        pergunta: "O que desencadeia a liberação do óxido nítrico (NO) pelos nitrovasodilatadores?",
+        resposta: "A conversão de nitratos e nitritos em NO nas células musculares lisas vasculares, levando ao relaxamento e vasodilatação."
+      },
+      {
+        pergunta: "Qual a importância do retorno venoso na regulação do débito cardíaco?",
+        resposta: "O retorno venoso determina o volume diastólico final, influenciando diretamente o volume sistólico e, consequentemente, o débito cardíaco."
+      },
+      {
+        pergunta: "Como a insuficiência cardíaca afeta a pressão venosa central?",
+        resposta: "Aumenta a pressão venosa central devido à incapacidade do coração em bombear o sangue de forma eficiente, resultando em congestão venosa."
+      },
+      {
+        pergunta: "O que caracteriza a fisiopatologia da hipertensão arterial sistêmica?",
+        resposta: "Aumento persistente da resistência vascular periférica e/ou do débito cardíaco, levando a sobrecarga crônica do coração e vasos sanguíneos."
+      },
+      {
+        pergunta: "Quais são os principais componentes da tríade de Virchow?",
+        resposta: "Estase venosa, lesão endotelial e hipercoagulabilidade, fatores que contribuem para a formação de trombos."
+      },
+      {
+        pergunta: "Como os fármacos inibidores da HMG-CoA redutase reduzem o colesterol?",
+        resposta: "Bloqueiam a enzima HMG-CoA redutase, responsável pela síntese de colesterol no fígado, reduzindo os níveis de LDL no sangue."
+      },
+      {
+        pergunta: "Qual a principal complicação macrovascular do diabetes?",
+        resposta: "A aterosclerose acelerada, que pode levar a infarto do miocárdio, acidente vascular cerebral (AVC) e doença arterial periférica."
+      },
+      {
+        pergunta: "O que é o ciclo cardíaco?",
+        resposta: "Conjunto de eventos que ocorrem em cada batimento cardíaco, incluindo sístole e diástole atrial e ventricular."
+      },
+      {
+        pergunta: "Qual o principal objetivo do tratamento com fármacos digitálicos?",
+        resposta: "Melhorar a contratilidade cardíaca em pacientes com insuficiência cardíaca, aumentando o débito cardíaco."
+      },
+      {
+        pergunta: "Qual a principal função do sistema renina-angiotensina-aldosterona (SRAA)?",
+        resposta: "Regular a pressão arterial e o equilíbrio hidroeletrolítico através da vasoconstrição e retenção de sódio e água."
+      },
+      {
+        pergunta: "O que a troponina indica em um exame laboratorial?",
+        resposta: "Lesão miocárdica, sendo um dos principais marcadores de infarto agudo do miocárdio."
+      },
+      {
+        pergunta: "Como os fármacos bloqueadores dos canais de cálcio atuam na hipertensão?",
+        resposta: "Reduzem a entrada de cálcio nas células musculares lisas vasculares, causando vasodilatação e diminuição da pressão arterial."
+      },
+      {
+        pergunta: "Qual a principal alteração no ECG em um infarto agudo do miocárdio com supradesnivelamento do segmento ST?",
+        resposta: "Elevação do segmento ST, indicando isquemia transmural aguda."
+      },
+      {
+        pergunta: "O que diferencia a insuficiência cardíaca direita da esquerda?",
+        resposta: "A direita causa congestão venosa sistêmica (edema periférico), enquanto a esquerda leva à congestão pulmonar (dispneia e edema pulmonar)."
+      },
+      {
+        pergunta: "Quais são os principais fatores de risco para a hipertensão arterial sistêmica?",
+        resposta: "Histórico familiar, idade, obesidade, sedentarismo, consumo excessivo de sal e álcool, e estresse."
+      },
+      {
+        pergunta: "Como a neuropatia diabética afeta os membros inferiores?",
+        resposta: "Compromete a sensibilidade, predispondo a úlceras, infecções e ao desenvolvimento do pé diabético."
+      },
+      {
+        pergunta: "O que é o efeito de primeira passagem dos nitratos?",
+        resposta: "Metabolização hepática rápida quando administrados por via oral, reduzindo sua biodisponibilidade."
+      },
+      {
+        pergunta: "Qual a relação entre o diabetes e a aterosclerose?",
+        resposta: "A hiperglicemia crônica promove inflamação e danos endoteliais, acelerando o processo aterosclerótico."
+      },
+      {
+        pergunta: "Como os diuréticos tiazídicos reduzem a pressão arterial?",
+        resposta: "Promovem a excreção de sódio e água, reduzindo o volume sanguíneo e a pressão arterial."
+      },
+      {
+        pergunta: "Qual o principal mecanismo de ação dos antagonistas dos receptores de angiotensina II (ARA-II)?",
+        resposta: "Bloqueiam a ação da angiotensina II nos receptores AT1, promovendo vasodilatação e redução da pressão arterial."
+      },
+      {
+        pergunta: "O que é o efeito cronotrópico negativo dos β-bloqueadores?",
+        resposta: "Redução da frequência cardíaca ao diminuir a atividade do nó sinoatrial."
+      },
+      {
+        pergunta: "Como os fibratos atuam no controle das dislipidemias?",
+        resposta: "Aumentam a atividade da lipase lipoproteica, reduzindo os triglicerídeos e aumentando o HDL."
+      },
+      {
+        pergunta: "Qual a principal causa da doença arterial periférica (DAP)?",
+        resposta: "Aterosclerose, que leva à obstrução progressiva das artérias dos membros inferiores."
+      },
+      {
+        pergunta: "Como ocorre a formação do trombo na trombose venosa profunda (TVP)?",
+        resposta: "A tríade de Virchow (estase venosa, lesão endotelial e hipercoagulabilidade) contribui para a formação do trombo."
+      },
+      {
+        pergunta: "O que representa a onda P no eletrocardiograma (ECG)?",
+        resposta: "A despolarização dos átrios antes da contração atrial."
+      },
+      {
+        pergunta: "Qual a principal complicação da insuficiência cardíaca esquerda?",
+        resposta: "Congestão pulmonar, resultando em dispneia e edema pulmonar."
+      },
+      {
+        pergunta: "Como os inibidores da SGLT2 auxiliam no controle do diabetes tipo 2?",
+        resposta: "Reduzem a reabsorção de glicose nos túbulos renais, aumentando sua excreção urinária."
+      },
+      {
+        pergunta: "O que é o índice tornozelo-braquial (ITB) e qual sua importância?",
+        resposta: "Relação entre a pressão arterial no tornozelo e no braço, utilizado para diagnosticar doença arterial periférica."
+      },
+      {
+        pergunta: "Como os antagonistas de cálcio ajudam no tratamento da angina?",
+        resposta: "Reduzem a contratilidade do miocárdio e promovem vasodilatação, diminuindo a demanda de oxigênio pelo coração."
+      },
+      {
+        pergunta: "Qual a principal função do nó sinoatrial no coração?",
+        resposta: "Atuar como o marcapasso natural do coração, iniciando os impulsos elétricos que controlam a frequência cardíaca."
+      },
+      {
+        pergunta: "Como os nitratos aliviam os sintomas da angina?",
+        resposta: "Promovem vasodilatação, reduzindo a pré-carga e a demanda de oxigênio pelo miocárdio."
+      },
+      {
+        pergunta: "O que desencadeia a liberação de renina pelos rins?",
+        resposta: "Redução da pressão arterial, diminuição do fluxo sanguíneo renal ou ativação do sistema nervoso simpático."
+      },
+      {
+        pergunta: "Qual o efeito dos β-bloqueadores no débito cardíaco?",
+        resposta: "Reduzem o débito cardíaco ao diminuir a frequência cardíaca e a contratilidade do miocárdio."
+      },
+      {
+        pergunta: "Como os anticoagulantes orais diretos (DOACs) atuam na coagulação?",
+        resposta: "Inibem diretamente fatores específicos da coagulação, como o fator Xa ou a trombina, prevenindo a formação de trombos."
+      },
+      {
+        pergunta: "Qual o principal marcador bioquímico para diagnóstico precoce de infarto agudo do miocárdio?",
+        resposta: "Troponina, por sua alta sensibilidade e especificidade para lesão miocárdica."
+      },
+      {
+        pergunta: "O que caracteriza a hipertrofia ventricular esquerda no ECG?",
+        resposta: "Aumento da amplitude do complexo QRS e desvio do eixo elétrico para a esquerda."
+      },
+      {
+        pergunta: "Como a hiperglicemia crônica contribui para a formação de produtos finais da glicação avançada (AGEs)?",
+        resposta: "Favorece a ligação não enzimática da glicose a proteínas, lipídeos e ácidos nucleicos, levando à formação dos AGEs."
+      },
+      {
+        pergunta: "Qual a principal causa de morte em pacientes com síndrome coronariana aguda?",
+        resposta: "Arritmias ventriculares graves, como fibrilação ventricular ou taquicardia ventricular sustentada."
+      },
+      {
+        pergunta: "Como os diuréticos de alça atuam no controle da insuficiência cardíaca?",
+        resposta: "Inibem a reabsorção de sódio e cloro na alça de Henle, promovendo diurese intensa e alívio da sobrecarga volêmica."
+      },
+      {
+        pergunta: "Qual a principal função do nó atrioventricular (AV)?",
+        resposta: "Retardar a condução do impulso elétrico dos átrios para os ventrículos, permitindo o enchimento ventricular antes da contração."
+      },
+      {
+        pergunta: "Como os inibidores da ECA reduzem a pressão arterial?",
+        resposta: "Inibem a conversão de angiotensina I em angiotensina II, promovendo vasodilatação e redução da retenção de sódio e água."
+      },
+      {
+        pergunta: "O que a onda T representa no eletrocardiograma (ECG)?",
+        resposta: "A repolarização ventricular, que ocorre após a contração dos ventrículos."
+      },
+      {
+        pergunta: "Qual a principal causa da hipertrofia ventricular direita?",
+        resposta: "Sobrecarga de pressão no ventrículo direito, geralmente causada por hipertensão pulmonar ou doença pulmonar crônica."
+      },
+      {
+        pergunta: "Como os antagonistas dos receptores de angiotensina II (ARA-II) diferem dos inibidores da ECA?",
+        resposta: "Os ARA-II bloqueiam diretamente os receptores AT1, enquanto os inibidores da ECA impedem a formação de angiotensina II."
+      },
+      {
+        pergunta: "Qual o papel do fibrinogênio na coagulação sanguínea?",
+        resposta: "Serve como precursor da fibrina, que forma a malha do coágulo sanguíneo."
+      },
+      {
+        pergunta: "Como os β-bloqueadores reduzem a demanda de oxigênio pelo coração?",
+        resposta: "Diminuem a frequência cardíaca, a contratilidade e a pressão arterial, reduzindo o trabalho cardíaco."
+      },
+      {
+        pergunta: "Qual a principal complicação da trombose venosa profunda (TVP)?",
+        resposta: "Embolia pulmonar, quando um trombo se desprende e migra para os pulmões."
+      },
+      {
+        pergunta: "O que o segmento ST elevado no ECG indica?",
+        resposta: "Isquemia transmural aguda, geralmente associada a infarto agudo do miocárdio com supradesnivelamento do segmento ST."
+      },
+      {
+        pergunta: "Como os inibidores da PCSK9 reduzem o colesterol LDL?",
+        resposta: "Aumentam a expressão dos receptores de LDL no fígado, promovendo maior captação e remoção do LDL do sangue."
+      },
+      {
+        pergunta: "Qual a função do músculo papilar no coração?",
+        resposta: "Prevenir a inversão das valvas atrioventriculares durante a sístole ventricular, estabilizando as cordas tendíneas."
+      },
+      {
+        pergunta: "Como a insulina regula a glicemia?",
+        resposta: "Promove a captação de glicose pelas células e inibe a produção hepática de glicose."
+      },
+      {
+        pergunta: "O que caracteriza a insuficiência cardíaca com fração de ejeção preservada (ICFEP)?",
+        resposta: "Preservação da fração de ejeção, mas com comprometimento do enchimento ventricular devido à rigidez do miocárdio."
+      },
+      {
+        pergunta: "Qual a principal função do sistema venoso na circulação sanguínea?",
+        resposta: "Retornar o sangue desoxigenado ao coração e atuar como reservatório de volume sanguíneo."
+      },
+      {
+        pergunta: "Como os antagonistas dos canais de cálcio aliviam a angina?",
+        resposta: "Reduzem a contratilidade do miocárdio e causam vasodilatação coronariana, melhorando a perfusão do miocárdio."
+      },
+      {
+        pergunta: "Qual a principal complicação da nefropatia diabética?",
+        resposta: "Progressão para doença renal crônica e insuficiência renal terminal."
+      },
+      {
+        pergunta: "O que caracteriza a onda Q patológica no ECG?",
+        resposta: "Presença de onda Q profunda e alargada, indicando necrose miocárdica antiga."
+      },
+      {
+        pergunta: "Como os fármacos antiplaquetários previnem eventos cardiovasculares?",
+        resposta: "Inibem a agregação plaquetária, prevenindo a formação de trombos arteriais."
+      },
+      {
+        pergunta: "Qual a principal função das artérias coronárias?",
+        resposta: "Fornecer oxigênio e nutrientes ao miocárdio."
+      },
+      {
+        pergunta: "O que o aumento do D-dímero indica?",
+        resposta: "Presença de degradação da fibrina, sugerindo trombose ativa ou embolia pulmonar."
+      },
+      {
+        pergunta: "Qual a função do pericárdio no coração?",
+        resposta: "Proteger o coração, limitar sua expansão excessiva e reduzir o atrito durante os batimentos cardíacos."
+      },
+      {
+        pergunta: "Como a hipertensão arterial pode levar à insuficiência cardíaca?",
+        resposta: "A sobrecarga de pressão crônica promove hipertrofia ventricular esquerda, resultando em disfunção diastólica e, eventualmente, insuficiência cardíaca."
+      },
+      {
+        pergunta: "O que caracteriza a síndrome metabólica?",
+        resposta: "Presença de pelo menos três fatores: obesidade central, hipertensão, dislipidemia e resistência à insulina."
+      },
+      {
+        pergunta: "Qual a principal via metabólica de síntese do colesterol?",
+        resposta: "A via do mevalonato, que envolve a enzima HMG-CoA redutase como passo limitante."
+      },
+      {
+        pergunta: "Como a obesidade contribui para a hipertensão arterial?",
+        resposta: "Aumenta a atividade do sistema renina-angiotensina-aldosterona e do sistema nervoso simpático, promovendo retenção de sódio e vasoconstrição."
+      },
+      {
+        pergunta: "O que são as células de espuma no processo aterosclerótico?",
+        resposta: "Macrófagos que fagocitam lipídios oxidados, acumulando-se na parede arterial e contribuindo para a formação da placa aterosclerótica."
+      },
+      {
+        pergunta: "Como a disfunção endotelial contribui para a aterosclerose?",
+        resposta: "Compromete a produção de óxido nítrico, levando à vasoconstrição, inflamação e adesão de plaquetas e leucócitos à parede arterial."
+      },
+      {
+        pergunta: "O que diferencia a angina estável da instável?",
+        resposta: "A angina estável ocorre previsivelmente com esforço físico, enquanto a instável pode surgir em repouso e indica maior risco de infarto."
+      },
+      {
+        pergunta: "Qual o papel da proteína C reativa (PCR) nas doenças cardiovasculares?",
+        resposta: "Marcador inflamatório que se eleva em resposta a processos inflamatórios, sendo associado ao risco de eventos cardiovasculares."
+      },
+      {
+        pergunta: "Como a insulina influencia o metabolismo lipídico?",
+        resposta: "Inibe a lipólise no tecido adiposo, reduzindo a liberação de ácidos graxos livres para a circulação."
+      },
+      {
+        pergunta: "O que é a disfunção diastólica?",
+        resposta: "Incapacidade do ventrículo relaxar adequadamente durante a diástole, resultando em enchimento ventricular prejudicado."
+      },
+      {
+        pergunta: "Como a albumina influencia a pressão oncótica plasmática?",
+        resposta: "Mantém a pressão oncótica, ajudando a reter líquido dentro dos vasos sanguíneos e prevenindo edema."
+      },
+      {
+        pergunta: "O que diferencia um trombo arterial de um trombo venoso?",
+        resposta: "O trombo arterial é rico em plaquetas, enquanto o trombo venoso contém mais fibrina e hemácias."
+      },
+      {
+        pergunta: "Qual a principal causa de insuficiência cardíaca direita isolada?",
+        resposta: "Hipertensão pulmonar ou doença pulmonar crônica, levando à sobrecarga do ventrículo direito."
+      },
+      {
+        pergunta: "Como os diuréticos poupadores de potássio atuam?",
+        resposta: "Inibem a reabsorção de sódio no túbulo distal e no ducto coletor, poupando a excreção de potássio."
+      },
+      {
+        pergunta: "O que é a isquemia silenciosa?",
+        resposta: "Isquemia miocárdica que ocorre sem sintomas perceptíveis, sendo comum em diabéticos e idosos."
+      },
+      {
+        pergunta: "Qual a importância do HDL no perfil lipídico?",
+        resposta: "Transporta o colesterol dos tecidos periféricos para o fígado, contribuindo para a remoção do excesso de colesterol."
+      },
+      {
+        pergunta: "Como os nitratos aliviam a dor torácica na angina?",
+        resposta: "Promovem vasodilatação venosa, reduzindo a pré-carga e, consequentemente, a demanda de oxigênio pelo miocárdio."
+      },
+      {
+        pergunta: "O que é o fenômeno de Raynaud?",
+        resposta: "Episódios de vasoespasmo nas artérias digitais, causando palidez, cianose e dor nos dedos em resposta ao frio ou estresse."
+      },
+      {
+        pergunta: "Como a hipertrofia ventricular afeta a perfusão coronariana?",
+        resposta: "Aumenta a demanda de oxigênio do miocárdio e reduz a perfusão durante a diástole, predispondo à isquemia."
+      },
+      {
+        pergunta: "O que caracteriza a síndrome do QT longo?",
+        resposta: "Prolongamento do intervalo QT no ECG, aumentando o risco de arritmias ventriculares graves, como a torsades de pointes."
+      },
+      {
+        pergunta: "Como os antidiabéticos da classe das gliflozinas atuam?",
+        resposta: "Inibem o cotransportador sódio-glicose tipo 2 (SGLT2) nos túbulos renais, promovendo a excreção de glicose na urina."
+      },
+      {
+        pergunta: "Qual a principal causa de edema pulmonar agudo?",
+        resposta: "Insuficiência ventricular esquerda, levando ao aumento da pressão capilar pulmonar e extravasamento de líquido para os alvéolos."
+      },
+      {
+        pergunta: "Como o peptídeo natriurético atrial (ANP) regula a pressão arterial?",
+        resposta: "Promove vasodilatação e excreção de sódio e água pelos rins, reduzindo o volume sanguíneo e a pressão arterial."
+      },
+      {
+        pergunta: "O que é o reflexo barorreceptor?",
+        resposta: "Mecanismo que regula a pressão arterial em curto prazo, ajustando a atividade do sistema nervoso simpático em resposta à variação da pressão arterial."
+      },
+      {
+        pergunta: "Como a hipocalemia afeta a função cardíaca?",
+        resposta: "Reduz a excitabilidade celular, podendo causar arritmias, fraqueza muscular e alterações no ECG, como a onda U proeminente."
+      },
+      {
+        pergunta: "Qual o papel do fator de von Willebrand na coagulação?",
+        resposta: "Media a adesão plaquetária ao endotélio lesado e estabiliza o fator VIII no plasma."
+      },
+      {
+        pergunta: "O que diferencia a fibrilação atrial do flutter atrial no ECG?",
+        resposta: "A fibrilação atrial apresenta ondas F irregulares e ausência de onda P, enquanto o flutter atrial exibe ondas F em padrão serrilhado e regular."
+      },
+      {
+        pergunta: "Como a hiperglicemia crônica afeta a microcirculação?",
+        resposta: "Promove lesão endotelial, espessamento da membrana basal capilar e redução da perfusão tecidual, resultando em complicações microvasculares."
+      },
+      {
+        pergunta: "Qual a principal ação dos antagonistas do receptor de mineralocorticoide, como a espironolactona?",
+        resposta: "Bloqueiam a ação da aldosterona, reduzindo a retenção de sódio e água e prevenindo a fibrose miocárdica."
+      },
+      {
+        pergunta: "O que é a pré-carga no contexto da função cardíaca?",
+        resposta: "É o volume de sangue que distende os ventrículos no final da diástole, influenciando a força de contração ventricular."
+      },
+      {
+        pergunta: "Como a resistência vascular periférica afeta a pressão arterial?",
+        resposta: "Aumenta a pressão arterial ao dificultar o fluxo sanguíneo, exigindo maior força de bombeamento do coração."
+      },
+      {
+        pergunta: "Qual a função do sistema simpático na regulação cardiovascular?",
+        resposta: "Aumenta a frequência cardíaca, a força de contração e promove vasoconstrição para elevar a pressão arterial."
+      },
+      {
+        pergunta: "Como a hiponatremia afeta a função cardiovascular?",
+        resposta: "Reduz a contratilidade miocárdica e pode levar à hipotensão e arritmias cardíacas."
+      },
+      {
+        pergunta: "O que caracteriza o sopro cardíaco?",
+        resposta: "Som anormal causado pelo fluxo turbulento do sangue através das válvulas cardíacas ou de defeitos estruturais."
+      },
+      {
+        pergunta: "Como os diuréticos de alça atuam no néfron?",
+        resposta: "Inibem a reabsorção de sódio, potássio e cloreto na alça de Henle, aumentando a diurese e reduzindo a pressão arterial."
+      },
+      {
+        pergunta: "Qual a principal causa de cardiomiopatia dilatada?",
+        resposta: "Doenças virais, consumo excessivo de álcool, cardiopatias isquêmicas e fatores genéticos."
+      },
+      {
+        pergunta: "Como a bradicardia sinusal afeta o débito cardíaco?",
+        resposta: "Reduz o débito cardíaco devido à diminuição da frequência cardíaca, afetando a perfusão tecidual."
+      },
+      {
+        pergunta: "O que é o efeito inotrópico positivo?",
+        resposta: "Aumento da força de contração do coração, geralmente mediado por estímulo simpático ou fármacos como os digitálicos."
+      },
+      {
+        pergunta: "Como a pressão arterial média (PAM) é calculada?",
+        resposta: "PAM = Pressão Diastólica + 1/3 (Pressão Sistólica - Pressão Diastólica)."
+      },
+      {
+        pergunta: "Qual a principal função dos canais de cálcio tipo L no coração?",
+        resposta: "Permitir a entrada de cálcio durante a despolarização, essencial para a contração do miocárdio."
+      },
+      {
+        pergunta: "O que diferencia a hipertensão primária da secundária?",
+        resposta: "A hipertensão primária não tem causa identificável, enquanto a secundária decorre de condições específicas como doenças renais ou endócrinas."
+      },
+      {
+        pergunta: "Como a hiperglicemia crônica contribui para a aterosclerose?",
+        resposta: "Aumenta a produção de radicais livres e promove glicação avançada de proteínas, danificando o endotélio vascular."
+      },
+      {
+        pergunta: "Qual a principal ação dos inibidores de SGLT2 no diabetes tipo 2?",
+        resposta: "Reduzem a reabsorção de glicose nos túbulos renais, aumentando a excreção urinária de glicose."
+      },
+      {
+        pergunta: "Como a anemia crônica afeta a função cardiovascular?",
+        resposta: "Aumenta a frequência cardíaca e o débito cardíaco para compensar a redução do transporte de oxigênio."
+      },
+      {
+        pergunta: "O que são os corpos carotídeos e aórticos?",
+        resposta: "Quimiorreceptores que detectam mudanças nos níveis de oxigênio, dióxido de carbono e pH no sangue, regulando a respiração e a pressão arterial."
+      },
+      {
+        pergunta: "Qual a importância do índice tornozelo-braquial (ITB)?",
+        resposta: "Avalia a presença de doença arterial periférica, comparando a pressão arterial do tornozelo com a do braço."
+      },
+      {
+        pergunta: "Como os fibratos atuam no perfil lipídico?",
+        resposta: "Reduzem os triglicerídeos e aumentam o HDL, ativando o receptor PPAR-α e promovendo a oxidação de ácidos graxos."
+      },
+      {
+        pergunta: "Qual o principal mecanismo de ação da heparina?",
+        resposta: "Potencializa a ação da antitrombina III, inibindo a trombina e os fatores de coagulação Xa, prevenindo a formação de trombos."
+      },
+      {
+        pergunta: "Como o débito cardíaco é calculado?",
+        resposta: "Débito Cardíaco = Frequência Cardíaca × Volume Sistólico."
+      },
+      { pergunta: "Enzima inibida pelas estatinas?", 
+        resposta: "HMG-CoA redutase." },
+      { pergunta: "Fármaco que inibe a enzima conversora de angiotensina?",
+        resposta: "Captopril ou Enalapril." },
+      { pergunta: "Principal enzima envolvida na cascata de coagulação?", 
+        resposta: "Trombina." },
+      { pergunta: "Fármaco que bloqueia canais de cálcio?",
+        resposta: "Amlodipina." },
+      { pergunta: "Enzima responsável pela degradação de bradicinina?",
+        resposta: "ECA (Enzima Conversora de Angiotensina)." },
+      { pergunta: "Fármaco que inibe a bomba de sódio e potássio no coração?",
+        resposta: "Digoxina." },
+      { pergunta: "Enzima que converte fibrinogênio em fibrina?",
+        resposta: "Trombina." },
+      { pergunta: "Fármaco que inibe a agregação plaquetária bloqueando o receptor P2Y12?",
+        resposta: "Clopidogrel." },
+      { pergunta: "Principal fármaco inibidor da COX-1 usado como antiagregante plaquetário?",
+        resposta: "AAS (Ácido Acetilsalicílico)." },
+      { pergunta: "Enzima responsável pela biossíntese do colesterol?",
+        resposta: "HMG-CoA redutase." },
+      { pergunta: "Fármaco que bloqueia a reabsorção de sódio no néfron distal?",
+        resposta: "Hidroclorotiazida." },
+      { pergunta: "Enzima degradada pelos inibidores de DPP-4?",
+        resposta: "GLP-1." },
+      { pergunta: "Principal mecanismo de ação dos nitratos?",
+        resposta: "Liberação de óxido nítrico, causando vasodilatação." },
+      { pergunta: "Enzima inibida pelos fibratos?",
+        resposta: "Lipoproteína lipase (ativada indiretamente)." },
+      { pergunta: "Fármaco que inibe a renina?",
+        resposta: "Alisquireno." },
+      { pergunta: "Principal enzima envolvida no metabolismo de catecolaminas?",
+        resposta: "MAO (Monoamina Oxidase)." },
+      { pergunta: "Fármaco que bloqueia a reabsorção de glicose no rim?",
+        resposta: "Empagliflozina (inibidor de SGLT2)." },
+      { pergunta: "Enzima inibida pelos anticoagulantes orais diretos do tipo inibidores do fator Xa?",
+        resposta: "Fator Xa." },
+      { pergunta: "Fármaco que inibe a anidrase carbônica no túbulo proximal?",
+        resposta: "Acetazolamida." },
+      { pergunta: "Enzima que converte angiotensina I em angiotensina II?",
+        resposta: "ECA (Enzima Conversora de Angiotensina)." 
+      },
+      {
+    pergunta: "Qual fator inicia a via extrínseca da coagulação?",
+    resposta: "Fator tecidual (Fator III)."
+  },
+  {
+    pergunta: "Qual o primeiro fator ativado na via intrínseca?",
+    resposta: "Fator XII (Fator de Hageman)."
+  },
+  {
+    pergunta: "O que ativa o Fator X na via comum?",
+    resposta: "Complexo fator IXa + fator VIIIa na via intrínseca, ou fator VIIa + fator tecidual na via extrínseca."
+  },
+  {
+    pergunta: "Qual o papel do cálcio (Fator IV) na coagulação?",
+    resposta: "Atua como cofator nas reações de ativação de vários fatores da cascata."
+  },
+  {
+    pergunta: "Qual a função do fibrinogênio (Fator I) na coagulação?",
+    resposta: "É convertido em fibrina pela trombina, formando a malha do coágulo."
+  },
+  {
+    pergunta: "Como a heparina atua na cascata de coagulação?",
+    resposta: "Potencializa a ação da antitrombina III, inibindo trombina e fator Xa."
+  },
+  {
+    pergunta: "Qual fator é conhecido como fator estabilizador da fibrina?",
+    resposta: "Fator XIII, que forma ligações cruzadas entre as fibras de fibrina, estabilizando o coágulo."
+  },
+  {
+    pergunta: "Que via da coagulação o tempo de protrombina (TP) avalia?",
+    resposta: "A via extrínseca e a via comum."
+  },
+  {
+    pergunta: "Que via da coagulação o tempo de tromboplastina parcial ativada (TTPa) avalia?",
+    resposta: "A via intrínseca e a via comum."
+  },
+  {
+    pergunta: "Qual a principal função da antitrombina III?",
+    resposta: "Inibir a trombina e o fator Xa, regulando a coagulação."
+  },
+  {
+    pergunta: "O que ativa a protrombina (Fator II) na cascata?",
+    resposta: "O complexo protrombinase (Fator Xa + Fator Va + Cálcio)."
+  },
+  {
+    pergunta: "Qual fármaco inibe diretamente o Fator Xa?",
+    resposta: "Rivaroxabana ou Apixabana."
+  },
+  {
+    pergunta: "Como a warfarina interfere na coagulação?",
+    resposta: "Inibe a síntese hepática dos fatores dependentes de vitamina K (II, VII, IX e X)."
+  },
+  {
+    pergunta: "Qual o papel do Fator V na cascata de coagulação?",
+    resposta: "Atua como cofator do Fator Xa no complexo protrombinase, facilitando a conversão de protrombina em trombina."
+  },
+  {
+    pergunta: "O que desencadeia a via intrínseca da coagulação?",
+    resposta: "Contato do Fator XII com superfícies carregadas negativamente, como colágeno exposto após lesão vascular."
+  },
+  {
+    pergunta: "Qual a função do complexo tenase?",
+    resposta: "Ativar o Fator X na via intrínseca (formado por Fator IXa, Fator VIIIa, Cálcio e fosfolipídios)."
+  },
+  {
+    pergunta: "Como o sistema fibrinolítico regula a coagulação?",
+    resposta: "A plasmina degrada a fibrina, dissolvendo o coágulo quando ele não é mais necessário."
+  },
+  {
+    pergunta: "Qual o produto da quebra da fibrina durante a fibrinólise?",
+    resposta: "Dímeros-D, usados como marcadores de trombose em exames laboratoriais."
+  },
+  {
+    pergunta: "Qual o papel da trombomodulina na regulação da coagulação?",
+    resposta: "Modula a trombina para ativar a proteína C, que inibe os fatores Va e VIIIa, diminuindo a coagulação."
+  },
+  {
+    pergunta: "Quais são os principais componentes avaliados em um lipidograma?",
+    resposta: "Colesterol total, LDL, HDL, VLDL e triglicerídeos."
+  },
+  {
+    pergunta: "O que significa um nível elevado de LDL no lipidograma?",
+    resposta: "Aumento do risco cardiovascular, associado à aterosclerose."
+  },
+  {
+    pergunta: "Qual a função principal do HDL no metabolismo lipídico?",
+    resposta: "Transporta o colesterol dos tecidos periféricos para o fígado, exercendo efeito protetor cardiovascular."
+  },
+  {
+    pergunta: "Quais valores de triglicerídeos são considerados normais?",
+    resposta: "Menos de 150 mg/dL."
+  },
+  {
+    pergunta: "Qual fórmula é usada para calcular o LDL quando os triglicerídeos estão abaixo de 400 mg/dL?",
+    resposta: "Fórmula de Friedewald: LDL = Colesterol total - HDL - (Triglicerídeos/5)."
+  },
+  {
+    pergunta: "O que indica um nível baixo de HDL no lipidograma?",
+    resposta: "Aumento do risco cardiovascular, pois reduz a remoção de colesterol das artérias."
+  },
+  {
+    pergunta: "Como o colesterol total é interpretado no lipidograma?",
+    resposta: "Valores acima de 200 mg/dL são considerados elevados, podendo indicar risco cardiovascular aumentado."
+  },
+  {
+    pergunta: "Qual a principal causa de hipertrigliceridemia?",
+    resposta: "Obesidade, diabetes tipo 2, consumo excessivo de álcool e dieta rica em carboidratos."
+  },
+  {
+    pergunta: "O que é o índice de risco cardiovascular no lipidograma?",
+    resposta: "É a razão entre colesterol total e HDL, sendo elevado quando acima de 5 em homens e 4,5 em mulheres."
+  },
+  {
+    pergunta: "Qual a importância do VLDL no lipidograma?",
+    resposta: "Transporta triglicerídeos do fígado para os tecidos e está associado a risco cardiovascular quando elevado."
+  },
+  {
+    pergunta: "Qual enzima converte o colesterol em ácidos biliares no fígado?",
+    resposta: "Colesterol 7α-hidroxilase."
+  },
+  {
+    pergunta: "Que fármaco anticoagulante atua inibindo diretamente a trombina?",
+    resposta: "Dabigatrana."
+  },
+  {
+    pergunta: "Qual o efeito do aumento do retorno venoso sobre o débito cardíaco?",
+    resposta: "Aumenta o débito cardíaco pelo mecanismo de Frank-Starling."
+  },
+  {
+    pergunta: "Como a hiperglicemia crônica contribui para a lesão endotelial no diabetes?",
+    resposta: "Através do estresse oxidativo e da formação de produtos finais da glicação avançada (AGEs)."
+  },
+  {
+    pergunta: "Qual a principal proteína responsável pelo transporte de colesterol no plasma?",
+    resposta: "Lipoproteína de baixa densidade (LDL)."
+  },
+  {
+    pergunta: "Que fator de coagulação é deficiente na hemofilia A?",
+    resposta: "Fator VIII."
+  },
+  {
+    pergunta: "Como os nitratos aliviam a angina?",
+    resposta: "Promovem vasodilatação venosa, reduzindo a pré-carga e o consumo de oxigênio pelo miocárdio."
+  },
+  {
+    pergunta: "Qual mecanismo de ação dos inibidores de SGLT2 no tratamento do diabetes tipo 2?",
+    resposta: "Reduzem a reabsorção de glicose nos túbulos renais, aumentando a excreção urinária de glicose."
+  },
+  {
+    pergunta: "O que caracteriza a fase de platô do potencial de ação cardíaco?",
+    resposta: "Entrada de cálcio pelas células musculares cardíacas, equilibrada pela saída de potássio."
+  },
+  {
+    pergunta: "Qual a principal causa de hipertensão secundária?",
+    resposta: "Doença renal crônica."
+  },
+  {
+    pergunta: "Que marcador bioquímico é utilizado para monitorar o efeito da heparina não fracionada?",
+    resposta: "Tempo de tromboplastina parcial ativada (TTPa)."
+  }
 
-            document.getElementById('startScreen').style.display = 'none';
-            document.getElementById('reviewInterface').style.display = 'block';
-            showCard(currentCardIndex);
-            startCardTimer();
+
+    ];
+    let sessionFlashcards = [];
+    let results = [];
+    let cardStartTime;
+    let totalTime = 0;
+    let timerInterval;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('totalCards').textContent = allFlashcards.length;
+        document.getElementById('flashcard').addEventListener('click', toggleCard);
+    });
+
+    function startReview() {
+        const userName = document.getElementById('userName').value;
+        const userMatricula = document.getElementById('userMatricula').value;
+
+        if (!userName || !userMatricula) {
+            alert('Por favor, preencha seu nome e número de matrícula!');
+            return;
         }
 
-        function toggleCard() {
-            const front = document.getElementById('front');
-            const back = document.getElementById('back');
-            const responseButtons = document.getElementById('responseButtons');
+        localStorage.setItem('userData', JSON.stringify({
+            name: userName,
+            matricula: userMatricula
+        }));
 
-            if (front.style.display === 'none') {
-                front.style.display = 'flex';
-                back.style.display = 'none';
-                responseButtons.style.display = 'none';
-            } else {
-                front.style.display = 'none';
-                back.style.display = 'flex';
-                responseButtons.style.display = 'flex';
-            }
+        // Selecionar 20 flashcards aleatórios
+        sessionFlashcards = getRandomFlashcards(20);
+        
+        // Reiniciar variáveis da sessão
+        currentCardIndex = 0;
+        results = [];
+        totalTime = 0;
+
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('reviewInterface').style.display = 'block';
+        showCard(currentCardIndex);
+        startCardTimer();
+    }
+
+    function getRandomFlashcards(num) {
+        // Criar cópia do array para não modificar o original
+        const shuffled = [...allFlashcards];
+        // Algoritmo Fisher-Yates para embaralhamento
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
+        return shuffled.slice(0, num);
+    }
 
-        function showCard(index) {
-            if (index < 0 || index >= flashcards.length) return;
+    function toggleCard() {
+        const front = document.getElementById('front');
+        const back = document.getElementById('back');
+        const responseButtons = document.getElementById('responseButtons');
 
-            const card = flashcards[index];
-            document.getElementById('question').textContent = card.pergunta || "Pergunta não disponível";
-            document.getElementById('answer').textContent = card.resposta || "Resposta não disponível";
-            document.getElementById('cardCounter').textContent = `Card ${index + 1}/${flashcards.length}`;
-            updateProgress(index);
-            startCardTimer();
-        }
-
-        function startCardTimer() {
-            cardStartTime = Date.now();
-            clearInterval(timerInterval);
-            timerInterval = setInterval(updateTimer, 1000);
-        }
-
-        function updateTimer() {
-            const timeElapsed = Math.floor((Date.now() - cardStartTime) / 1000);
-            document.getElementById('timer').textContent = formatTime(timeElapsed);
-        }
-
-        function handleAnswer(isCorrect) {
-            const timeSpent = Math.floor((Date.now() - cardStartTime) / 1000);
-            totalTime += timeSpent;
-
-            results.push({
-                card: flashcards[currentCardIndex],
-                isCorrect,
-                timeSpent,
-                timestamp: new Date().toLocaleTimeString()
-            });
-
-            if (currentCardIndex < flashcards.length - 1) {
-                currentCardIndex++;
-                resetCard();
-                showCard(currentCardIndex);
-            } else {
-                finishReview();
-            }
-        }
-
-        function resetCard() {
-            const front = document.getElementById('front');
-            const back = document.getElementById('back');
+        if (front.style.display === 'none') {
             front.style.display = 'flex';
             back.style.display = 'none';
-            document.getElementById('responseButtons').style.display = 'none';
+            responseButtons.style.display = 'none';
+        } else {
+            front.style.display = 'none';
+            back.style.display = 'flex';
+            responseButtons.style.display = 'flex';
         }
+    }
 
-        function updateProgress(index) {
-            const progress = ((index + 1) / flashcards.length) * 100;
-            document.getElementById('progress').style.width = `${progress}%`;
+    function showCard(index) {
+        if (index < 0 || index >= sessionFlashcards.length) return;
+
+        const card = sessionFlashcards[index];
+        document.getElementById('question').textContent = card.pergunta;
+        document.getElementById('answer').textContent = card.resposta;
+        document.getElementById('cardCounter').textContent = `Card ${index + 1}/${sessionFlashcards.length}`;
+        updateProgress(index);
+        startCardTimer();
+    }
+
+    function startCardTimer() {
+        cardStartTime = Date.now();
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+        const timeElapsed = Math.floor((Date.now() - cardStartTime) / 1000);
+        document.getElementById('timer').textContent = formatTime(timeElapsed);
+    }
+
+    function handleAnswer(isCorrect) {
+        const timeSpent = Math.floor((Date.now() - cardStartTime) / 1000);
+        totalTime += timeSpent;
+
+        results.push({
+            card: sessionFlashcards[currentCardIndex],
+            isCorrect,
+            timeSpent,
+            timestamp: new Date().toLocaleTimeString()
+        });
+
+        if (currentCardIndex < sessionFlashcards.length - 1) {
+            currentCardIndex++;
+            resetCard();
+            showCard(currentCardIndex);
+        } else {
+            finishReview();
         }
+    }
 
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
+    function resetCard() {
+        document.getElementById('front').style.display = 'flex';
+        document.getElementById('back').style.display = 'none';
+        document.getElementById('responseButtons').style.display = 'none';
+    }
 
-        function finishReview() {
-            clearInterval(timerInterval);
-            document.getElementById('reviewInterface').style.display = 'none';
-            document.getElementById('statsReport').style.display = 'block';
+    function updateProgress(index) {
+        const progress = ((index + 1) / sessionFlashcards.length) * 100;
+        document.getElementById('progress').style.width = `${progress}%`;
+    }
 
-            const userData = JSON.parse(localStorage.getItem('userData')) || {};
-            document.getElementById('statsName').textContent = userData.name || 'Não informado';
-            document.getElementById('statsMatricula').textContent = userData.matricula || 'Não informada';
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
 
-            const total = results.length;
-            const correct = results.filter(r => r.isCorrect).length;
-            const averageTime = total > 0 ? totalTime / total : 0;
+    function finishReview() {
+        clearInterval(timerInterval);
+        document.getElementById('reviewInterface').style.display = 'none';
+        document.getElementById('statsReport').style.display = 'block';
 
-            document.getElementById('statsTotal').textContent = total;
-            document.getElementById('statsCorrect').textContent = correct;
-            document.getElementById('statsIncorrect').textContent = total - correct;
-            document.getElementById('statsTotalTime').textContent = formatTime(totalTime);
-            document.getElementById('statsAverageTime').textContent = formatTime(averageTime);
-            document.getElementById('statsAccuracy').textContent = total > 0 ?
-                `${((correct / total) * 100).toFixed(1)}%` : '0%';
+        const userData = JSON.parse(localStorage.getItem('userData')) || {};
+        document.getElementById('statsName').textContent = userData.name || 'Não informado';
+        document.getElementById('statsMatricula').textContent = userData.matricula || 'Não informada';
 
-            const timeDetails = document.getElementById('timeDetails');
-            timeDetails.innerHTML = results.map((result, index) => {
-                const question = result.card.pergunta.length > 30 ?
-                    `${result.card.pergunta.substring(0, 30)}...` : result.card.pergunta;
+        const total = results.length;
+        const correct = results.filter(r => r.isCorrect).length;
+        const averageTime = total > 0 ? Math.floor(totalTime / total) : 0;
 
-                return `
-            <div class="time-item ${result.isCorrect ? 'correct' : 'incorrect'}">
-                <span>#${index + 1} - ${question}</span>
-                <div>
-                    <span>${formatTime(result.timeSpent)}</span>
-                    <small style="color: #666; margin-left: 0.5rem;">${result.timestamp}</small>
+        document.getElementById('statsTotal').textContent = sessionFlashcards.length;
+        document.getElementById('statsCorrect').textContent = correct;
+        document.getElementById('statsIncorrect').textContent = total - correct;
+        document.getElementById('statsTotalTime').textContent = formatTime(totalTime);
+        document.getElementById('statsAverageTime').textContent = formatTime(averageTime);
+        document.getElementById('statsAccuracy').textContent = total > 0 ?
+            `${((correct / total) * 100).toFixed(1)}%` : '0%';
+
+        const timeDetails = document.getElementById('timeDetails');
+        timeDetails.innerHTML = results.map((result, index) => {
+            const question = result.card.pergunta.length > 30 ?
+                `${result.card.pergunta.substring(0, 30)}...` : result.card.pergunta;
+
+            return `
+                <div class="time-item ${result.isCorrect ? 'correct' : 'incorrect'}">
+                    <span>#${index + 1} - ${question}</span>
+                    <div>
+                        <span>${formatTime(result.timeSpent)}</span>
+                        <small style="color: #666; margin-left: 0.5rem;">${result.timestamp}</small>
+                    </div>
                 </div>
-            </div>
-        `;
-            }).join('');
+            `;
+        }).join('');
 
-            // Salvar dados de desempenho
-            const performanceData = {
-                user: userData,
-                date: new Date().toISOString(),
-                stats: {
-                    total: total,
-                    correct: correct,
-                    incorrect: total - correct,
-                    totalTime: totalTime,
-                    accuracy: total > 0 ? ((correct / total) * 100).toFixed(1) + '%' : '0%'
-                },
-                details: results
-            };
+        // Salvar dados de desempenho
+        const performanceData = {
+            user: userData,
+            date: new Date().toISOString(),
+            stats: {
+                total: total,
+                correct: correct,
+                incorrect: total - correct,
+                totalTime: totalTime,
+                accuracy: total > 0 ? ((correct / total) * 100).toFixed(1) + '%' : '0%'
+            },
+            details: results
+        };
 
-            const allData = JSON.parse(localStorage.getItem('performanceData')) || [];
-            allData.push(performanceData);
-            localStorage.setItem('performanceData', JSON.stringify(allData));
-        }
-    </script>
-</body>
+        const allData = JSON.parse(localStorage.getItem('performanceData')) || [];
+        allData.push(performanceData);
+        localStorage.setItem('performanceData', JSON.stringify(allData));
+    }
+  </script>
+  </head>
 
 </html>
