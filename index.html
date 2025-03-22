@@ -3,11 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
     <title>Flashcards & Farmaco</title>
 
@@ -114,23 +113,81 @@
             display: flex;
         }
 
+        /* ===== Responsividade ===== */
+        @media (max-width: 992px) {
+            .module-card {
+                min-height: auto;
+            }
+            
+            .row.equal-height {
+                display: block;
+            }
+        }
+
         @media (max-width: 768px) {
             .modules-section {
                 padding: 60px 0;
+                min-height: auto;
             }
 
             .module-card {
-                min-height: auto;
                 margin: 15px 0;
+                padding: 20px;
             }
 
             .topic-list {
                 columns: 1;
             }
 
+            .module-icon {
+                font-size: 2.5rem;
+            }
+
+            .module-content h3 {
+                font-size: 1.5rem;
+            }
+
             .btn-neon {
                 width: 100%;
+                padding: 15px;
             }
+        }
+
+        @media (max-width: 576px) {
+            .main-header .logo {
+                font-size: 1.2rem;
+            }
+
+            .main-banner .caption h2 {
+                font-size: 1.8rem;
+            }
+
+            .features-post {
+                margin-bottom: 20px;
+            }
+
+            #map iframe {
+                height: 250px;
+            }
+
+            .topic-list li {
+                font-size: 0.9rem;
+                padding-left: 25px;
+            }
+
+            .btn-neon {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Melhorias de Toque Mobile */
+        .btn-neon {
+            min-width: 120px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .main-menu li {
+            padding: 10px 0;
         }
     </style>
 </head>
@@ -361,6 +418,13 @@
                 }
             });
 
+            // Fechar menu mobile após clique
+            $('.main-menu a').on('click', function() {
+                if($(window).width() < 992) {
+                    $('.main-nav').hide();
+                }
+            });
+
             // Ativação dos links do menu
             $(window).on('scroll', function () {
                 var scrollPos = $(document).scrollTop();
@@ -374,6 +438,11 @@
                     }
                 });
             });
+
+            // Otimização para mobile
+            if($(window).width() < 768) {
+                $('#bg-video').attr('muted', 'true');
+            }
         });
     </script>
 </body>
