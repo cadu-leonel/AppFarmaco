@@ -2,480 +2,306 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modo Revisão Avançado (Dark)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #6A8EDD;
-      --secondary: #66C2E0;
-      --success: #2ECC71;
-      --danger: #E74C3C;
-      --background: #121212;
-      --text: #E0E0E0;
-      --card-bg: #1E1E1E;
-      --shadow: rgba(0, 0, 0, 0.3);
-      --border: #333333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Modo Revisão Avançado (Dark)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6A8EDD;
+            --secondary: #66C2E0;
+            --success: #2ECC71;
+            --danger: #E74C3C;
+            --background: #121212;
+            --text: #E0E0E0;
+            --card-bg: #1E1E1E;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border: #333333;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--background);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-      flex: 1;
-    }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
 
-    .start-screen {
-      text-align: center;
-      padding: 4rem 2rem;
-    }
+        .start-screen {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
 
-    .review-title {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
+        .review-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
 
-    .user-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin: 2rem 0;
-    }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
 
-    .info-input {
-      padding: 1rem;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      background: var(--card-bg);
-      color: var(--text);
-      font-size: 1rem;
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
+        .info-input {
+            padding: 1.2rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--card-bg);
+            color: var(--text);
+            font-size: 16px;
+            width: 100%;
+            min-height: 50px;
+            -webkit-appearance: none;
+            transition: border-color 0.3s ease;
+        }
 
-    .info-input::placeholder {
-      color: #666;
-    }
+        .info-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
 
-    .start-button {
-      background: var(--primary);
-      color: white;
-      padding: 1.2rem 3rem;
-      border: none;
-      border-radius: 15px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      margin-top: 1rem;
-    }
+        .info-input::placeholder {
+            color: #666;
+        }
 
-    .review-interface {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px var(--shadow);
-    }
+        .start-button {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 1rem;
+            width: 100%;
+        }
 
-    .flashcard-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 75vh;
-      width: 100%;
-    }
+        .review-interface {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
 
-    .flashcard {
-      background: var(--card-bg);
-      border-radius: 20px;
-      height: 75vh;
-      width: 1366px;
-      max-width: 1200px;
-      box-shadow: 0 10px 30px var(--shadow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 2rem;
-      color: var(--text);
-      border: 1px solid var(--border);
-      cursor: pointer;
-    }
+        .flashcard-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            width: 100%;
+        }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      position: absolute;
-      top: 1rem;
-      left: 0;
-      padding: 0 2rem;
-    }
+        .flashcard {
+            background: var(--card-bg);
+            border-radius: 20px;
+            min-height: 60vh;
+            max-height: 80vh;
+            width: 100%;
+            padding: 1.5rem;
+            color: var(--text);
+            border: 1px solid var(--border);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .card-counter {
-      color: var(--secondary);
-      font-weight: 500;
-    }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            z-index: 2;
+        }
 
-    .card-face {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      width: 100%;
-      height: 100%;
-      padding: 2rem;
-    }
+        .card-counter {
+            color: var(--secondary);
+            font-weight: 500;
+        }
 
-    .card-title {
-      font-weight: bold;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
+        .card-face {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            gap: 1rem;
+        }
 
-    .response-buttons {
-      display: none;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
+        .card-title {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
 
-    .response-button {
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      color: black;
-    }
+        .card-face p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 90%;
+        }
 
-    .stats-report {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 2rem;
-      margin: 2rem auto;
-      box-shadow: 0 10px 30px var(--shadow);
-      max-width: 100%;
-    }
+        .response-buttons {
+            display: none;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            position: sticky;
+            bottom: 0;
+            background: var(--card-bg);
+            z-index: 2;
+        }
 
-    .stat-item {
-      margin: 1rem 0;
-      font-size: 1.1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid var(--border);
-    }
+        .response-button {
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            flex: 1;
+            max-width: 200px;
+            transition: transform 0.2s ease;
+        }
 
-    .time-details {
-      margin-top: 2rem;
-    }
+        .stats-report {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
 
-    .time-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem;
-      margin: 0.3rem 0;
-      background: #2a2a2a;
-      border-radius: 8px;
-    }
+        .stat-item {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
 
-    .time-item.correct {
-      background: rgba(46, 204, 113, 0.1);
-      border-left: 4px solid var(--success);
-    }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
 
-    .time-item.incorrect {
-      background: rgba(231, 76, 60, 0.1);
-      border-left: 4px solid var(--danger);
-    }
+            .start-screen {
+                padding: 2rem 1rem;
+            }
 
-    .progress-bar {
-      height: 8px;
-      background: #333;
-      border-radius: 4px;
-      margin: 1rem 0;
-      overflow: hidden;
-    }
+            .review-title {
+                font-size: 2rem;
+            }
 
-    .progress {
-      height: 100%;
-      background: var(--primary);
-      transition: width 0.3s ease;
-    }
+            .card-face p {
+                font-size: 1rem;
+            }
 
-    .timer {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: var(--secondary);
-      text-align: center;
-      margin: 1rem 0;
-    }
+            .response-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
 
-    .back-button {
-      background: var(--primary);
-      color: white;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      margin-top: 1.5rem;
-      width: 100%;
-    }
+            .response-button {
+                max-width: 100%;
+            }
 
-    @media (max-width: 768px) {
-      .container {
-        padding: 0.5rem;
-      }
-
-      .start-screen {
-        padding: 2rem 1rem;
-      }
-
-      .review-title {
-        font-size: 1.8rem;
-        margin-bottom: 0.8rem;
-      }
-
-      .info-input {
-        max-width: 100%;
-        padding: 0.8rem;
-        font-size: 0.9rem;
-      }
-
-      .start-button {
-        padding: 1rem 2rem;
-        font-size: 1rem;
-        width: 100%;
-      }
-
-      .flashcard-wrapper {
-        height: 60vh;
-      }
-
-      .flashcard {
-        height: 60vh;
-        padding: 1rem;
-        max-width: 100%;
-      }
-
-      .card-header {
-        flex-direction: column;
-        gap: 0.5rem;
-        top: 0.5rem;
-        padding: 0 1rem;
-      }
-
-      .card-counter {
-        font-size: 0.9rem;
-      }
-
-      .card-title {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .card-face {
-        padding: 1rem;
-      }
-
-      .response-button {
-        width: 100%;
-        padding: 0.8rem;
-        font-size: 1rem;
-      }
-
-      .stats-report {
-        padding: 1rem;
-      }
-
-      .stat-item {
-        font-size: 1rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-      }
-
-      .time-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .flashcard-wrapper {
-        height: 50vh;
-      }
-
-      .flashcard {
-        height: 50vh;
-        padding: 0.5rem;
-      }
-
-      .card-title {
-        font-size: 1.1rem;
-      }
-
-      .card-face p {
-        font-size: 0.9rem;
-        line-height: 1.4;
-      }
-
-      .timer {
-        font-size: 1rem;
-      }
-
-      .progress-bar {
-        margin: 0.5rem 0;
-      }
-    }
-
-    /* Melhorias de toque */
-    .response-button {
-      min-width: 120px;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    button {
-      touch-action: manipulation;
-    
-    }
-  </style>
+            .stats-report {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class=" container">
-    <div class="start-screen" id="startScreen">
-      <h1 class="review-title">Modo Revisão</h1>
-      <div class="user-info">
-        <input type="text" id="userName" placeholder="Nome" class="info-input">
-        <input type="text" id="userMatricula" placeholder="Número de matrícula" class="info-input">
-      </div>
-      <p>Total de flashcards: <span id="totalCards">5</span></p>
-      <button class="start-button" onclick="startReview()">Iniciar Revisão</button>
-    </div>
-
-    <div class="review-interface" id="reviewInterface" style="display: none;">
-      <div class="card-header">
-        <div class="timer" id="timer">00:00</div>
-        <div class="card-counter" id="cardCounter">Card 0/20</div>
-      </div>
-
-      <div class="flashcard-wrapper">
-        <div class="flashcard" id="flashcard">
-          <div class="card-face front" id="front">
-            <div class="card-title">Pergunta</div>
-            <p id="question"></p>
-          </div>
-          <div class="card-face back" id="back" style="display: none;">
-            <div class="card-title">Resposta</div>
-            <p id="answer"></p>
-          </div>
+    <div class="container">
+        <!-- Tela Inicial -->
+        <div class="start-screen" id="startScreen">
+            <h1 class="review-title">Modo Revisão</h1>
+            <div class="user-info">
+                <input type="text" id="userName" 
+                       placeholder="Seu nome completo" 
+                       class="info-input"
+                       autocapitalize="words"
+                       autocomplete="name">
+                
+                <input type="text" id="userMatricula" 
+                       placeholder="Número de matrícula" 
+                       class="info-input"
+                       inputmode="numeric"
+                       pattern="[0-9]*"
+                       autocomplete="one-time-code">
+            </div>
+            <button class="start-button" onclick="startReview()">Iniciar Revisão</button>
         </div>
-      </div>
 
-      <div class="response-buttons" id="responseButtons">
-        <button class="response-button correct" onclick="handleAnswer(true)">✅ Certo</button>
-        <button class="response-button incorrect" onclick="handleAnswer(false)">❌ Errado</button>
-      </div>
+        <!-- Interface de Revisão -->
+        <div class="review-interface" id="reviewInterface" style="display: none;">
+            <div class="card-header">
+                <div class="timer" id="timer">00:00</div>
+                <div class="card-counter" id="cardCounter">Card 0/20</div>
+            </div>
 
-      <div class="progress-bar">
-        <div class="progress" id="progress"></div>
-      </div>
+            <div class="flashcard-wrapper">
+                <div class="flashcard" id="flashcard">
+                    <div class="card-face front" id="front">
+                        <div class="card-title">Pergunta</div>
+                        <p id="question"></p>
+                    </div>
+                    <div class="card-face back" id="back" style="display: none;">
+                        <div class="card-title">Resposta</div>
+                        <p id="answer"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="response-buttons" id="responseButtons">
+                <button class="response-button correct" onclick="handleAnswer(true)">✅ Certo</button>
+                <button class="response-button incorrect" onclick="handleAnswer(false)">❌ Errado</button>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+
+        <!-- Relatório de Estatísticas -->
+        <div class="stats-report" id="statsReport" style="display: none;">
+            <h2>Relatório de Desempenho</h2>
+            <div class="stat-item">
+                <span>Nome:</span>
+                <span id="statsName">-</span>
+            </div>
+            <div class="stat-item">
+                <span>Matrícula:</span>
+                <span id="statsMatricula">-</span>
+            </div>
+            <!-- Outros itens de estatística... -->
+            <button class="back-button" onclick="location.reload()">Nova Revisão</button>
+        </div>
     </div>
-
-    <div class="stats-report" id="statsReport" style="display: none;">
-      <h2>Relatório de Desempenho</h2>
-      <div class="stat-item">
-        <span>Nome:</span>
-        <span id="statsName">-</span>
-      </div>
-      <div class="stat-item">
-        <span>Matrícula:</span>
-        <span id="statsMatricula">-</span>
-      </div>
-      <div class="stat-item">
-        <span>Total de Flashcards:</span>
-        <span id="statsTotal">20</span>
-      </div>
-      <div class="stat-item">
-        <span>Respostas Corretas:</span>
-        <span id="statsCorrect">0</span>
-      </div>
-      <div class="stat-item">
-        <span>Respostas Incorretas:</span>
-        <span id="statsIncorrect">0</span>
-      </div>
-      <div class="stat-item">
-        <span>Tempo Total:</span>
-        <span id="statsTotalTime">00:00</span>
-      </div>
-      <div class="stat-item">
-        <span>Tempo Médio por Card:</span>
-        <span id="statsAverageTime">00:00</span>
-      </div>
-      <div class="stat-item">
-        <span>Taxa de Acerto:</span>
-        <span id="statsAccuracy">0%</span>
-      </div>
-
-      <div class="time-details">
-        <h3 style="margin: 1.5rem 0 1rem;">Tempo por Flashcard</h3>
-        <div id="timeDetails"></div>
-      </div>
-      <button class="back-button" onclick="location.reload()">Nova Revisão</button>
-    </div>
-  </div>
-  <script>
-    // Adicione este script para melhorar a experiência em mobile
-    document.addEventListener('DOMContentLoaded', () => {
-      // Ajustar altura do flashcard
-      function adjustCardHeight() {
-        const card = document.getElementById('flashcard');
-        const headerHeight = document.querySelector('.card-header').offsetHeight;
-        const windowHeight = window.innerHeight;
-        
-        if(window.innerWidth < 768) {
-          card.style.height = `${windowHeight * 0.6 - headerHeight}px`;
-        }
-      }
-
-      window.addEventListener('resize', adjustCardHeight);
-      adjustCardHeight();
-
-      // Prevenir zoom em inputs
-      document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          input.style.fontSize = '16px';
-        });
-      });
-    });
-  </script>
+  
 
   <script>
     let currentCardIndex = 0;
@@ -1040,207 +866,246 @@
         pergunta: "Como o débito cardíaco é calculado?",
         resposta: "Débito Cardíaco = Frequência Cardíaca × Volume Sistólico."
       },
-      { pergunta: "Enzima inibida pelas estatinas?", 
-        resposta: "HMG-CoA redutase." },
-      { pergunta: "Fármaco que inibe a enzima conversora de angiotensina?",
-        resposta: "Captopril ou Enalapril." },
-      { pergunta: "Principal enzima envolvida na cascata de coagulação?", 
-        resposta: "Trombina." },
-      { pergunta: "Fármaco que bloqueia canais de cálcio?",
-        resposta: "Amlodipina." },
-      { pergunta: "Enzima responsável pela degradação de bradicinina?",
-        resposta: "ECA (Enzima Conversora de Angiotensina)." },
-      { pergunta: "Fármaco que inibe a bomba de sódio e potássio no coração?",
-        resposta: "Digoxina." },
-      { pergunta: "Enzima que converte fibrinogênio em fibrina?",
-        resposta: "Trombina." },
-      { pergunta: "Fármaco que inibe a agregação plaquetária bloqueando o receptor P2Y12?",
-        resposta: "Clopidogrel." },
-      { pergunta: "Principal fármaco inibidor da COX-1 usado como antiagregante plaquetário?",
-        resposta: "AAS (Ácido Acetilsalicílico)." },
-      { pergunta: "Enzima responsável pela biossíntese do colesterol?",
-        resposta: "HMG-CoA redutase." },
-      { pergunta: "Fármaco que bloqueia a reabsorção de sódio no néfron distal?",
-        resposta: "Hidroclorotiazida." },
-      { pergunta: "Enzima degradada pelos inibidores de DPP-4?",
-        resposta: "GLP-1." },
-      { pergunta: "Principal mecanismo de ação dos nitratos?",
-        resposta: "Liberação de óxido nítrico, causando vasodilatação." },
-      { pergunta: "Enzima inibida pelos fibratos?",
-        resposta: "Lipoproteína lipase (ativada indiretamente)." },
-      { pergunta: "Fármaco que inibe a renina?",
-        resposta: "Alisquireno." },
-      { pergunta: "Principal enzima envolvida no metabolismo de catecolaminas?",
-        resposta: "MAO (Monoamina Oxidase)." },
-      { pergunta: "Fármaco que bloqueia a reabsorção de glicose no rim?",
-        resposta: "Empagliflozina (inibidor de SGLT2)." },
-      { pergunta: "Enzima inibida pelos anticoagulantes orais diretos do tipo inibidores do fator Xa?",
-        resposta: "Fator Xa." },
-      { pergunta: "Fármaco que inibe a anidrase carbônica no túbulo proximal?",
-        resposta: "Acetazolamida." },
-      { pergunta: "Enzima que converte angiotensina I em angiotensina II?",
-        resposta: "ECA (Enzima Conversora de Angiotensina)." 
+      {
+        pergunta: "Enzima inibida pelas estatinas?",
+        resposta: "HMG-CoA redutase."
       },
       {
-    pergunta: "Qual fator inicia a via extrínseca da coagulação?",
-    resposta: "Fator tecidual (Fator III)."
-  },
-  {
-    pergunta: "Qual o primeiro fator ativado na via intrínseca?",
-    resposta: "Fator XII (Fator de Hageman)."
-  },
-  {
-    pergunta: "O que ativa o Fator X na via comum?",
-    resposta: "Complexo fator IXa + fator VIIIa na via intrínseca, ou fator VIIa + fator tecidual na via extrínseca."
-  },
-  {
-    pergunta: "Qual o papel do cálcio (Fator IV) na coagulação?",
-    resposta: "Atua como cofator nas reações de ativação de vários fatores da cascata."
-  },
-  {
-    pergunta: "Qual a função do fibrinogênio (Fator I) na coagulação?",
-    resposta: "É convertido em fibrina pela trombina, formando a malha do coágulo."
-  },
-  {
-    pergunta: "Como a heparina atua na cascata de coagulação?",
-    resposta: "Potencializa a ação da antitrombina III, inibindo trombina e fator Xa."
-  },
-  {
-    pergunta: "Qual fator é conhecido como fator estabilizador da fibrina?",
-    resposta: "Fator XIII, que forma ligações cruzadas entre as fibras de fibrina, estabilizando o coágulo."
-  },
-  {
-    pergunta: "Que via da coagulação o tempo de protrombina (TP) avalia?",
-    resposta: "A via extrínseca e a via comum."
-  },
-  {
-    pergunta: "Que via da coagulação o tempo de tromboplastina parcial ativada (TTPa) avalia?",
-    resposta: "A via intrínseca e a via comum."
-  },
-  {
-    pergunta: "Qual a principal função da antitrombina III?",
-    resposta: "Inibir a trombina e o fator Xa, regulando a coagulação."
-  },
-  {
-    pergunta: "O que ativa a protrombina (Fator II) na cascata?",
-    resposta: "O complexo protrombinase (Fator Xa + Fator Va + Cálcio)."
-  },
-  {
-    pergunta: "Qual fármaco inibe diretamente o Fator Xa?",
-    resposta: "Rivaroxabana ou Apixabana."
-  },
-  {
-    pergunta: "Como a warfarina interfere na coagulação?",
-    resposta: "Inibe a síntese hepática dos fatores dependentes de vitamina K (II, VII, IX e X)."
-  },
-  {
-    pergunta: "Qual o papel do Fator V na cascata de coagulação?",
-    resposta: "Atua como cofator do Fator Xa no complexo protrombinase, facilitando a conversão de protrombina em trombina."
-  },
-  {
-    pergunta: "O que desencadeia a via intrínseca da coagulação?",
-    resposta: "Contato do Fator XII com superfícies carregadas negativamente, como colágeno exposto após lesão vascular."
-  },
-  {
-    pergunta: "Qual a função do complexo tenase?",
-    resposta: "Ativar o Fator X na via intrínseca (formado por Fator IXa, Fator VIIIa, Cálcio e fosfolipídios)."
-  },
-  {
-    pergunta: "Como o sistema fibrinolítico regula a coagulação?",
-    resposta: "A plasmina degrada a fibrina, dissolvendo o coágulo quando ele não é mais necessário."
-  },
-  {
-    pergunta: "Qual o produto da quebra da fibrina durante a fibrinólise?",
-    resposta: "Dímeros-D, usados como marcadores de trombose em exames laboratoriais."
-  },
-  {
-    pergunta: "Qual o papel da trombomodulina na regulação da coagulação?",
-    resposta: "Modula a trombina para ativar a proteína C, que inibe os fatores Va e VIIIa, diminuindo a coagulação."
-  },
-  {
-    pergunta: "Quais são os principais componentes avaliados em um lipidograma?",
-    resposta: "Colesterol total, LDL, HDL, VLDL e triglicerídeos."
-  },
-  {
-    pergunta: "O que significa um nível elevado de LDL no lipidograma?",
-    resposta: "Aumento do risco cardiovascular, associado à aterosclerose."
-  },
-  {
-    pergunta: "Qual a função principal do HDL no metabolismo lipídico?",
-    resposta: "Transporta o colesterol dos tecidos periféricos para o fígado, exercendo efeito protetor cardiovascular."
-  },
-  {
-    pergunta: "Quais valores de triglicerídeos são considerados normais?",
-    resposta: "Menos de 150 mg/dL."
-  },
-  {
-    pergunta: "Qual fórmula é usada para calcular o LDL quando os triglicerídeos estão abaixo de 400 mg/dL?",
-    resposta: "Fórmula de Friedewald: LDL = Colesterol total - HDL - (Triglicerídeos/5)."
-  },
-  {
-    pergunta: "O que indica um nível baixo de HDL no lipidograma?",
-    resposta: "Aumento do risco cardiovascular, pois reduz a remoção de colesterol das artérias."
-  },
-  {
-    pergunta: "Como o colesterol total é interpretado no lipidograma?",
-    resposta: "Valores acima de 200 mg/dL são considerados elevados, podendo indicar risco cardiovascular aumentado."
-  },
-  {
-    pergunta: "Qual a principal causa de hipertrigliceridemia?",
-    resposta: "Obesidade, diabetes tipo 2, consumo excessivo de álcool e dieta rica em carboidratos."
-  },
-  {
-    pergunta: "O que é o índice de risco cardiovascular no lipidograma?",
-    resposta: "É a razão entre colesterol total e HDL, sendo elevado quando acima de 5 em homens e 4,5 em mulheres."
-  },
-  {
-    pergunta: "Qual a importância do VLDL no lipidograma?",
-    resposta: "Transporta triglicerídeos do fígado para os tecidos e está associado a risco cardiovascular quando elevado."
-  },
-  {
-    pergunta: "Qual enzima converte o colesterol em ácidos biliares no fígado?",
-    resposta: "Colesterol 7α-hidroxilase."
-  },
-  {
-    pergunta: "Que fármaco anticoagulante atua inibindo diretamente a trombina?",
-    resposta: "Dabigatrana."
-  },
-  {
-    pergunta: "Qual o efeito do aumento do retorno venoso sobre o débito cardíaco?",
-    resposta: "Aumenta o débito cardíaco pelo mecanismo de Frank-Starling."
-  },
-  {
-    pergunta: "Como a hiperglicemia crônica contribui para a lesão endotelial no diabetes?",
-    resposta: "Através do estresse oxidativo e da formação de produtos finais da glicação avançada (AGEs)."
-  },
-  {
-    pergunta: "Qual a principal proteína responsável pelo transporte de colesterol no plasma?",
-    resposta: "Lipoproteína de baixa densidade (LDL)."
-  },
-  {
-    pergunta: "Que fator de coagulação é deficiente na hemofilia A?",
-    resposta: "Fator VIII."
-  },
-  {
-    pergunta: "Como os nitratos aliviam a angina?",
-    resposta: "Promovem vasodilatação venosa, reduzindo a pré-carga e o consumo de oxigênio pelo miocárdio."
-  },
-  {
-    pergunta: "Qual mecanismo de ação dos inibidores de SGLT2 no tratamento do diabetes tipo 2?",
-    resposta: "Reduzem a reabsorção de glicose nos túbulos renais, aumentando a excreção urinária de glicose."
-  },
-  {
-    pergunta: "O que caracteriza a fase de platô do potencial de ação cardíaco?",
-    resposta: "Entrada de cálcio pelas células musculares cardíacas, equilibrada pela saída de potássio."
-  },
-  {
-    pergunta: "Qual a principal causa de hipertensão secundária?",
-    resposta: "Doença renal crônica."
-  },
-  {
-    pergunta: "Que marcador bioquímico é utilizado para monitorar o efeito da heparina não fracionada?",
-    resposta: "Tempo de tromboplastina parcial ativada (TTPa)."
-  }
+        pergunta: "Fármaco que inibe a enzima conversora de angiotensina?",
+        resposta: "Captopril ou Enalapril."
+      },
+      {
+        pergunta: "Principal enzima envolvida na cascata de coagulação?",
+        resposta: "Trombina."
+      },
+      {
+        pergunta: "Fármaco que bloqueia canais de cálcio?",
+        resposta: "Amlodipina."
+      },
+      {
+        pergunta: "Enzima responsável pela degradação de bradicinina?",
+        resposta: "ECA (Enzima Conversora de Angiotensina)."
+      },
+      {
+        pergunta: "Fármaco que inibe a bomba de sódio e potássio no coração?",
+        resposta: "Digoxina."
+      },
+      {
+        pergunta: "Enzima que converte fibrinogênio em fibrina?",
+        resposta: "Trombina."
+      },
+      {
+        pergunta: "Fármaco que inibe a agregação plaquetária bloqueando o receptor P2Y12?",
+        resposta: "Clopidogrel."
+      },
+      {
+        pergunta: "Principal fármaco inibidor da COX-1 usado como antiagregante plaquetário?",
+        resposta: "AAS (Ácido Acetilsalicílico)."
+      },
+      {
+        pergunta: "Enzima responsável pela biossíntese do colesterol?",
+        resposta: "HMG-CoA redutase."
+      },
+      {
+        pergunta: "Fármaco que bloqueia a reabsorção de sódio no néfron distal?",
+        resposta: "Hidroclorotiazida."
+      },
+      {
+        pergunta: "Enzima degradada pelos inibidores de DPP-4?",
+        resposta: "GLP-1."
+      },
+      {
+        pergunta: "Principal mecanismo de ação dos nitratos?",
+        resposta: "Liberação de óxido nítrico, causando vasodilatação."
+      },
+      {
+        pergunta: "Enzima inibida pelos fibratos?",
+        resposta: "Lipoproteína lipase (ativada indiretamente)."
+      },
+      {
+        pergunta: "Fármaco que inibe a renina?",
+        resposta: "Alisquireno."
+      },
+      {
+        pergunta: "Principal enzima envolvida no metabolismo de catecolaminas?",
+        resposta: "MAO (Monoamina Oxidase)."
+      },
+      {
+        pergunta: "Fármaco que bloqueia a reabsorção de glicose no rim?",
+        resposta: "Empagliflozina (inibidor de SGLT2)."
+      },
+      {
+        pergunta: "Enzima inibida pelos anticoagulantes orais diretos do tipo inibidores do fator Xa?",
+        resposta: "Fator Xa."
+      },
+      {
+        pergunta: "Fármaco que inibe a anidrase carbônica no túbulo proximal?",
+        resposta: "Acetazolamida."
+      },
+      {
+        pergunta: "Enzima que converte angiotensina I em angiotensina II?",
+        resposta: "ECA (Enzima Conversora de Angiotensina)."
+      },
+      {
+        pergunta: "Qual fator inicia a via extrínseca da coagulação?",
+        resposta: "Fator tecidual (Fator III)."
+      },
+      {
+        pergunta: "Qual o primeiro fator ativado na via intrínseca?",
+        resposta: "Fator XII (Fator de Hageman)."
+      },
+      {
+        pergunta: "O que ativa o Fator X na via comum?",
+        resposta: "Complexo fator IXa + fator VIIIa na via intrínseca, ou fator VIIa + fator tecidual na via extrínseca."
+      },
+      {
+        pergunta: "Qual o papel do cálcio (Fator IV) na coagulação?",
+        resposta: "Atua como cofator nas reações de ativação de vários fatores da cascata."
+      },
+      {
+        pergunta: "Qual a função do fibrinogênio (Fator I) na coagulação?",
+        resposta: "É convertido em fibrina pela trombina, formando a malha do coágulo."
+      },
+      {
+        pergunta: "Como a heparina atua na cascata de coagulação?",
+        resposta: "Potencializa a ação da antitrombina III, inibindo trombina e fator Xa."
+      },
+      {
+        pergunta: "Qual fator é conhecido como fator estabilizador da fibrina?",
+        resposta: "Fator XIII, que forma ligações cruzadas entre as fibras de fibrina, estabilizando o coágulo."
+      },
+      {
+        pergunta: "Que via da coagulação o tempo de protrombina (TP) avalia?",
+        resposta: "A via extrínseca e a via comum."
+      },
+      {
+        pergunta: "Que via da coagulação o tempo de tromboplastina parcial ativada (TTPa) avalia?",
+        resposta: "A via intrínseca e a via comum."
+      },
+      {
+        pergunta: "Qual a principal função da antitrombina III?",
+        resposta: "Inibir a trombina e o fator Xa, regulando a coagulação."
+      },
+      {
+        pergunta: "O que ativa a protrombina (Fator II) na cascata?",
+        resposta: "O complexo protrombinase (Fator Xa + Fator Va + Cálcio)."
+      },
+      {
+        pergunta: "Qual fármaco inibe diretamente o Fator Xa?",
+        resposta: "Rivaroxabana ou Apixabana."
+      },
+      {
+        pergunta: "Como a warfarina interfere na coagulação?",
+        resposta: "Inibe a síntese hepática dos fatores dependentes de vitamina K (II, VII, IX e X)."
+      },
+      {
+        pergunta: "Qual o papel do Fator V na cascata de coagulação?",
+        resposta: "Atua como cofator do Fator Xa no complexo protrombinase, facilitando a conversão de protrombina em trombina."
+      },
+      {
+        pergunta: "O que desencadeia a via intrínseca da coagulação?",
+        resposta: "Contato do Fator XII com superfícies carregadas negativamente, como colágeno exposto após lesão vascular."
+      },
+      {
+        pergunta: "Qual a função do complexo tenase?",
+        resposta: "Ativar o Fator X na via intrínseca (formado por Fator IXa, Fator VIIIa, Cálcio e fosfolipídios)."
+      },
+      {
+        pergunta: "Como o sistema fibrinolítico regula a coagulação?",
+        resposta: "A plasmina degrada a fibrina, dissolvendo o coágulo quando ele não é mais necessário."
+      },
+      {
+        pergunta: "Qual o produto da quebra da fibrina durante a fibrinólise?",
+        resposta: "Dímeros-D, usados como marcadores de trombose em exames laboratoriais."
+      },
+      {
+        pergunta: "Qual o papel da trombomodulina na regulação da coagulação?",
+        resposta: "Modula a trombina para ativar a proteína C, que inibe os fatores Va e VIIIa, diminuindo a coagulação."
+      },
+      {
+        pergunta: "Quais são os principais componentes avaliados em um lipidograma?",
+        resposta: "Colesterol total, LDL, HDL, VLDL e triglicerídeos."
+      },
+      {
+        pergunta: "O que significa um nível elevado de LDL no lipidograma?",
+        resposta: "Aumento do risco cardiovascular, associado à aterosclerose."
+      },
+      {
+        pergunta: "Qual a função principal do HDL no metabolismo lipídico?",
+        resposta: "Transporta o colesterol dos tecidos periféricos para o fígado, exercendo efeito protetor cardiovascular."
+      },
+      {
+        pergunta: "Quais valores de triglicerídeos são considerados normais?",
+        resposta: "Menos de 150 mg/dL."
+      },
+      {
+        pergunta: "Qual fórmula é usada para calcular o LDL quando os triglicerídeos estão abaixo de 400 mg/dL?",
+        resposta: "Fórmula de Friedewald: LDL = Colesterol total - HDL - (Triglicerídeos/5)."
+      },
+      {
+        pergunta: "O que indica um nível baixo de HDL no lipidograma?",
+        resposta: "Aumento do risco cardiovascular, pois reduz a remoção de colesterol das artérias."
+      },
+      {
+        pergunta: "Como o colesterol total é interpretado no lipidograma?",
+        resposta: "Valores acima de 200 mg/dL são considerados elevados, podendo indicar risco cardiovascular aumentado."
+      },
+      {
+        pergunta: "Qual a principal causa de hipertrigliceridemia?",
+        resposta: "Obesidade, diabetes tipo 2, consumo excessivo de álcool e dieta rica em carboidratos."
+      },
+      {
+        pergunta: "O que é o índice de risco cardiovascular no lipidograma?",
+        resposta: "É a razão entre colesterol total e HDL, sendo elevado quando acima de 5 em homens e 4,5 em mulheres."
+      },
+      {
+        pergunta: "Qual a importância do VLDL no lipidograma?",
+        resposta: "Transporta triglicerídeos do fígado para os tecidos e está associado a risco cardiovascular quando elevado."
+      },
+      {
+        pergunta: "Qual enzima converte o colesterol em ácidos biliares no fígado?",
+        resposta: "Colesterol 7α-hidroxilase."
+      },
+      {
+        pergunta: "Que fármaco anticoagulante atua inibindo diretamente a trombina?",
+        resposta: "Dabigatrana."
+      },
+      {
+        pergunta: "Qual o efeito do aumento do retorno venoso sobre o débito cardíaco?",
+        resposta: "Aumenta o débito cardíaco pelo mecanismo de Frank-Starling."
+      },
+      {
+        pergunta: "Como a hiperglicemia crônica contribui para a lesão endotelial no diabetes?",
+        resposta: "Através do estresse oxidativo e da formação de produtos finais da glicação avançada (AGEs)."
+      },
+      {
+        pergunta: "Qual a principal proteína responsável pelo transporte de colesterol no plasma?",
+        resposta: "Lipoproteína de baixa densidade (LDL)."
+      },
+      {
+        pergunta: "Que fator de coagulação é deficiente na hemofilia A?",
+        resposta: "Fator VIII."
+      },
+      {
+        pergunta: "Como os nitratos aliviam a angina?",
+        resposta: "Promovem vasodilatação venosa, reduzindo a pré-carga e o consumo de oxigênio pelo miocárdio."
+      },
+      {
+        pergunta: "Qual mecanismo de ação dos inibidores de SGLT2 no tratamento do diabetes tipo 2?",
+        resposta: "Reduzem a reabsorção de glicose nos túbulos renais, aumentando a excreção urinária de glicose."
+      },
+      {
+        pergunta: "O que caracteriza a fase de platô do potencial de ação cardíaco?",
+        resposta: "Entrada de cálcio pelas células musculares cardíacas, equilibrada pela saída de potássio."
+      },
+      {
+        pergunta: "Qual a principal causa de hipertensão secundária?",
+        resposta: "Doença renal crônica."
+      },
+      {
+        pergunta: "Que marcador bioquímico é utilizado para monitorar o efeito da heparina não fracionada?",
+        resposta: "Tempo de tromboplastina parcial ativada (TTPa)."
+      }
 
 
     ];
@@ -1251,47 +1116,72 @@
     let timerInterval;
 
     document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('totalCards').textContent = allFlashcards.length;
-        document.getElementById('flashcard').addEventListener('click', toggleCard);
+        // Configurações iniciais para mobile
+        setupMobileInputs();
+        setupCardInteractions();
     });
 
+    function setupMobileInputs() {
+        const inputs = document.querySelectorAll('.info-input');
+        
+        inputs.forEach(input => {
+            input.addEventListener('touchstart', function(e) {
+                this.style.fontSize = '16px';
+                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        });
+    }
+
+    function setupCardInteractions() {
+        const flashcard = document.getElementById('flashcard');
+        
+        // Eventos para desktop e mobile
+        flashcard.addEventListener('click', toggleCard);
+        flashcard.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            toggleCard();
+        });
+    }
+
     function startReview() {
-        const userName = document.getElementById('userName').value;
-        const userMatricula = document.getElementById('userMatricula').value;
+        const userName = document.getElementById('userName').value.trim();
+        const userMatricula = document.getElementById('userMatricula').value.trim();
 
         if (!userName || !userMatricula) {
-            alert('Por favor, preencha seu nome e número de matrícula!');
+            alert('Por favor, preencha seu nome e matrícula!');
             return;
         }
 
-        localStorage.setItem('userData', JSON.stringify({
-            name: userName,
-            matricula: userMatricula
-        }));
-
         // Selecionar 20 flashcards aleatórios
-        sessionFlashcards = getRandomFlashcards(20);
-        
-        // Reiniciar variáveis da sessão
+        sessionFlashcards = shuffleArray(allFlashcards).slice(0, 20);
         currentCardIndex = 0;
         results = [];
         totalTime = 0;
 
+        // Iniciar interface
         document.getElementById('startScreen').style.display = 'none';
         document.getElementById('reviewInterface').style.display = 'block';
         showCard(currentCardIndex);
         startCardTimer();
     }
 
-    function getRandomFlashcards(num) {
-        // Criar cópia do array para não modificar o original
-        const shuffled = [...allFlashcards];
-        // Algoritmo Fisher-Yates para embaralhamento
-        for (let i = shuffled.length - 1; i > 0; i--) {
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            [array[i], array[j]] = [array[j], array[i]];
         }
-        return shuffled.slice(0, num);
+        return array;
+    }
+
+    function showCard(index) {
+        if (index < 0 || index >= sessionFlashcards.length) return;
+
+        const card = sessionFlashcards[index];
+        document.getElementById('question').textContent = card.pergunta;
+        document.getElementById('answer').textContent = card.resposta;
+        document.getElementById('cardCounter').textContent = `Card ${index + 1}/${sessionFlashcards.length}`;
+        updateProgress(index);
+        startCardTimer();
     }
 
     function toggleCard() {
@@ -1307,18 +1197,8 @@
             front.style.display = 'none';
             back.style.display = 'flex';
             responseButtons.style.display = 'flex';
+            window.scrollTo(0, 0); // Garantir visibilidade no mobile
         }
-    }
-
-    function showCard(index) {
-        if (index < 0 || index >= sessionFlashcards.length) return;
-
-        const card = sessionFlashcards[index];
-        document.getElementById('question').textContent = card.pergunta;
-        document.getElementById('answer').textContent = card.resposta;
-        document.getElementById('cardCounter').textContent = `Card ${index + 1}/${sessionFlashcards.length}`;
-        updateProgress(index);
-        startCardTimer();
     }
 
     function startCardTimer() {
@@ -1374,15 +1254,21 @@
         document.getElementById('reviewInterface').style.display = 'none';
         document.getElementById('statsReport').style.display = 'block';
 
-        const userData = JSON.parse(localStorage.getItem('userData')) || {};
-        document.getElementById('statsName').textContent = userData.name || 'Não informado';
-        document.getElementById('statsMatricula').textContent = userData.matricula || 'Não informada';
+        // Coletar dados do usuário
+        const userData = {
+            name: document.getElementById('userName').value.trim(),
+            matricula: document.getElementById('userMatricula').value.trim()
+        };
 
+        // Calcular estatísticas
         const total = results.length;
         const correct = results.filter(r => r.isCorrect).length;
         const averageTime = total > 0 ? Math.floor(totalTime / total) : 0;
 
-        document.getElementById('statsTotal').textContent = sessionFlashcards.length;
+        // Atualizar interface
+        document.getElementById('statsName').textContent = userData.name;
+        document.getElementById('statsMatricula').textContent = userData.matricula;
+        document.getElementById('statsTotal').textContent = total;
         document.getElementById('statsCorrect').textContent = correct;
         document.getElementById('statsIncorrect').textContent = total - correct;
         document.getElementById('statsTotalTime').textContent = formatTime(totalTime);
@@ -1390,32 +1276,31 @@
         document.getElementById('statsAccuracy').textContent = total > 0 ?
             `${((correct / total) * 100).toFixed(1)}%` : '0%';
 
+        // Gerar detalhes do tempo
         const timeDetails = document.getElementById('timeDetails');
-        timeDetails.innerHTML = results.map((result, index) => {
-            const question = result.card.pergunta.length > 30 ?
-                `${result.card.pergunta.substring(0, 30)}...` : result.card.pergunta;
-
-            return `
-                <div class="time-item ${result.isCorrect ? 'correct' : 'incorrect'}">
-                    <span>#${index + 1} - ${question}</span>
-                    <div>
-                        <span>${formatTime(result.timeSpent)}</span>
-                        <small style="color: #666; margin-left: 0.5rem;">${result.timestamp}</small>
-                    </div>
+        timeDetails.innerHTML = results.map((result, index) => `
+            <div class="time-item ${result.isCorrect ? 'correct' : 'incorrect'}">
+                <span>#${index + 1} - ${result.card.pergunta.substring(0, 30)}${result.card.pergunta.length > 30 ? '...' : ''}</span>
+                <div>
+                    <span>${formatTime(result.timeSpent)}</span>
+                    <small>${result.timestamp}</small>
                 </div>
-            `;
-        }).join('');
+            </div>
+        `).join('');
 
         // Salvar dados de desempenho
+        savePerformanceData(userData);
+    }
+
+    function savePerformanceData(userData) {
         const performanceData = {
             user: userData,
             date: new Date().toISOString(),
             stats: {
-                total: total,
-                correct: correct,
-                incorrect: total - correct,
+                total: results.length,
+                correct: results.filter(r => r.isCorrect).length,
                 totalTime: totalTime,
-                accuracy: total > 0 ? ((correct / total) * 100).toFixed(1) + '%' : '0%'
+                accuracy: (results.filter(r => r.isCorrect).length / results.length * 100).toFixed(1) + '%'
             },
             details: results
         };
@@ -1424,6 +1309,20 @@
         allData.push(performanceData);
         localStorage.setItem('performanceData', JSON.stringify(allData));
     }
+
+    // Ajustes de layout para mobile
+    window.addEventListener('resize', adjustCardHeight);
+    function adjustCardHeight() {
+        const flashcard = document.getElementById('flashcard');
+        const windowHeight = window.innerHeight;
+        flashcard.style.height = windowHeight < 768 ? 
+            `${windowHeight * 0.6}px` : 
+            '75vh';
+    }
+    adjustCardHeight();
+
+   
+     
   </script>
   </head>
 
