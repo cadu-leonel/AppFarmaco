@@ -2,309 +2,371 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Modo Revisão Avançado (Dark)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #6A8EDD;
-            --secondary: #66C2E0;
-            --success: #2ECC71;
-            --danger: #E74C3C;
-            --background: #121212;
-            --text: #E0E0E0;
-            --card-bg: #1E1E1E;
-            --shadow: rgba(0, 0, 0, 0.3);
-            --border: #333333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Flashcards Avançados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6A8EDD;
+      --secondary: #66C2E0;
+      --success: #2ECC71;
+      --danger: #E74C3C;
+      --background: #121212;
+      --text: #E0E0E0;
+      --card-bg: #1E1E1E;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --border: #333333;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--background);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            -webkit-tap-highlight-color: transparent;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            flex: 1;
-        }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      flex: 1;
+    }
 
-        .start-screen {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
+    .start-screen {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
 
-        .review-title {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
+    .review-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
 
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin: 2rem 0;
-            padding: 0 1rem;
-        }
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 2rem 0;
+      padding: 0 1rem;
+    }
 
-        .info-input {
-            padding: 1.2rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            background: var(--card-bg);
-            color: var(--text);
-            font-size: 16px;
-            width: 100%;
-            min-height: 50px;
-            -webkit-appearance: none;
-            transition: border-color 0.3s ease;
-        }
+    .info-input {
+      padding: 1.2rem;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 16px;
+      width: 100%;
+      min-height: 50px;
+      -webkit-appearance: none;
+      transition: border-color 0.3s ease;
+    }
 
-        .info-input:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
+    .info-input:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
 
-        .info-input::placeholder {
-            color: #666;
-        }
+    .start-button {
+      background: var(--primary);
+      color: white;
+      padding: 1.2rem;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 1rem;
+      width: 100%;
+    }
 
-        .start-button {
-            background: var(--primary);
-            color: white;
-            padding: 1.2rem;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-top: 1rem;
-            width: 100%;
-        }
+    .review-interface {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px var(--shadow);
+    }
 
-        .review-interface {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px var(--shadow);
-        }
+    .flashcard-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 60vh;
+      width: 100%;
+    }
 
-        .flashcard-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 60vh;
-            width: 100%;
-        }
+    .flashcard {
+      background: var(--card-bg);
+      border-radius: 20px;
+      min-height: 60vh;
+      max-height: 80vh;
+      width: 100%;
+      padding: 1.5rem;
+      color: var(--text);
+      border: 1px solid var(--border);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .flashcard {
-            background: var(--card-bg);
-            border-radius: 20px;
-            min-height: 60vh;
-            max-height: 80vh;
-            width: 100%;
-            padding: 1.5rem;
-            color: var(--text);
-            border: 1px solid var(--border);
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      background: var(--card-bg);
+      z-index: 2;
+    }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            background: var(--card-bg);
-            z-index: 2;
-        }
+    .card-counter {
+      color: var(--secondary);
+      font-weight: 500;
+    }
 
-        .card-counter {
-            color: var(--secondary);
-            font-weight: 500;
-        }
+    .card-face {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+      gap: 1rem;
+    }
 
-        .card-face {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1rem;
-            gap: 1rem;
-        }
+    .card-title {
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: var(--primary);
+    }
 
-        .card-title {
-            font-weight: bold;
-            font-size: 1.4rem;
-            color: var(--primary);
-        }
+    .response-buttons {
+      display: none;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+      position: sticky;
+      bottom: 0;
+      background: var(--card-bg);
+      z-index: 2;
+    }
 
-        .card-face p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            max-width: 90%;
-        }
+    .response-button {
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      flex: 1;
+      max-width: 200px;
+      transition: transform 0.2s ease;
+    }
 
-        .response-buttons {
-            display: none;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1rem;
-            position: sticky;
-            bottom: 0;
-            background: var(--card-bg);
-            z-index: 2;
-        }
+    .stats-report {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem auto;
+      box-shadow: 0 10px 30px var(--shadow);
+    }
 
-        .response-button {
-            padding: 1rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            flex: 1;
-            max-width: 200px;
-            transition: transform 0.2s ease;
-        }
+    .stat-item {
+      margin: 1rem 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
 
-        .stats-report {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem auto;
-            box-shadow: 0 10px 30px var(--shadow);
-        }
+    .question-item {
+      margin: 0.5rem 0;
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-        .stat-item {
-            margin: 1rem 0;
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border);
-        }
+    .question-item.correct {
+      background: rgba(46, 204, 113, 0.1);
+      border-left: 4px solid var(--success);
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
+    .question-item.incorrect {
+      background: rgba(231, 76, 60, 0.1);
+      border-left: 4px solid var(--danger);
+    }
 
-            .start-screen {
-                padding: 2rem 1rem;
-            }
+    .question-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
 
-            .review-title {
-                font-size: 2rem;
-            }
+    .question-details.show-details {
+      max-height: 500px;
+    }
 
-            .card-face p {
-                font-size: 1rem;
-            }
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
 
-            .response-buttons {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
+      .start-screen {
+        padding: 2rem 1rem;
+      }
 
-            .response-button {
-                max-width: 100%;
-            }
+      .review-title {
+        font-size: 2rem;
+      }
 
-            .stats-report {
-                padding: 1rem;
-            }
-        }
-    </style>
+      .response-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .response-button {
+        max-width: 100%;
+      }
+
+      .stats-report {
+        padding: 1rem;
+      }
+
+      .question-item {
+        padding: 0.8rem;
+      }
+    }
+
+    .progress {
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+      border-radius: 4px;
+      /* Adicionado */
+    }
+
+    /* Garantir que os botões estejam sempre visíveis */
+    .response-buttons {
+      position: sticky;
+      bottom: 0;
+      background: var(--card-bg);
+      padding: 1rem;
+      box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+      /* Adicionado */
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <!-- Tela Inicial -->
-        <div class="start-screen" id="startScreen">
-            <h1 class="review-title">Modo Revisão</h1>
-            <div class="user-info">
-                <input type="text" id="userName" 
-                       placeholder="Seu nome completo" 
-                       class="info-input"
-                       autocapitalize="words"
-                       autocomplete="name">
-                
-                <input type="text" id="userMatricula" 
-                       placeholder="Número de matrícula" 
-                       class="info-input"
-                       inputmode="numeric"
-                       pattern="[0-9]*"
-                       autocomplete="one-time-code">
-            </div>
-            <button class="start-button" onclick="startReview()">Iniciar Revisão</button>
-        </div>
+  <div class="container">
+    <!-- Tela Inicial -->
+    <div class="start-screen" id="startScreen">
+      <h1 class="review-title">Modo Revisão</h1>
+      <div class="user-info">
+        <input type="text" id="userName" placeholder="Seu nome completo" class="info-input" autocapitalize="words"
+          autocomplete="name">
 
-        <!-- Interface de Revisão -->
-        <div class="review-interface" id="reviewInterface" style="display: none;">
-            <div class="card-header">
-                <div class="timer" id="timer">00:00</div>
-                <div class="card-counter" id="cardCounter">Card 0/20</div>
-            </div>
-
-            <div class="flashcard-wrapper">
-                <div class="flashcard" id="flashcard">
-                    <div class="card-face front" id="front">
-                        <div class="card-title">Pergunta</div>
-                        <p id="question"></p>
-                    </div>
-                    <div class="card-face back" id="back" style="display: none;">
-                        <div class="card-title">Resposta</div>
-                        <p id="answer"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="response-buttons" id="responseButtons">
-                <button class="response-button correct" onclick="handleAnswer(true)">✅ Certo</button>
-                <button class="response-button incorrect" onclick="handleAnswer(false)">❌ Errado</button>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress" id="progress"></div>
-            </div>
-        </div>
-
-        <!-- Relatório de Estatísticas -->
-        <div class="stats-report" id="statsReport" style="display: none;">
-            <h2>Relatório de Desempenho</h2>
-            <div class="stat-item">
-                <span>Nome:</span>
-                <span id="statsName">-</span>
-            </div>
-            <div class="stat-item">
-                <span>Matrícula:</span>
-                <span id="statsMatricula">-</span>
-            </div>
-            <!-- Outros itens de estatística... -->
-            <button class="back-button" onclick="location.reload()">Nova Revisão</button>
-        </div>
+        <input type="text" id="userMatricula" placeholder="Número de matrícula" class="info-input" inputmode="numeric"
+          pattern="[0-9]*" autocomplete="one-time-code">
+      </div>
+      <button class="start-button" onclick="startReview()">Iniciar Revisão</button>
     </div>
-  
+
+    <!-- Interface de Revisão -->
+    <div class="review-interface" id="reviewInterface" style="display: none;">
+      <div class="card-header">
+        <div class="timer" id="timer">00:00</div>
+        <div class="card-counter" id="cardCounter">Card 0/20</div>
+      </div>
+
+      <div class="flashcard-wrapper">
+        <div class="flashcard" id="flashcard">
+          <div class="card-face front" id="front">
+            <div class="card-title">Pergunta</div>
+            <p id="question"></p>
+          </div>
+          <div class="card-face back" id="back" style="display: none;">
+            <div class="card-title">Resposta</div>
+            <p id="answer"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="response-buttons" id="responseButtons">
+        <button class="response-button correct" onclick="handleAnswer(true)">✅ Certo</button>
+        <button class="response-button incorrect" onclick="handleAnswer(false)">❌ Errado</button>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
+
+    <!-- Relatório de Estatísticas -->
+    <div class="stats-report" id="statsReport" style="display: none;">
+      <h2>Relatório de Desempenho</h2>
+      <div class="stat-item">
+        <span>Nome:</span>
+        <span id="statsName">-</span>
+      </div>
+      <div class="stat-item">
+        <span>Matrícula:</span>
+        <span id="statsMatricula">-</span>
+      </div>
+      <div class="stat-item">
+        <span>Total de Flashcards:</span>
+        <span id="statsTotal">0</span>
+      </div>
+      <div class="stat-item">
+        <span>Respostas Corretas:</span>
+        <span id="statsCorrect">0</span>
+      </div>
+      <div class="stat-item">
+        <span>Respostas Incorretas:</span>
+        <span id="statsIncorrect">0</span>
+      </div>
+      <div class="stat-item">
+        <span>Tempo Total:</span>
+        <span id="statsTotalTime">00:00</span>
+      </div>
+      <div class="stat-item">
+        <span>Tempo Médio por Card:</span>
+        <span id="statsAverageTime">00:00</span>
+      </div>
+      <div class="stat-item">
+        <span>Taxa de Acerto:</span>
+        <span id="statsAccuracy">0%</span>
+      </div>
+
+      <div class="time-details">
+        <h3 style="margin: 1.5rem 0 1rem;">Detalhes por Questão</h3>
+        <div id="timeDetails"></div>
+      </div>
+      <button class="start-button" onclick="location.reload()">Nova Revisão</button>
+    </div>
+  </div>
 
   <script>
     let currentCardIndex = 0;
+    let sessionFlashcards = [];
+    let results = [];
+    let cardStartTime;
+    let totalTime = 0;
+    let timerInterval = null;
+
     const allFlashcards = [
       {
         pergunta: "Qual o principal íon envolvido na fase de despolarização rápida do potencial de ação cardíaco?",
@@ -1109,23 +1171,18 @@
 
 
     ];
-    let sessionFlashcards = [];
-    let results = [];
-    let cardStartTime;
-    let totalTime = 0;
-    let timerInterval;
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Configurações iniciais para mobile
         setupMobileInputs();
         setupCardInteractions();
+        adjustCardHeight();
+        window.addEventListener('resize', adjustCardHeight);
     });
 
     function setupMobileInputs() {
         const inputs = document.querySelectorAll('.info-input');
-        
         inputs.forEach(input => {
-            input.addEventListener('touchstart', function(e) {
+            input.addEventListener('touchstart', function() {
                 this.style.fontSize = '16px';
                 this.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
@@ -1134,8 +1191,6 @@
 
     function setupCardInteractions() {
         const flashcard = document.getElementById('flashcard');
-        
-        // Eventos para desktop e mobile
         flashcard.addEventListener('click', toggleCard);
         flashcard.addEventListener('touchstart', function(e) {
             e.preventDefault();
@@ -1148,21 +1203,19 @@
         const userMatricula = document.getElementById('userMatricula').value.trim();
 
         if (!userName || !userMatricula) {
-            alert('Por favor, preencha seu nome e matrícula!');
+            alert('Por favor, preencha todos os campos!');
             return;
         }
 
-        // Selecionar 20 flashcards aleatórios
         sessionFlashcards = shuffleArray(allFlashcards).slice(0, 20);
         currentCardIndex = 0;
         results = [];
         totalTime = 0;
+        if(timerInterval) clearInterval(timerInterval);
 
-        // Iniciar interface
         document.getElementById('startScreen').style.display = 'none';
         document.getElementById('reviewInterface').style.display = 'block';
         showCard(currentCardIndex);
-        startCardTimer();
     }
 
     function shuffleArray(array) {
@@ -1175,13 +1228,25 @@
 
     function showCard(index) {
         if (index < 0 || index >= sessionFlashcards.length) return;
-
+        
+        if(timerInterval) clearInterval(timerInterval);
+        
         const card = sessionFlashcards[index];
         document.getElementById('question').textContent = card.pergunta;
         document.getElementById('answer').textContent = card.resposta;
         document.getElementById('cardCounter').textContent = `Card ${index + 1}/${sessionFlashcards.length}`;
         updateProgress(index);
         startCardTimer();
+    }
+
+    function startCardTimer() {
+        cardStartTime = Date.now();
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+        const timeElapsed = Math.floor((Date.now() - cardStartTime) / 1000);
+        document.getElementById('timer').textContent = formatTime(timeElapsed);
     }
 
     function toggleCard() {
@@ -1197,22 +1262,13 @@
             front.style.display = 'none';
             back.style.display = 'flex';
             responseButtons.style.display = 'flex';
-            window.scrollTo(0, 0); // Garantir visibilidade no mobile
+            window.scrollTo(0, 0);
         }
     }
 
-    function startCardTimer() {
-        cardStartTime = Date.now();
-        clearInterval(timerInterval);
-        timerInterval = setInterval(updateTimer, 1000);
-    }
-
-    function updateTimer() {
-        const timeElapsed = Math.floor((Date.now() - cardStartTime) / 1000);
-        document.getElementById('timer').textContent = formatTime(timeElapsed);
-    }
-
     function handleAnswer(isCorrect) {
+        if(timerInterval) clearInterval(timerInterval);
+        
         const timeSpent = Math.floor((Date.now() - cardStartTime) / 1000);
         totalTime += timeSpent;
 
@@ -1236,6 +1292,7 @@
         document.getElementById('front').style.display = 'flex';
         document.getElementById('back').style.display = 'none';
         document.getElementById('responseButtons').style.display = 'none';
+        document.getElementById('flashcard').scrollTop = 0;
     }
 
     function updateProgress(index) {
@@ -1254,18 +1311,15 @@
         document.getElementById('reviewInterface').style.display = 'none';
         document.getElementById('statsReport').style.display = 'block';
 
-        // Coletar dados do usuário
         const userData = {
             name: document.getElementById('userName').value.trim(),
             matricula: document.getElementById('userMatricula').value.trim()
         };
 
-        // Calcular estatísticas
         const total = results.length;
         const correct = results.filter(r => r.isCorrect).length;
         const averageTime = total > 0 ? Math.floor(totalTime / total) : 0;
 
-        // Atualizar interface
         document.getElementById('statsName').textContent = userData.name;
         document.getElementById('statsMatricula').textContent = userData.matricula;
         document.getElementById('statsTotal').textContent = total;
@@ -1276,20 +1330,47 @@
         document.getElementById('statsAccuracy').textContent = total > 0 ?
             `${((correct / total) * 100).toFixed(1)}%` : '0%';
 
-        // Gerar detalhes do tempo
         const timeDetails = document.getElementById('timeDetails');
         timeDetails.innerHTML = results.map((result, index) => `
-            <div class="time-item ${result.isCorrect ? 'correct' : 'incorrect'}">
-                <span>#${index + 1} - ${result.card.pergunta.substring(0, 30)}${result.card.pergunta.length > 30 ? '...' : ''}</span>
-                <div>
-                    <span>${formatTime(result.timeSpent)}</span>
-                    <small>${result.timestamp}</small>
+            <div class="question-item ${result.isCorrect ? 'correct' : 'incorrect'}" 
+                 onclick="toggleQuestionDetails(${index})">
+                <div class="question-header">
+                    <span>#${index + 1}</span>
+                    <div class="status-indicator">
+                        ${result.isCorrect ? '✅' : '❌'}
+                        <span>${formatTime(result.timeSpent)}</span>
+                    </div>
+                </div>
+                <div class="question-details" id="details-${index}">
+                    <div class="detail-row">
+                        <span>Pergunta:</span>
+                        <p>${result.card.pergunta}</p>
+                    </div>
+                    <div class="detail-row">
+                        <span>Resposta Correta:</span>
+                        <p class="correct-answer">${result.card.resposta}</p>
+                    </div>
+                    <div class="detail-row">
+                        <span>Tempo Gasto:</span>
+                        <span>${formatTime(result.timeSpent)}</span>
+                    </div>
                 </div>
             </div>
         `).join('');
 
-        // Salvar dados de desempenho
         savePerformanceData(userData);
+    }
+
+    function toggleQuestionDetails(index) {
+        const details = document.getElementById(`details-${index}`);
+        details.classList.toggle('show-details');
+    }
+
+    function adjustCardHeight() {
+        const flashcard = document.getElementById('flashcard');
+        flashcard.style.height = window.innerHeight < 768 ? 
+            `${window.innerHeight * 0.6}px` : 
+            '75vh';
     }
 
     function savePerformanceData(userData) {
@@ -1309,21 +1390,8 @@
         allData.push(performanceData);
         localStorage.setItem('performanceData', JSON.stringify(allData));
     }
-
-    // Ajustes de layout para mobile
-    window.addEventListener('resize', adjustCardHeight);
-    function adjustCardHeight() {
-        const flashcard = document.getElementById('flashcard');
-        const windowHeight = window.innerHeight;
-        flashcard.style.height = windowHeight < 768 ? 
-            `${windowHeight * 0.6}px` : 
-            '75vh';
-    }
-    adjustCardHeight();
-
-   
-     
+    
   </script>
-  </head>
+</body>
 
 </html>
