@@ -1,342 +1,355 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dados de Desempenho</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        :root {
-            --primary: #6A8EDD;
-            --secondary: #66C2E0;
-            --danger: #E74C3C;
-            --background: #121212;
-            --text: #E0E0E0;
-            --card-bg: #1E1E1E;
-            --border: #333333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dados de Desempenho</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root {
+      --primary: #6A8EDD;
+      --secondary: #66C2E0;
+      --danger: #E74C3C;
+      --background: #121212;
+      --text: #E0E0E0;
+      --card-bg: #1E1E1E;
+      --border: #333333;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem;
+    }
+    /* Login */
+    .login-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 420px;
+      margin: 2rem auto;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .login-container h1 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .login-input {
+      width: 100%;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+    .login-button {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .error-message {
+      color: var(--danger);
+      text-align: center;
+      margin-top: 1rem;
+      display: none;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--background);
-            color: var(--text);
-            margin: 0;
-            padding: 2rem;
-        }
-
-        /* Estilos do Login */
-        .login-container {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 10px;
-            max-width: 400px;
-            margin: 2rem auto;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .login-container h1 {
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .login-input {
-            width: 90%;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            background: var(--card-bg);
-            color: var(--text);
-        }
-
-        .login-button {
-            width: 100%;
-            padding: 1rem;
-            margin-top: 1rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .error-message {
-            color: var(--danger);
-            text-align: center;
-            margin-top: 1rem;
-            display: none;
-        }
-
-        /* Estilos do Conteúdo Principal */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: none;
-        }
-
-        .logout-btn {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.5rem 1rem;
-            background: var(--danger);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            background: var(--primary);
-            color: white;
-        }
-
-        tr:hover {
-            background: #2a2a2a;
-        }
-
-        .actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        .export-btn {
-            background: var(--secondary);
-        }
-
-        .pdf-btn {
-            background: var(--danger);
-        }
-
-        .no-data {
-            text-align: center;
-            padding: 2rem;
-            color: #666;
-            border: 2px dashed var(--border);
-            border-radius: 8px;
-            margin: 2rem 0;
-        }
-    </style>
+    /* Conteúdo principal */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: none;
+    }
+    .logout-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      background: var(--danger);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--primary);
+      color: white;
+    }
+    tr:hover {
+      background: #2a2a2a;
+    }
+    .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    .export-btn {
+      background: var(--secondary);
+      color: #0b0b0b;
+    }
+    .pdf-btn {
+      background: var(--danger);
+      color: #fff;
+    }
+    .no-data {
+      text-align: center;
+      padding: 2rem;
+      color: #aaa;
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+  </style>
 </head>
 <body>
-    <!-- Sistema de Login -->
-    <div id="loginContainer" class="login-container">
-        <h1>Acesso Restrito</h1>
-        <input type="text" id="username" class="login-input" placeholder="Usuário">
-        <input type="password" id="password" class="login-input" placeholder="Senha">
-        <button class="login-button" onclick="login()">Entrar</button>
-        <div class="error-message" id="loginError">Credenciais inválidas!</div>
-    </div>
+  <!-- Login -->
+  <div id="loginContainer" class="login-container">
+    <h1>Acesso Restrito</h1>
+    <input type="text" id="username" class="login-input" placeholder="Usuário">
+    <input type="password" id="password" class="login-input" placeholder="Senha">
+    <button class="login-button" onclick="login()">Entrar</button>
+    <div class="error-message" id="loginError">Credenciais inválidas!</div>
+  </div>
 
-    <!-- Conteúdo Principal -->
-    <div class="container" id="mainContainer">
-        <button class="logout-btn" onclick="logout()">Sair</button>
-        <h1>📊 Dados de Desempenho</h1>
-        <div id="dataTable"></div>
-        <div class="actions">
-            <button onclick="clearData()">🧹 Limpar Dados</button>
-            <button class="export-btn" onclick="exportData()">📤 Exportar JSON</button>
-            <button class="pdf-btn" onclick="exportPDF()">📄 Exportar PDF</button>
-            <button onclick="window.location.href = 'index.html'">🏠 Voltar</button>
-        </div>
+  <!-- Conteúdo -->
+  <div class="container" id="mainContainer">
+    <button class="logout-btn" onclick="logout()">Sair</button>
+    <h1>📊 Dados de Desempenho</h1>
+    <div id="dataTable"></div>
+    <div class="actions">
+      <button onclick="clearData()">🧹 Limpar Dados</button>
+      <button class="export-btn" onclick="exportData()">📤 Exportar JSON</button>
+      <button class="pdf-btn" onclick="exportPDF()">📄 Exportar PDF</button>
+      <button onclick="window.location.href = 'index.html'">🏠 Voltar</button>
     </div>
+  </div>
 
-    <script>
-        // Inicialização
-        window.jsPDF = window.jspdf.jsPDF;
+  <script>
+    // jsPDF
+    window.jsPDF = window.jspdf.jsPDF;
+
+    // Inicialização ao carregar
+    document.addEventListener('DOMContentLoaded', checkAuth);
+
+    // --------- Autenticação ----------
+    function checkAuth() {
+      const isAuth = localStorage.getItem('autenticado') === 'true';
+      document.getElementById('loginContainer').style.display = isAuth ? 'none' : 'block';
+      document.getElementById('mainContainer').style.display = isAuth ? 'block' : 'none';
+      if (isAuth) loadData();
+    }
+
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (username === 'admin' && password === 'admin') {
+        localStorage.setItem('autenticado', 'true');
+        document.getElementById('loginError').style.display = 'none';
         checkAuth();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
 
-        // Funções de Autenticação
-        function checkAuth() {
-            if(localStorage.getItem('autenticado') === 'true') {
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('mainContainer').style.display = 'block';
-            } else {
-                document.getElementById('loginContainer').style.display = 'block';
-                document.getElementById('mainContainer').style.display = 'none';
-            }
+    function logout() {
+      localStorage.removeItem('autenticado');
+      document.getElementById('dataTable').innerHTML = '';
+      checkAuth();
+    }
+
+    // --------- Utilidades ----------
+    function formatTime(seconds) {
+      const mins = Math.floor((seconds ?? 0) / 60);
+      const secs = (seconds ?? 0) % 60;
+      return `${mins}m ${secs}s`;
+    }
+
+    function getDisplayName(entry) {
+      // tenta encontrar o nome em múltiplos formatos
+      return (
+        (entry.user && (entry.user.name || entry.user.nome)) ||
+        (typeof entry.user === 'string' ? entry.user : null) ||
+        localStorage.getItem('usuarioNome') || // fallback de versões antigas do app
+        'N/A'
+      );
+    }
+
+    // --------- Dados / Tabela ----------
+    function loadData() {
+      const data = JSON.parse(localStorage.getItem('performanceData')) || [];
+      const container = document.getElementById('dataTable');
+
+      if (data.length === 0) {
+        container.innerHTML = `<div class="no-data">Nenhum dado de desempenho encontrado</div>`;
+        return;
+      }
+
+      let html = `<table>
+        <thead>
+          <tr>
+            <th>Aluno</th>
+            <th>Data</th>
+            <th>Cards</th>
+            <th>✅ Acertos</th>
+            <th>❌ Erros</th>
+            <th>⏱ Tempo</th>
+            <th>🎯 Taxa</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+      data.forEach((entry) => {
+        const name = getDisplayName(entry);
+        const total = entry?.stats?.total ?? 0;
+        const correct = entry?.stats?.correct ?? 0;
+        const incorrect = (entry?.stats?.incorrect != null) ? entry.stats.incorrect : (total - correct);
+        const dateStr = entry?.date ? new Date(entry.date).toLocaleDateString() : '-';
+        const totalTime = entry?.stats?.totalTime ?? 0;
+        const accuracy = entry?.stats?.accuracy ?? (total ? `${((correct / total) * 100).toFixed(1)}%` : '0%');
+
+        html += `<tr>
+          <td>${name}</td>
+          <td>${dateStr}</td>
+          <td>${total}</td>
+          <td>${correct}</td>
+          <td>${incorrect}</td>
+          <td>${formatTime(totalTime)}</td>
+          <td>${accuracy}</td>
+        </tr>`;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    function clearData() {
+      if (confirm('⚠️ Tem certeza que deseja apagar TODOS os dados?')) {
+        localStorage.removeItem('performanceData');
+        loadData();
+      }
+    }
+
+    function exportData() {
+      const data = JSON.parse(localStorage.getItem('performanceData')) || [];
+      if (data.length === 0) {
+        alert('Nenhum dado para exportar!');
+        return;
+      }
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `desempenho-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // --------- Exportar PDF ----------
+    function exportPDF() {
+      const data = JSON.parse(localStorage.getItem('performanceData')) || [];
+      if (data.length === 0) {
+        alert('Nenhum dado para exportar!');
+        return;
+      }
+
+      const doc = new jsPDF();
+      let y = 20;
+      const margin = 20;
+      const line = 7;
+
+      doc.setFontSize(18);
+      doc.text("Relatório de Desempenho", margin, 15);
+      doc.setFontSize(12);
+      doc.text(`Gerado em: ${new Date().toLocaleDateString()}`, margin, 25);
+
+      data.forEach((entry, idx) => {
+        const name = getDisplayName(entry);
+        const total = entry?.stats?.total ?? 0;
+        const correct = entry?.stats?.correct ?? 0;
+        const incorrect = (entry?.stats?.incorrect != null) ? entry.stats.incorrect : (total - correct);
+        const totalTime = entry?.stats?.totalTime ?? 0;
+        const accuracy = entry?.stats?.accuracy ?? (total ? `${((correct / total) * 100).toFixed(1)}%` : '0%');
+        const dateStr = entry?.date ? new Date(entry.date).toLocaleDateString() : '-';
+
+        y += 15;
+        if (y > 280) {
+          doc.addPage();
+          y = 20;
         }
 
-        function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if(username === 'admin' && password === 'admin') {
-                localStorage.setItem('autenticado', 'true');
-                checkAuth();
-                loadData();
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-            }
-        }
+        doc.setFontSize(14);
+        doc.text(`Sessão ${idx + 1}`, margin, y);
+        y += 10;
 
-        function logout() {
-            localStorage.removeItem('autenticado');
-            checkAuth();
-        }
+        const lines = [
+          `Nome: ${name}`,
+          `Data: ${dateStr}`,
+          `Total de Cards: ${total}`,
+          `Acertos: ${correct}`,
+          `Erros: ${incorrect}`,
+          `Tempo Total: ${formatTime(totalTime)}`,
+          `Taxa de Acerto: ${accuracy}`
+        ];
 
-        // Funções de Dados
-        function loadData() {
-            const data = JSON.parse(localStorage.getItem('performanceData')) || [];
-            const container = document.getElementById('dataTable');
+        doc.setFontSize(12);
+        lines.forEach(t => {
+          y += line;
+          doc.text(t, margin, y);
+        });
 
-            if(data.length === 0) {
-                container.innerHTML = `<div class="no-data">Nenhum dado de desempenho encontrado</div>`;
-                return;
-            }
+        y += 10;
+        doc.line(margin, y, 190, y);
+      });
 
-            let html = `<table>
-                <thead>
-                    <tr>
-                        <th>Aluno</th>
-                        <th>Matrícula</th>
-                        <th>Data</th>
-                        <th>Cards</th>
-                        <th>✅ Acertos</th>
-                        <th>❌ Erros</th>
-                        <th>⏱ Tempo</th>
-                        <th>🎯 Taxa</th>
-                    </tr>
-                </thead>
-                <tbody>`;
+      doc.save(`relatorio-${new Date().toISOString().split('T')[0]}.pdf`);
+    }
 
-            data.forEach((entry, index) => {
-                html += `<tr>
-                    <td>${entry.user.name || 'N/A'}</td>
-                    <td>${entry.user.matricula || 'N/A'}</td>
-                    <td>${new Date(entry.date).toLocaleDateString()}</td>
-                    <td>${entry.stats.total}</td>
-                    <td>${entry.stats.correct}</td>
-                    <td>${entry.stats.total - entry.stats.correct}</td>
-                    <td>${formatTime(entry.stats.totalTime)}</td>
-                    <td>${entry.stats.accuracy}</td>
-                </tr>`;
-            });
-
-            html += `</tbody></table>`;
-            container.innerHTML = html;
-        }
-
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}m ${secs}s`;
-        }
-
-        function clearData() {
-            if(confirm('⚠️ Tem certeza que deseja apagar TODOS os dados?')) {
-                localStorage.removeItem('performanceData');
-                loadData();
-            }
-        }
-
-        function exportData() {
-            const data = JSON.parse(localStorage.getItem('performanceData')) || [];
-            if(data.length === 0) {
-                alert('Nenhum dado para exportar!');
-                return;
-            }
-            
-            const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `desempenho-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        function exportPDF() {
-            const data = JSON.parse(localStorage.getItem('performanceData')) || [];
-            if(data.length === 0) {
-                alert('Nenhum dado para exportar!');
-                return;
-            }
-
-            const doc = new jsPDF();
-            let yPosition = 20;
-            const margin = 20;
-            const lineHeight = 7;
-
-            // Cabeçalho
-            doc.setFontSize(18);
-            doc.text("Relatório de Desempenho", margin, 15);
-            doc.setFontSize(12);
-            doc.text(`Gerado em: ${new Date().toLocaleDateString()}`, margin, 25);
-
-            // Conteúdo
-            data.forEach((entry, index) => {
-                yPosition += 15;
-                if(yPosition > 280) {
-                    doc.addPage();
-                    yPosition = 20;
-                }
-
-                doc.setFontSize(14);
-                doc.text(`Sessão ${index + 1}`, margin, yPosition);
-                yPosition += 10;
-
-                const sessionData = [
-                    `Nome: ${entry.user.name || 'N/A'}`,
-                    `Matrícula: ${entry.user.matricula || 'N/A'}`,
-                    `Data: ${new Date(entry.date).toLocaleDateString()}`,
-                    `Total de Cards: ${entry.stats.total}`,
-                    `Acertos: ${entry.stats.correct}`,
-                    `Erros: ${entry.stats.incorrect}`,
-                    `Tempo Total: ${formatTime(entry.stats.totalTime)}`,
-                    `Taxa de Acerto: ${entry.stats.accuracy}`
-                ];
-
-                doc.setFontSize(12);
-                sessionData.forEach(line => {
-                    yPosition += lineHeight;
-                    doc.text(line, margin, yPosition);
-                });
-
-                yPosition += 10;
-                doc.line(margin, yPosition, 190, yPosition);
-            });
-
-            doc.save(`relatorio-${new Date().toISOString().split('T')[0]}.pdf`);
-        }
-
-        // Carregar dados ao autenticar
-        if(localStorage.getItem('autenticado') === 'true') {
-            loadData();
-        }
-    </script>
+    // Se já estiver autenticado (pós-refresh), carrega direto
+    if (localStorage.getItem('autenticado') === 'true') {
+      document.getElementById('loginContainer').style.display = 'none';
+      document.getElementById('mainContainer').style.display = 'block';
+      loadData();
+    }
+  </script>
 </body>
 </html>

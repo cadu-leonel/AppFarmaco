@@ -36,7 +36,7 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 2rem;
       flex: 1;
@@ -44,52 +44,86 @@
 
     .start-screen {
       text-align: center;
-      padding: 4rem 2rem;
+      padding: 2rem 1rem;
+      display: grid;
+      gap: 1.25rem;
     }
 
     .review-title {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       color: var(--primary);
-      margin-bottom: 1rem;
+      margin-bottom: .25rem;
     }
 
     .user-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin: 2rem 0;
-      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .75rem;
+      margin: .5rem 0 0;
     }
 
-    .info-input {
-      padding: 1.2rem;
+    .info-input,
+    .info-select,
+    .info-number {
+      padding: 1rem;
       border: 2px solid var(--border);
       border-radius: 12px;
       background: var(--card-bg);
       color: var(--text);
       font-size: 16px;
       width: 100%;
-      min-height: 50px;
-      -webkit-appearance: none;
-      transition: border-color 0.3s ease;
+      min-height: 48px;
+      transition: border-color .2s ease;
     }
 
-    .info-input:focus {
+    .info-input:focus,
+    .info-select:focus,
+    .info-number:focus {
       border-color: var(--primary);
       outline: none;
+    }
+
+    .cards-setup {
+      display: grid;
+      gap: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .grid-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: .5rem .75rem;
+    }
+
+    .tag {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .55rem .65rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #181818;
     }
 
     .start-button {
       background: var(--primary);
       color: white;
-      padding: 1.2rem;
+      padding: 1.1rem;
       border: none;
       border-radius: 15px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: all 0.2s ease;
-      margin-top: 1rem;
+      transition: all .2s ease;
       width: 100%;
+    }
+
+    .start-button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
     }
 
     .review-interface {
@@ -149,7 +183,7 @@
 
     .card-title {
       font-weight: bold;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       color: var(--primary);
     }
 
@@ -162,17 +196,34 @@
       bottom: 0;
       background: var(--card-bg);
       z-index: 2;
+      box-shadow: 0 -5px 15px rgba(0, 0, 0, .2);
     }
 
     .response-button {
       padding: 1rem;
       border: none;
       border-radius: 12px;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       cursor: pointer;
       flex: 1;
       max-width: 200px;
-      transition: transform 0.2s ease;
+      transition: transform .2s ease;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: .75rem;
+    }
+
+    .progress {
+      height: 100%;
+      background: var(--primary);
+      transition: width .3s ease;
+      border-radius: 4px;
     }
 
     .stats-report {
@@ -184,35 +235,35 @@
     }
 
     .stat-item {
-      margin: 1rem 0;
+      margin: .8rem 0;
       display: flex;
       justify-content: space-between;
-      padding: 0.5rem 0;
+      padding: .5rem 0;
       border-bottom: 1px solid var(--border);
     }
 
     .question-item {
-      margin: 0.5rem 0;
+      margin: .5rem 0;
       padding: 1rem;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all .3s ease;
     }
 
     .question-item.correct {
-      background: rgba(46, 204, 113, 0.1);
+      background: rgba(46, 204, 113, .1);
       border-left: 4px solid var(--success);
     }
 
     .question-item.incorrect {
-      background: rgba(231, 76, 60, 0.1);
+      background: rgba(231, 76, 60, .1);
       border-left: 4px solid var(--danger);
     }
 
     .question-details {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease;
+      transition: max-height .3s ease;
     }
 
     .question-details.show-details {
@@ -224,17 +275,13 @@
         padding: 1rem;
       }
 
-      .start-screen {
-        padding: 2rem 1rem;
-      }
-
       .review-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
       }
 
       .response-buttons {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: .5rem;
       }
 
       .response-button {
@@ -244,28 +291,6 @@
       .stats-report {
         padding: 1rem;
       }
-
-      .question-item {
-        padding: 0.8rem;
-      }
-    }
-
-    .progress {
-      height: 100%;
-      background: var(--primary);
-      transition: width 0.3s ease;
-      border-radius: 4px;
-      /* Adicionado */
-    }
-
-    /* Garantir que os botões estejam sempre visíveis */
-    .response-buttons {
-      position: sticky;
-      bottom: 0;
-      background: var(--card-bg);
-      padding: 1rem;
-      box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
-      /* Adicionado */
     }
   </style>
 </head>
@@ -275,21 +300,33 @@
     <!-- Tela Inicial -->
     <div class="start-screen" id="startScreen">
       <h1 class="review-title">Modo Revisão</h1>
+      <p style="opacity:.85">Digite seu nome, escolha os assuntos e quantos cards quer revisar.</p>
       <div class="user-info">
-        <input type="text" id="userName" placeholder="Seu nome completo" class="info-input" autocapitalize="words"
+        <input type="text" id="userName" placeholder="Seu nome" class="info-input" autocapitalize="words"
           autocomplete="name">
-
-        <input type="text" id="userMatricula" placeholder="Número de matrícula" class="info-input" inputmode="numeric"
-          pattern="[0-9]*" autocomplete="one-time-code">
       </div>
-      <button class="start-button" onclick="startReview()">Iniciar Revisão</button>
+
+      <div class="cards-setup">
+        <div>
+          <strong style="color:var(--secondary)">Assuntos</strong>
+          <p style="font-size:.9rem; opacity:.8; margin:.25rem 0 .5rem">Selecione um ou mais. (Se nenhum for
+            marcado, usaremos todos.)</p>
+          <div id="subjectsGrid" class="grid-cols"></div>
+        </div>
+        <div class="grid-cols" style="grid-template-columns: 1fr 1fr; align-items: center;">
+          <label class="tag" for="qty"><span>Quantidade de flashcards</span></label>
+          <input id="qty" type="number" class="info-number" min="1" step="1" value="20">
+        </div>
+      </div>
+
+      <button class="start-button" id="startBtn" onclick="startReview()" disabled>Iniciar Revisão</button>
     </div>
 
     <!-- Interface de Revisão -->
     <div class="review-interface" id="reviewInterface" style="display: none;">
       <div class="card-header">
         <div class="timer" id="timer">00:00</div>
-        <div class="card-counter" id="cardCounter">Card 0/20</div>
+        <div class="card-counter" id="cardCounter">Card 0/0</div>
       </div>
 
       <div class="flashcard-wrapper">
@@ -318,41 +355,15 @@
     <!-- Relatório de Estatísticas -->
     <div class="stats-report" id="statsReport" style="display: none;">
       <h2>Relatório de Desempenho</h2>
-      <div class="stat-item">
-        <span>Nome:</span>
-        <span id="statsName">-</span>
-      </div>
-      <div class="stat-item">
-        <span>Matrícula:</span>
-        <span id="statsMatricula">-</span>
-      </div>
-      <div class="stat-item">
-        <span>Total de Flashcards:</span>
-        <span id="statsTotal">0</span>
-      </div>
-      <div class="stat-item">
-        <span>Respostas Corretas:</span>
-        <span id="statsCorrect">0</span>
-      </div>
-      <div class="stat-item">
-        <span>Respostas Incorretas:</span>
-        <span id="statsIncorrect">0</span>
-      </div>
-      <div class="stat-item">
-        <span>Tempo Total:</span>
-        <span id="statsTotalTime">00:00</span>
-      </div>
-      <div class="stat-item">
-        <span>Tempo Médio por Card:</span>
-        <span id="statsAverageTime">00:00</span>
-      </div>
-      <div class="stat-item">
-        <span>Taxa de Acerto:</span>
-        <span id="statsAccuracy">0%</span>
-      </div>
-
+      <div class="stat-item"><span>Usuário:</span><span id="statsName">-</span></div>
+      <div class="stat-item"><span>Total de Flashcards:</span><span id="statsTotal">0</span></div>
+      <div class="stat-item"><span>Respostas Corretas:</span><span id="statsCorrect">0</span></div>
+      <div class="stat-item"><span>Respostas Incorretas:</span><span id="statsIncorrect">0</span></div>
+      <div class="stat-item"><span>Tempo Total:</span><span id="statsTotalTime">00:00</span></div>
+      <div class="stat-item"><span>Tempo Médio por Card:</span><span id="statsAverageTime">00:00</span></div>
+      <div class="stat-item"><span>Taxa de Acerto:</span><span id="statsAccuracy">0%</span></div>
       <div class="time-details">
-        <h3 style="margin: 1.5rem 0 1rem;">Detalhes por Questão</h3>
+        <h3 style="margin: 1.25rem 0 .75rem;">Detalhes por Questão</h3>
         <div id="timeDetails"></div>
       </div>
       <button class="start-button" onclick="location.reload()">Nova Revisão</button>
@@ -363,1034 +374,1788 @@
     let currentCardIndex = 0;
     let sessionFlashcards = [];
     let results = [];
-    let cardStartTime;
-    let totalTime = 0;
-    let timerInterval = null;
+    let cardStartTime; let totalTime = 0; let timerInterval = null;
 
     const allFlashcards = [
       {
-        pergunta: "Qual o principal íon envolvido na fase de despolarização rápida do potencial de ação cardíaco?",
-        resposta: "O íon sódio (Na+)."
+        "pergunta": "Quais são as cinco fases do ciclo cardíaco e em que momentos válvulas AV e semilunares estão abertas?",
+        "resposta": "1) Sístole: contração isovolumétrica (todas fechadas), ejeção rápida (semilunares abertas), ejeção reduzida (semilunares abertas). 2) Diástole: relaxamento isovolumétrico (todas fechadas), enchimento rápido + diástase + sístole atrial (AV abertas).",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Qual a principal função dos fármacos antiagregantes plaquetários?",
-        resposta: "Inibir a agregação plaquetária, prevenindo a formação de trombos arteriais."
+        "pergunta": "O que define o fechamento das válvulas AV e a abertura das semilunares durante a sístole?",
+        "resposta": "O fechamento das AV ocorre quando a pressão ventricular supera a atrial; as semilunares abrem quando a pressão ventricular excede a pressão na aorta/tronco pulmonar.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Quais são os principais marcadores bioquímicos de lesão miocárdica?",
-        resposta: "Troponina I e T, CK-MB e mioglobina."
+        "pergunta": "Em que fase ocorre a primeira bulha (B1) e a segunda bulha (B2)?",
+        "resposta": "B1 ocorre no início da sístole (fechamento mitral/tricúspide); B2 no início da diástole (fechamento aórtica/pulmonar).",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "O que caracteriza a insuficiência cardíaca sistólica?",
-        resposta: "Redução da fração de ejeção do ventrículo esquerdo, comprometendo o bombeamento do sangue."
+        "pergunta": "Defina volume sistólico (VS) e fração de ejeção (FE).",
+        "resposta": "VS = VDF − VSF; FE = VS/VDF. VS é o volume ejetado por batimento; FE indica a proporção ejetada em relação ao volume diastólico final.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Qual é o mecanismo de ação dos fármacos β-bloqueadores no tratamento da hipertensão?",
-        resposta: "Reduzem a frequência cardíaca e a contratilidade do miocárdio, diminuindo o débito cardíaco e a pressão arterial."
+        "pergunta": "O que representa cada eixo da curva pressão-volume (PV) e quais são seus pontos-chave?",
+        "resposta": "Eixo X: volume ventricular; eixo Y: pressão. Pontos-chave: fim da diástole (VDF), início/ fim da ejeção (abertura/fechamento aórtica), fim da sístole (VSF).",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Como a biossíntese do colesterol é regulada?",
-        resposta: "Principalmente pela enzima HMG-CoA redutase, que é inibida pelas estatinas."
+        "pergunta": "Como a pré-carga altera a curva PV e o volume sistólico?",
+        "resposta": "Aumento da pré-carga desloca o ponto de fim da diástole para volumes maiores (Lei de Frank-Starling), elevando o VS sem alterar ESPVR.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "O que caracteriza a fase de relaxamento do músculo cardíaco?",
-        resposta: "Reentrada de cálcio no retículo sarcoplasmático e extrusão de cálcio para o meio extracelular, permitindo o relaxamento."
+        "pergunta": "Como a pós-carga influencia a curva PV e a fração de ejeção?",
+        "resposta": "Maior pós-carga eleva a pressão durante a ejeção, reduz o VS e aumenta o VSF, diminuindo a fração de ejeção.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Qual é a principal complicação microvascular do diabetes relacionada à visão?",
-        resposta: "Retinopatia diabética."
+        "pergunta": "O que é a ESPVR e o que sua inclinação representa?",
+        "resposta": "ESPVR (end-systolic pressure-volume relation) é a reta do fim da sístole; sua inclinação reflete a contratilidade miocárdica independente de pré/pós-carga.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "O que o coagulograma avalia?",
-        resposta: "Avalia os principais parâmetros da coagulação, como o tempo de protrombina (TP), tempo de tromboplastina parcial ativada (TTPa) e INR."
+        "pergunta": "Explique a relação entre frequência cardíaca e tempo de enchimento diastólico.",
+        "resposta": "Aumento da FC encurta desproporcionalmente a diástole, reduzindo o tempo de enchimento e podendo diminuir o volume sistólico.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Qual a principal causa da síndrome coronariana aguda?",
-        resposta: "Ruptura de placa aterosclerótica com formação de trombo sobreposto."
+        "pergunta": "Em qual fase ocorre a sístole atrial e qual seu impacto no volume diastólico final?",
+        "resposta": "A sístole atrial ocorre ao final da diástole, contribuindo com 10–20% do VDF, mais relevante em esforço e idosos.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Qual a principal via envolvida na cascata de coagulação iniciada por lesão vascular?",
-        resposta: "A via extrínseca, desencadeada pela exposição do fator tecidual (fator III)."
+        "pergunta": "O que caracteriza a fase de relaxamento isovolumétrico?",
+        "resposta": "Fechamento das semilunares com queda rápida da pressão ventricular sem alteração de volume até a abertura das AV.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Como os fármacos nitrovasodilatadores atuam no organismo?",
-        resposta: "Liberam óxido nítrico (NO), que promove relaxamento do músculo liso vascular e vasodilatação."
+        "pergunta": "Como o aumento da complacência ventricular afeta o enchimento e as pressões diastólicas?",
+        "resposta": "Maior complacência permite maior volume com menor pressão diastólica, facilitando o enchimento e reduzindo a pressão atrial.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Qual a principal função do retorno venoso no ciclo cardíaco?",
-        resposta: "Garantir o retorno do sangue ao coração para ser novamente bombeado para a circulação sistêmica."
+        "pergunta": "Descreva o que ocorre com as pressões atriais durante o ciclo (ondas a, c e v).",
+        "resposta": "Onda a: contração atrial; onda c: abaulamento da válvula AV na sístole; onda v: enchimento atrial passivo durante a sístole ventricular.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "O que caracteriza a fisiopatologia da trombose venosa profunda (TVP)?",
-        resposta: "Formação de trombos no sistema venoso profundo, geralmente associada à tríade de Virchow: estase venosa, lesão endotelial e hipercoagulabilidade."
+        "pergunta": "Por que a respiração de Kussmaul não é um achado do ciclo cardíaco normal?",
+        "resposta": "Kussmaul é padrão respiratório profundo associado à acidose metabólica (p. ex., CAD), não ligado à fisiologia normal cardíaca.",
+        "assunto": "Ciclo Cardíaco"
       },
       {
-        pergunta: "Qual a principal função dos fármacos hipolipemiantes?",
-        resposta: "Reduzir os níveis de lipídeos no sangue, principalmente colesterol LDL."
+        "pergunta": "Qual alteração na curva PV é típica do exercício físico em um coração saudável?",
+        "resposta": "Aumenta pré-carga e contratilidade (inclinação ESPVR), reduz VSF e eleva VS, deslocando a curva para maior área (trabalho).",
+        "assunto": "Ciclo Cardíaco"
       },
+
       {
-        pergunta: "O que ocorre na fase de repolarização do potencial de ação cardíaco?",
-        resposta: "Saída de potássio (K+) da célula, restaurando o potencial de repouso."
+        "pergunta": "Qual é o potencial de repouso típico de um miócito ventricular e de que depende?",
+        "resposta": "≈ −90 mV, dependente do gradiente de K+ (condutância elevada a K+ via IK1) e bomba Na+/K+ ATPase.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Quais são os principais fatores de risco para a síndrome coronariana aguda?",
-        resposta: "Hipertensão, diabetes, dislipidemias, tabagismo, obesidade e histórico familiar de doenças cardiovasculares."
+        "pergunta": "Enumere as fases do potencial de ação rápido do ventrículo.",
+        "resposta": "Fase 0 (INa), 1 (Ito), 2 platô (ICa-L vs IK), 3 repolarização (IKr/IKs), 4 repouso (IK1).",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Como a insuficiência cardíaca afeta o débito cardíaco?",
-        resposta: "Reduz o débito cardíaco devido à diminuição da capacidade de bombeamento do coração."
+        "pergunta": "O que caracteriza o potencial de ação lento do nó SA?",
+        "resposta": "Despolarização diastólica espontânea (If), fase 0 por ICa-L, ausência de fase 1/2 claras e menor upstroke.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "O que a formação dos produtos finais da glicação avançada (AGEs) causa no organismo?",
-        resposta: "Contribui para a inflamação crônica e danos vasculares, especialmente em diabéticos."
+        "pergunta": "Defina período refratário absoluto e relativo no miocárdio.",
+        "resposta": "Absoluto: não há nova despolarização; relativo: estímulo forte pode gerar PA de menor amplitude.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Qual o principal mecanismo de ação dos fármacos digitálicos?",
-        resposta: "Inibem a bomba Na+/K+ ATPase, aumentando os níveis intracelulares de cálcio e melhorando a contratilidade cardíaca."
+        "pergunta": "Qual mecanismo iônico explica o automatismo cardíaco no nó SA?",
+        "resposta": "Corrente funny (If) de Na+/K+ ativada por hiperpolarização, somada a ICa-T/ICa-L e redução progressiva de IK.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Qual a principal função dos fármacos anticoagulantes?",
-        resposta: "Prevenir a formação de coágulos ou inibir a expansão de trombos já formados, agindo em diferentes etapas da cascata de coagulação."
+        "pergunta": "Como o tônus vagal e simpático modulam a frequência do nó SA?",
+        "resposta": "Vagal: aumenta IK(ACh) e reduz If/ICa, desacelerando. Simpático: ↑If e ICa, acelera a despolarização diastólica.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "O que o lipidograma avalia?",
-        resposta: "Avalia os níveis de colesterol total, LDL, HDL e triglicerídeos, sendo fundamental para o diagnóstico de dislipidemias."
+        "pergunta": "Descreva a sequência de propagação elétrica no coração.",
+        "resposta": "Nó SA → átrios → nó AV (atraso fisiológico) → feixe de His → ramos → Purkinje → miócitos ventriculares.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Como a hipertensão arterial sistêmica afeta a hemodinâmica?",
-        resposta: "Aumenta a resistência vascular periférica, sobrecarregando o coração e levando a hipertrofia ventricular esquerda."
+        "pergunta": "Por que há atraso no nó AV e qual sua importância?",
+        "resposta": "Condutância lenta (fibras finas, poucos canais Na+ rápidos) permite enchimento ventricular antes da sístole.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Qual a principal ação dos fármacos trombolíticos?",
-        resposta: "Promover a lise de trombos já formados, restaurando o fluxo sanguíneo em eventos trombóticos agudos."
+        "pergunta": "Qual o papel das fibras de Purkinje na condução ventricular?",
+        "resposta": "Alta velocidade de condução sincroniza a ativação ventricular, essencial para ejeção eficiente.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Quais são os principais mecanismos de regulação da pressão arterial?",
-        resposta: "Envolvem o sistema nervoso autônomo, o sistema renina-angiotensina-aldosterona (SRAA) e a liberação de fatores vasodilatadores e vasoconstritores."
+        "pergunta": "Como os antiarrítmicos classe III atuam sobre o período refratário?",
+        "resposta": "Prolongam repolarização (bloqueio de K+), aumentando o período refratário e reduzindo reentrada.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "O que caracteriza a fisiopatologia do infarto agudo do miocárdio?",
-        resposta: "Oclusão coronariana aguda, resultando em isquemia e necrose do tecido miocárdico."
+        "pergunta": "Explique o acoplamento excitação-contração nos miócitos.",
+        "resposta": "Entrada de Ca2+ via ICa-L ativa RyR2 (CICR) no retículo sarcoplasmático; Ca2+ liga troponina C e permite interação actina-miosina.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Como os fármacos antidiabéticos orais atuam no controle glicêmico?",
-        resposta: "Atuam em diferentes mecanismos, como aumento da secreção de insulina, redução da produção hepática de glicose e aumento da captação periférica de glicose."
+        "pergunta": "Como ocorre a remoção de Ca2+ citosólico na relaxação?",
+        "resposta": "Recaptação por SERCA2a (inibida por fosfolambano desfosforilado), extrusão por NCX e Ca2+-ATPase sarcolemal.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Qual o principal fator de risco para o desenvolvimento de doença arterial periférica?",
-        resposta: "A aterosclerose, agravada por tabagismo, diabetes, hipertensão e dislipidemias."
+        "pergunta": "Qual efeito da estimulação beta-adrenérgica sobre PA e contração?",
+        "resposta": "↑ICa-L e fosforilação de fosfolambano (↑SERCA), aumentando inotropia, lusitropia e automatismo (↑If).",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "O que é o débito cardíaco?",
-        resposta: "É o volume de sangue bombeado pelo coração por minuto, calculado pelo produto da frequência cardíaca pelo volume sistólico."
+        "pergunta": "O que é pós-despolarização e por que pode causar arritmias?",
+        "resposta": "Oscilações de potencial durante/ após repolarização (EAD/DAD) podem atingir limiar e disparar PA ectópicos.",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
       {
-        pergunta: "Quais são as principais complicações crônicas do diabetes?",
-        resposta: "Retinopatia, nefropatia, neuropatia e pé diabético, associadas a lesões micro e macrovasculares."
+        "pergunta": "Por que a heterogeneidade de repolarização é relevante clinicamente?",
+        "resposta": "Diferenças regionais de repolarização favorecem dispersão refratária e circuitos de reentrada (ex.: Torsades).",
+        "assunto": "Eletrofisiologia Cardíaca"
       },
+
       {
-        pergunta: "Qual o principal mecanismo de ação dos fármacos anti-hipertensivos inibidores da ECA?",
-        resposta: "Inibem a enzima conversora de angiotensina (ECA), reduzindo a produção de angiotensina II e promovendo vasodilatação."
+        "pergunta": "Resuma a fisiopatologia central do IAM.",
+        "resposta": "Ruptura/erosão de placa aterosclerótica com trombose coronária aguda → isquemia sustentada → necrose miocárdica.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "O que desencadeia a liberação do óxido nítrico (NO) pelos nitrovasodilatadores?",
-        resposta: "A conversão de nitratos e nitritos em NO nas células musculares lisas vasculares, levando ao relaxamento e vasodilatação."
+        "pergunta": "Qual a cronologia típica da necrose miocárdica após oclusão coronária?",
+        "resposta": "Início em 20–30 min; transmural em 6–12 h se não houver reperfusão.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "Qual a importância do retorno venoso na regulação do débito cardíaco?",
-        resposta: "O retorno venoso determina o volume diastólico final, influenciando diretamente o volume sistólico e, consequentemente, o débito cardíaco."
+        "pergunta": "Como a demanda/oferta de O2 se relaciona com IAM tipo 2?",
+        "resposta": "Desequilíbrio sem ruptura de placa (ex.: taquiarritmia, anemia, hipotensão) pode causar injúria/necrose sem trombo oclusivo.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "Como a insuficiência cardíaca afeta a pressão venosa central?",
-        resposta: "Aumenta a pressão venosa central devido à incapacidade do coração em bombear o sangue de forma eficiente, resultando em congestão venosa."
+        "pergunta": "Quais são os principais fatores de risco para IAM?",
+        "resposta": "Idade, sexo masculino, história familiar, tabagismo, HAS, DM, dislipidemia, obesidade, sedentarismo.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "O que caracteriza a fisiopatologia da hipertensão arterial sistêmica?",
-        resposta: "Aumento persistente da resistência vascular periférica e/ou do débito cardíaco, levando a sobrecarga crônica do coração e vasos sanguíneos."
+        "pergunta": "Cite sintomas típicos e atípicos do IAM.",
+        "resposta": "Típicos: dor torácica opressiva, irradiação, sudorese, náusea. Atípicos: dispneia, fadiga, epigastralgia, mais comuns em idosos/diabéticos/mulheres.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "Quais são os principais componentes da tríade de Virchow?",
-        resposta: "Estase venosa, lesão endotelial e hipercoagulabilidade, fatores que contribuem para a formação de trombos."
+        "pergunta": "Quais mudanças estruturais iniciais ocorrem no miocárdio isquêmico?",
+        "resposta": "Edema, contração em banda, perda de integridade do sarcolema, disfunção mitocondrial.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "Como os fármacos inibidores da HMG-CoA redutase reduzem o colesterol?",
-        resposta: "Bloqueiam a enzima HMG-CoA redutase, responsável pela síntese de colesterol no fígado, reduzindo os níveis de LDL no sangue."
+        "pergunta": "Explique a área de risco e o conceito de penumbra isquêmica.",
+        "resposta": "Área de risco é o território dependente da artéria ocluída; penumbra é tecido viável porém disfuncionante, potencialmente salvável com reperfusão.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "Qual a principal complicação macrovascular do diabetes?",
-        resposta: "A aterosclerose acelerada, que pode levar a infarto do miocárdio, acidente vascular cerebral (AVC) e doença arterial periférica."
+        "pergunta": "O que é a lesão de reperfusão?",
+        "resposta": "Dano adicional após restauração do fluxo (radicais livres, Ca2+ overload, inflamação) com arritmias/reperfusão e miocardiólise.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "O que é o ciclo cardíaco?",
-        resposta: "Conjunto de eventos que ocorrem em cada batimento cardíaco, incluindo sístole e diástole atrial e ventricular."
+        "pergunta": "Quais são as complicações mecânicas do IAM transmural?",
+        "resposta": "Ruptura de parede livre, comunicação interventricular, insuficiência mitral aguda por ruptura de músculo papilar.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "Qual o principal objetivo do tratamento com fármacos digitálicos?",
-        resposta: "Melhorar a contratilidade cardíaca em pacientes com insuficiência cardíaca, aumentando o débito cardíaco."
+        "pergunta": "Por que o remodelamento pós-IAM é clinicamente importante?",
+        "resposta": "Dilatação e alteração geométrica do VE pioram FE e prognóstico; terapias que reduzem remodelamento melhoram desfechos.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "Qual a principal função do sistema renina-angiotensina-aldosterona (SRAA)?",
-        resposta: "Regular a pressão arterial e o equilíbrio hidroeletrolítico através da vasoconstrição e retenção de sódio e água."
+        "pergunta": "Qual a relação entre inflamação sistêmica e instabilidade de placa?",
+        "resposta": "Citocinas e metaloproteinases enfraquecem capa fibrosa e aumentam risco de ruptura e trombose.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "O que a troponina indica em um exame laboratorial?",
-        resposta: "Lesão miocárdica, sendo um dos principais marcadores de infarto agudo do miocárdio."
+        "pergunta": "Como a isquemia afeta o acoplamento excitação-contração?",
+        "resposta": "Reduz ATP, disfunção de SERCA/Na+-K+-ATPase, Ca2+ citosólico elevado e contratura miocítica.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "Como os fármacos bloqueadores dos canais de cálcio atuam na hipertensão?",
-        resposta: "Reduzem a entrada de cálcio nas células musculares lisas vasculares, causando vasodilatação e diminuição da pressão arterial."
+        "pergunta": "Por que o diabético tem risco aumentado de IAM silencioso?",
+        "resposta": "Neuropatia autonômica diminui percepção dolorosa, levando a apresentações atípicas e atraso no diagnóstico.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "Qual a principal alteração no ECG em um infarto agudo do miocárdio com supradesnivelamento do segmento ST?",
-        resposta: "Elevação do segmento ST, indicando isquemia transmural aguda."
+        "pergunta": "Qual a importância da janela temporal para reperfusão no IAM com supra?",
+        "resposta": "Benefício máximo nas primeiras horas (ideal < 2 h), com redução de mortalidade e preservação de função.",
+        "assunto": "Fisiopatologia do IAM"
       },
       {
-        pergunta: "O que diferencia a insuficiência cardíaca direita da esquerda?",
-        resposta: "A direita causa congestão venosa sistêmica (edema periférico), enquanto a esquerda leva à congestão pulmonar (dispneia e edema pulmonar)."
+        "pergunta": "Explique o fenômeno de stunning miocárdico.",
+        "resposta": "Disfunção contrátil transitória pós-isquemia reperfundida, apesar de viabilidade preservada, que melhora com o tempo.",
+        "assunto": "Fisiopatologia do IAM"
       },
+
       {
-        pergunta: "Quais são os principais fatores de risco para a hipertensão arterial sistêmica?",
-        resposta: "Histórico familiar, idade, obesidade, sedentarismo, consumo excessivo de sal e álcool, e estresse."
+        "pergunta": "Quais achados de ECG definem IAM com supra de ST?",
+        "resposta": "Elevação de ST em derivações contíguas com critérios de sexo/idade e/ou BRE novo ou presumidamente novo com quadro compatível.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Como a neuropatia diabética afeta os membros inferiores?",
-        resposta: "Compromete a sensibilidade, predispondo a úlceras, infecções e ao desenvolvimento do pé diabético."
+        "pergunta": "Como diferenciar IAM com supra de ST de pericardite aguda no ECG?",
+        "resposta": "Pericardite: supra difuso e PR deprimido; IAM com supra de ST: supra territorial, espelhos recíprocos e evolução para ondas Q/onda T invertida.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "O que é o efeito de primeira passagem dos nitratos?",
-        resposta: "Metabolização hepática rápida quando administrados por via oral, reduzindo sua biodisponibilidade."
+        "pergunta": "Qual é o valor da troponina na suspeita de IAM sem supra?",
+        "resposta": "Elevação/queda dinâmica com pelo menos um valor acima do percentil 99 (URL), no contexto clínico isquêmico, confirma injúria miocárdica aguda.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Qual a relação entre o diabetes e a aterosclerose?",
-        resposta: "A hiperglicemia crônica promove inflamação e danos endoteliais, acelerando o processo aterosclerótico."
+        "pergunta": "Por que a troponina é preferida ao CK-MB?",
+        "resposta": "Maior sensibilidade e especificidade para necrose miocárdica, com detecção mais precoce e janela diagnóstica mais longa.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Como os diuréticos tiazídicos reduzem a pressão arterial?",
-        resposta: "Promovem a excreção de sódio e água, reduzindo o volume sanguíneo e a pressão arterial."
+        "pergunta": "Quando o CK-MB ainda pode ser útil?",
+        "resposta": "Para detecção de reinfarto precoce (reascenso após queda) devido à cinética mais rápida em comparação à troponina.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Qual o principal mecanismo de ação dos antagonistas dos receptores de angiotensina II (ARA-II)?",
-        resposta: "Bloqueiam a ação da angiotensina II nos receptores AT1, promovendo vasodilatação e redução da pressão arterial."
+        "pergunta": "Qual a cronologia típica de elevação da troponina após IAM?",
+        "resposta": "Sobe em 2–4 h, pico em 12–24 h, permanece elevada por 5–14 dias (varia entre cTnI e cTnT).",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "O que é o efeito cronotrópico negativo dos β-bloqueadores?",
-        resposta: "Redução da frequência cardíaca ao diminuir a atividade do nó sinoatrial."
+        "pergunta": "Quais condições não isquêmicas elevam troponina?",
+        "resposta": "Miocardite, IC, TEP, sepse, FA rápida, IRC, contusão miocárdica, entre outras.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Como os fibratos atuam no controle das dislipidemias?",
-        resposta: "Aumentam a atividade da lipase lipoproteica, reduzindo os triglicerídeos e aumentando o HDL."
+        "pergunta": "Quais são os critérios clínicos clássicos para suspeitar de IAM?",
+        "resposta": "Dor torácica típica, alterações isquêmicas no ECG e elevação de biomarcadores; dois dos três aumentam probabilidade.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Qual a principal causa da doença arterial periférica (DAP)?",
-        resposta: "Aterosclerose, que leva à obstrução progressiva das artérias dos membros inferiores."
+        "pergunta": "Qual o papel do ecocardiograma no contexto de IAM agudo?",
+        "resposta": "Detectar alterações segmentares de motilidade, complicações mecânicas e orientar diagnóstico diferencial.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Como ocorre a formação do trombo na trombose venosa profunda (TVP)?",
-        resposta: "A tríade de Virchow (estase venosa, lesão endotelial e hipercoagulabilidade) contribui para a formação do trombo."
+        "pergunta": "Como interpretar depressão do ST no IAM sem supra?",
+        "resposta": "Depressão horizontal/infradesnivelamento em derivações contíguas sugere isquemia subendocárdica.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "O que representa a onda P no eletrocardiograma (ECG)?",
-        resposta: "A despolarização dos átrios antes da contração atrial."
+        "pergunta": "O que significam ondas Q patológicas no ECG pós-IAM?",
+        "resposta": "Necrose transmural prévia; persistem como cicatriz elétrica.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Qual a principal complicação da insuficiência cardíaca esquerda?",
-        resposta: "Congestão pulmonar, resultando em dispneia e edema pulmonar."
+        "pergunta": "Quais derivações refletem parede inferior, lateral e anterior do VE?",
+        "resposta": "Inferior: II, III, aVF; lateral alta: I, aVL; lateral baixa: V5–V6; anterior/septal: V1–V4.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Como os inibidores da SGLT2 auxiliam no controle do diabetes tipo 2?",
-        resposta: "Reduzem a reabsorção de glicose nos túbulos renais, aumentando sua excreção urinária."
+        "pergunta": "Quando usar protocolos de troponina de alta sensibilidade (0/1h ou 0/2h)?",
+        "resposta": "Em dor torácica recente, para acelerar estratificação; aplicam-se cortes absolutos e variações delta validadas.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "O que é o índice tornozelo-braquial (ITB) e qual sua importância?",
-        resposta: "Relação entre a pressão arterial no tornozelo e no braço, utilizado para diagnosticar doença arterial periférica."
+        "pergunta": "Qual a utilidade do escore TIMI/GRACE na dor torácica?",
+        "resposta": "Estratificação de risco para eventos e decisão sobre estratégia invasiva precoce.",
+        "assunto": "Diagnóstico do IAM"
       },
       {
-        pergunta: "Como os antagonistas de cálcio ajudam no tratamento da angina?",
-        resposta: "Reduzem a contratilidade do miocárdio e promovem vasodilatação, diminuindo a demanda de oxigênio pelo coração."
+        "pergunta": "Por que é importante repetir ECG em dor torácica com ECG inicial normal?",
+        "resposta": "Alterações podem ser dinâmicas; repetição seriada aumenta sensibilidade para isquemia aguda.",
+        "assunto": "Diagnóstico do IAM"
       },
+
       {
-        pergunta: "Qual a principal função do nó sinoatrial no coração?",
-        resposta: "Atuar como o marcapasso natural do coração, iniciando os impulsos elétricos que controlam a frequência cardíaca."
+        "pergunta": "Nitroglicerina: qual o principal mecanismo vasodilatador em nível molecular?",
+        "resposta": "Doa NO, ativa guanilato ciclase → ↑GMPc → desfosforila MLC → relaxamento do músculo liso (venodilatador predominante).",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os nitratos aliviam os sintomas da angina?",
-        resposta: "Promovem vasodilatação, reduzindo a pré-carga e a demanda de oxigênio pelo miocárdio."
+        "pergunta": "Nitroglicerina: principais efeitos hemodinâmicos no IAM?",
+        "resposta": "↓pré-carga (venodilatação) → ↓tensão da parede e consumo de O2; discreta vasodilatação coronária e arterial sistêmica.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que desencadeia a liberação de renina pelos rins?",
-        resposta: "Redução da pressão arterial, diminuição do fluxo sanguíneo renal ou ativação do sistema nervoso simpático."
+        "pergunta": "Nitroglicerina: vias de administração e início de ação típicos?",
+        "resposta": "SL (1–3 min), spray, EV (rápido, titulável), transdérmica (lento/manutenção).",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual o efeito dos β-bloqueadores no débito cardíaco?",
-        resposta: "Reduzem o débito cardíaco ao diminuir a frequência cardíaca e a contratilidade do miocárdio."
+        "pergunta": "Nitroglicerina: indicações no contexto de IAM/dor torácica?",
+        "resposta": "Alívio de dor isquêmica, controle de hipertensão e congestão pulmonar, se PA adequada e sem RV infarction.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os anticoagulantes orais diretos (DOACs) atuam na coagulação?",
-        resposta: "Inibem diretamente fatores específicos da coagulação, como o fator Xa ou a trombina, prevenindo a formação de trombos."
+        "pergunta": "Nitroglicerina: efeitos adversos comuns e graves?",
+        "resposta": "Cefaleia, rubor, hipotensão, taquicardia reflexa; raramente meta-hemoglobinemia.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual o principal marcador bioquímico para diagnóstico precoce de infarto agudo do miocárdio?",
-        resposta: "Troponina, por sua alta sensibilidade e especificidade para lesão miocárdica."
+        "pergunta": "Nitroglicerina: interações medicamentosas críticas?",
+        "resposta": "Inibidores de PDE5 (sildenafila/tadalafila) → hipotensão grave; álcool e anti-hipertensivos potencializam queda de PA.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que caracteriza a hipertrofia ventricular esquerda no ECG?",
-        resposta: "Aumento da amplitude do complexo QRS e desvio do eixo elétrico para a esquerda."
+        "pergunta": "Nitroprussiato: mecanismo e perfil vasodilatador?",
+        "resposta": "Libera NO diretamente; potente vasodilatador arterial e venoso, reduzindo pré e pós-carga.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como a hiperglicemia crônica contribui para a formação de produtos finais da glicação avançada (AGEs)?",
-        resposta: "Favorece a ligação não enzimática da glicose a proteínas, lipídeos e ácidos nucleicos, levando à formação dos AGEs."
+        "pergunta": "Nitroprussiato: uso no cenário de IAM?",
+        "resposta": "Controle de hipertensão grave/IC aguda com pós-carga elevada quando NTG insuficiente e PA monitorada.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a principal causa de morte em pacientes com síndrome coronariana aguda?",
-        resposta: "Arritmias ventriculares graves, como fibrilação ventricular ou taquicardia ventricular sustentada."
+        "pergunta": "Nitroprussiato: principais riscos e monitorização necessária?",
+        "resposta": "Toxicidade por cianeto/tiocianato (prolongado/IR), hipotensão/roubo coronário; requer monitorização invasiva de PA.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os diuréticos de alça atuam no controle da insuficiência cardíaca?",
-        resposta: "Inibem a reabsorção de sódio e cloro na alça de Henle, promovendo diurese intensa e alívio da sobrecarga volêmica."
+        "pergunta": "Nitroprussiato: interações relevantes?",
+        "resposta": "Soma com anti-hipertensivos, anestésicos e PDE5 aumenta hipotensão; cautela com antipsicóticos que causam hipotensão.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a principal função do nó atrioventricular (AV)?",
-        resposta: "Retardar a condução do impulso elétrico dos átrios para os ventrículos, permitindo o enchimento ventricular antes da contração."
+        "pergunta": "Mononitrato de Isossorbida: como difere da NTG na farmacocinética?",
+        "resposta": "Maior biodisponibilidade VO, efeito prolongado e ausência de metabolismo de primeira passagem significativo.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os inibidores da ECA reduzem a pressão arterial?",
-        resposta: "Inibem a conversão de angiotensina I em angiotensina II, promovendo vasodilatação e redução da retenção de sódio e água."
+        "pergunta": "Mononitrato de Isossorbida: uso no IAM/angina?",
+        "resposta": "Profilaxia/controle de angina e congestão; menos útil para alívio imediato da dor aguda comparado à NTG SL/EV.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que a onda T representa no eletrocardiograma (ECG)?",
-        resposta: "A repolarização ventricular, que ocorre após a contração dos ventrículos."
+        "pergunta": "Mononitrato de Isossorbida: efeitos adversos e tolerância?",
+        "resposta": "Cefaleia e hipotensão; desenvolver tolerância exige “intervalo livre de nitrato” diário.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a principal causa da hipertrofia ventricular direita?",
-        resposta: "Sobrecarga de pressão no ventrículo direito, geralmente causada por hipertensão pulmonar ou doença pulmonar crônica."
+        "pergunta": "Mononitrato de Isossorbida: interações-chave?",
+        "resposta": "Contraindicado com PDE5; cautela com álcool, anti-hipertensivos e ergotamínicos.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os antagonistas dos receptores de angiotensina II (ARA-II) diferem dos inibidores da ECA?",
-        resposta: "Os ARA-II bloqueiam diretamente os receptores AT1, enquanto os inibidores da ECA impedem a formação de angiotensina II."
+        "pergunta": "Dinitrato de Isossorbida: característica farmacocinética importante?",
+        "resposta": "Biodisponibilidade variável por intenso metabolismo hepático; formas sublinguais e VO de liberação controlada existem.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual o papel do fibrinogênio na coagulação sanguínea?",
-        resposta: "Serve como precursor da fibrina, que forma a malha do coágulo sanguíneo."
+        "pergunta": "Dinitrato de Isossorbida: indicações clínicas no contexto isquêmico?",
+        "resposta": "Alívio/ profilaxia de angina e como adjuvante em IC; pode ser usado SL para início mais rápido que VO.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os β-bloqueadores reduzem a demanda de oxigênio pelo coração?",
-        resposta: "Diminuem a frequência cardíaca, a contratilidade e a pressão arterial, reduzindo o trabalho cardíaco."
+        "pergunta": "Dinitrato de Isossorbida: efeitos adversos e manejo da tolerância?",
+        "resposta": "Semelhantes aos demais nitratos; programar períodos de 10–12 h sem droga para prevenir tolerância.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a principal complicação da trombose venosa profunda (TVP)?",
-        resposta: "Embolia pulmonar, quando um trombo se desprende e migra para os pulmões."
+        "pergunta": "Dinitrato de Isossorbida: interações a evitar?",
+        "resposta": "PDE5, álcool e anti-hipertensivos potencializam hipotensão; cuidado com inibidores de ergotamina.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que o segmento ST elevado no ECG indica?",
-        resposta: "Isquemia transmural aguda, geralmente associada a infarto agudo do miocárdio com supradesnivelamento do segmento ST."
+        "pergunta": "Ácido acetilsalicílico (AAS): mecanismo antitrombótico principal?",
+        "resposta": "Inibição irreversível da COX-1 em plaquetas → ↓TXA2 → ↓agregação plaquetária por toda a vida da plaqueta.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os inibidores da PCSK9 reduzem o colesterol LDL?",
-        resposta: "Aumentam a expressão dos receptores de LDL no fígado, promovendo maior captação e remoção do LDL do sangue."
+        "pergunta": "AAS: uso na fase aguda do IAM?",
+        "resposta": "Mastigar 160–325 mg o mais precoce possível, seguido de dose de manutenção (75–100 mg/dia) salvo contraindicações.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a função do músculo papilar no coração?",
-        resposta: "Prevenir a inversão das valvas atrioventriculares durante a sístole ventricular, estabilizando as cordas tendíneas."
+        "pergunta": "AAS: principais efeitos adversos e contraindicações relativas?",
+        "resposta": "Dispepsia, sangramento GI, broncoespasmo em asmáticos, hipersensibilidade; cautela em sangramento ativo e úlcera.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como a insulina regula a glicemia?",
-        resposta: "Promove a captação de glicose pelas células e inibe a produção hepática de glicose."
+        "pergunta": "AAS: interações relevantes no contexto do IAM?",
+        "resposta": "AINEs não seletivos (p. ex., ibuprofeno) podem competir na COX-1; anticoagulantes/antiagregantes somam risco hemorrágico.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que caracteriza a insuficiência cardíaca com fração de ejeção preservada (ICFEP)?",
-        resposta: "Preservação da fração de ejeção, mas com comprometimento do enchimento ventricular devido à rigidez do miocárdio."
+        "pergunta": "Nitroglicerina EV: como titular com segurança em dor isquêmica?",
+        "resposta": "Iniciar baixa dose, aumentar a cada 3–5 min até alívio sintomático/PA limite, monitorando PAM e sinais de congestão.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a principal função do sistema venoso na circulação sanguínea?",
-        resposta: "Retornar o sangue desoxigenado ao coração e atuar como reservatório de volume sanguíneo."
+        "pergunta": "Quando evitar nitratos em IAM inferior?",
+        "resposta": "Suspeita de infarto de VD (hipotensão, elevação ST em V4R) devido à queda crítica da pré-carga.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os antagonistas dos canais de cálcio aliviam a angina?",
-        resposta: "Reduzem a contratilidade do miocárdio e causam vasodilatação coronariana, melhorando a perfusão do miocárdio."
+        "pergunta": "Como a via transdérmica de nitratos deve ser manejada para evitar tolerância?",
+        "resposta": "Aplicar com período livre de 10–12 h/24 h (ex.: retirar à noite) para preservar eficácia.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a principal complicação da nefropatia diabética?",
-        resposta: "Progressão para doença renal crônica e insuficiência renal terminal."
+        "pergunta": "AAS: por que mastigar na apresentação aguda?",
+        "resposta": "Acelera absorção e início de ação antiplaquetária, reduzindo tempo até inibição máxima da COX-1.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que caracteriza a onda Q patológica no ECG?",
-        resposta: "Presença de onda Q profunda e alargada, indicando necrose miocárdica antiga."
+        "pergunta": "Nitroprussiato: qual antídoto/estratégia para toxicidade por cianeto?",
+        "resposta": "Tiossulfato de sódio para facilitar conversão a tiocianato; reduzir dose/tempo e monitorar função renal.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os fármacos antiplaquetários previnem eventos cardiovasculares?",
-        resposta: "Inibem a agregação plaquetária, prevenindo a formação de trombos arteriais."
+        "pergunta": "Nitratos: qual base para cefaleia como efeito adverso?",
+        "resposta": "Vasodilatação meníngea mediada por NO e aumento de fluxo sanguíneo craniano.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a principal função das artérias coronárias?",
-        resposta: "Fornecer oxigênio e nutrientes ao miocárdio."
+        "pergunta": "AAS: qual impacto de polimorfismos e resistência plaquetária?",
+        "resposta": "Variabilidade de resposta pode ocorrer (resistência clínica); ainda assim, benefício populacional é robusto.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que o aumento do D-dímero indica?",
-        resposta: "Presença de degradação da fibrina, sugerindo trombose ativa ou embolia pulmonar."
+        "pergunta": "Mononitrato vs Dinitrato: quando preferir cada um?",
+        "resposta": "Mononitrato para manutenção VO com previsibilidade; dinitrato SL para alívio relativamente rápido quando NTG SL não disponível.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a função do pericárdio no coração?",
-        resposta: "Proteger o coração, limitar sua expansão excessiva e reduzir o atrito durante os batimentos cardíacos."
+        "pergunta": "Nitratos: por que evitar combinação com cocaína aguda?",
+        "resposta": "Risco de hipotensão significativa e instabilidade hemodinâmica em presença de vasoespasmo simpático intenso.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como a hipertensão arterial pode levar à insuficiência cardíaca?",
-        resposta: "A sobrecarga de pressão crônica promove hipertrofia ventricular esquerda, resultando em disfunção diastólica e, eventualmente, insuficiência cardíaca."
+        "pergunta": "AAS: existe vantagem em dose de ataque >325 mg na fase aguda?",
+        "resposta": "Não; 160–325 mg mastigado atinge inibição plaquetária suficiente com menor risco GI comparado a doses maiores.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que caracteriza a síndrome metabólica?",
-        resposta: "Presença de pelo menos três fatores: obesidade central, hipertensão, dislipidemia e resistência à insulina."
+        "pergunta": "Nitroglicerina sublingual: qual sequência de uso no pronto atendimento?",
+        "resposta": "1 comprimido/spray a cada 5 min até 3 doses se PA estável; se dor persiste, considerar EV/estratégia invasiva.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a principal via metabólica de síntese do colesterol?",
-        resposta: "A via do mevalonato, que envolve a enzima HMG-CoA redutase como passo limitante."
+        "pergunta": "Nitratos: explique a taquifilaxia e como minimizá-la.",
+        "resposta": "Depleção de grupos sulfidrila/ativação neuro-hormonal; implementar intervalos sem fármaco e doses mínimas eficazes.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como a obesidade contribui para a hipertensão arterial?",
-        resposta: "Aumenta a atividade do sistema renina-angiotensina-aldosterona e do sistema nervoso simpático, promovendo retenção de sódio e vasoconstrição."
+        "pergunta": "AAS: por que combinar com P2Y12 no IAM?",
+        "resposta": "Dupla antiagregação aumenta inibição plaquetária por vias complementares, reduzindo eventos trombóticos.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que são as células de espuma no processo aterosclerótico?",
-        resposta: "Macrófagos que fagocitam lipídios oxidados, acumulando-se na parede arterial e contribuindo para a formação da placa aterosclerótica."
+        "pergunta": "Nitroprussiato: em que cenário NÃO é preferível no IAM?",
+        "resposta": "Isquemia sem hipertensão/IC; pode causar roubo coronário ao dilatar vasos normais e reduzir fluxo na área isquêmica.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como a disfunção endotelial contribui para a aterosclerose?",
-        resposta: "Compromete a produção de óxido nítrico, levando à vasoconstrição, inflamação e adesão de plaquetas e leucócitos à parede arterial."
+        "pergunta": "Nitratos: qual cuidado em estenose aórtica crítica?",
+        "resposta": "Podem precipitar hipotensão severa por queda de pré-carga em ventrículo dependente de enchimento; usar com extrema cautela.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que diferencia a angina estável da instável?",
-        resposta: "A angina estável ocorre previsivelmente com esforço físico, enquanto a instável pode surgir em repouso e indica maior risco de infarto."
+        "pergunta": "AAS revestido entérico vs não revestido: há diferença na fase aguda?",
+        "resposta": "Para fase aguda, preferir mastigável/não revestido para absorção mais rápida; revestido é útil na manutenção.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual o papel da proteína C reativa (PCR) nas doenças cardiovasculares?",
-        resposta: "Marcador inflamatório que se eleva em resposta a processos inflamatórios, sendo associado ao risco de eventos cardiovasculares."
+        "pergunta": "Nitratos: descreva a bioativação dependente de aldeído desidrogenase (ALDH2).",
+        "resposta": "ALDH2 mitocondrial converte NTG em NO; polimorfismos (ALDH2*2) podem reduzir resposta clínica.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como a insulina influencia o metabolismo lipídico?",
-        resposta: "Inibe a lipólise no tecido adiposo, reduzindo a liberação de ácidos graxos livres para a circulação."
+        "pergunta": "AAS: como a insuficiência renal crônica impacta risco hemorrágico?",
+        "resposta": "Uremia altera função plaquetária e aumenta sangramento; individualizar dose e vigilância.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que é a disfunção diastólica?",
-        resposta: "Incapacidade do ventrículo relaxar adequadamente durante a diástole, resultando em enchimento ventricular prejudicado."
+        "pergunta": "Nitroprussiato: por que preferir NTG em isquemia coronária?",
+        "resposta": "NTG tem maior efeito venodilatador e algo de vasodilatação coronária sem risco significativo de roubo.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como a albumina influencia a pressão oncótica plasmática?",
-        resposta: "Mantém a pressão oncótica, ajudando a reter líquido dentro dos vasos sanguíneos e prevenindo edema."
+        "pergunta": "Mononitrato/Dinitrato: qual estratégia para pacientes com cefaleia limitante?",
+        "resposta": "Iniciar com doses menores, titulação lenta, analgésicos não-AINEs e programar intervalos sem nitrato.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que diferencia um trombo arterial de um trombo venoso?",
-        resposta: "O trombo arterial é rico em plaquetas, enquanto o trombo venoso contém mais fibrina e hemácias."
+        "pergunta": "AAS: o uso concomitante de IBP é recomendado para quem?",
+        "resposta": "Pacientes com alto risco GI (história de úlcera, idade avançada, anticoagulantes/esteroides).",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a principal causa de insuficiência cardíaca direita isolada?",
-        resposta: "Hipertensão pulmonar ou doença pulmonar crônica, levando à sobrecarga do ventrículo direito."
+        "pergunta": "NTG EV: por que monitorar metemoglobina em uso prolongado/altas doses?",
+        "resposta": "Oxidação da Hb pode reduzir capacidade de transporte de O2; suspeitar se hipoxemia desproporcional.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os diuréticos poupadores de potássio atuam?",
-        resposta: "Inibem a reabsorção de sódio no túbulo distal e no ducto coletor, poupando a excreção de potássio."
+        "pergunta": "Nitratos: qual orientação ao paciente sobre interrupção abrupta?",
+        "resposta": "Evitar suspensão súbita após uso crônico para não precipitar crise anginosa por perda de vasodilatação basal.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que é a isquemia silenciosa?",
-        resposta: "Isquemia miocárdica que ocorre sem sintomas perceptíveis, sendo comum em diabéticos e idosos."
+        "pergunta": "AAS: explique o conceito de “efeito de primeira passagem plaquetária” portal-hepático.",
+        "resposta": "Absorção GI leva AAS ao fígado e circulação portal, onde inibe plaquetas portalmente antes da metabolização hepática.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Qual a importância do HDL no perfil lipídico?",
-        resposta: "Transporta o colesterol dos tecidos periféricos para o fígado, contribuindo para a remoção do excesso de colesterol."
+        "pergunta": "NTG SL: quais orientações práticas para uso domiciliar na angina?",
+        "resposta": "Sentar, 1 dose SL; repetir a cada 5 min até 3 doses. Se dor persistir/recorrente, procurar emergência.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como os nitratos aliviam a dor torácica na angina?",
-        resposta: "Promovem vasodilatação venosa, reduzindo a pré-carga e, consequentemente, a demanda de oxigênio pelo miocárdio."
+        "pergunta": "Nitratos: que efeito têm sobre o retorno venoso e a pressão capilar pulmonar?",
+        "resposta": "Reduzem retorno venoso (pré-carga) e, consequentemente, a pressão capilar pulmonar, aliviando congestão.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que é o fenômeno de Raynaud?",
-        resposta: "Episódios de vasoespasmo nas artérias digitais, causando palidez, cianose e dor nos dedos em resposta ao frio ou estresse."
+        "pergunta": "AAS: qual a janela para retomar após sangramento GI controlado?",
+        "resposta": "O mais breve possível após hemostasia, avaliando risco/benefício, pois a suspensão prolongada aumenta risco isquêmico.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "Como a hipertrofia ventricular afeta a perfusão coronariana?",
-        resposta: "Aumenta a demanda de oxigênio do miocárdio e reduz a perfusão durante a diástole, predispondo à isquemia."
+        "pergunta": "Nitratos: qual o racional de evitar com Tadalafil nas últimas 48 horas?",
+        "resposta": "PDE5 prolonga GMPc; associação com doadores de NO causa hipotensão profunda e refratária.",
+        "assunto": "Farmacologia do IAM"
       },
       {
-        pergunta: "O que caracteriza a síndrome do QT longo?",
-        resposta: "Prolongamento do intervalo QT no ECG, aumentando o risco de arritmias ventriculares graves, como a torsades de pointes."
+        "pergunta": "AAS: a inibição da COX-2 contribui para o efeito antitrombótico?",
+        "resposta": "O efeito principal é via COX-1/plaquetas (TXA2). Inibição de COX-2 endotelial (PGI2) pode até reduzir citoproteção.",
+        "assunto": "Farmacologia do IAM"
       },
+
       {
-        pergunta: "Como os antidiabéticos da classe das gliflozinas atuam?",
-        resposta: "Inibem o cotransportador sódio-glicose tipo 2 (SGLT2) nos túbulos renais, promovendo a excreção de glicose na urina."
+        "pergunta": "Quais organelas-chave sustentam a contração do miócito cardíaco?",
+        "resposta": "Sarcômero, túbulos T, retículo sarcoplasmático (RS) e mitocôndrias.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Qual a principal causa de edema pulmonar agudo?",
-        resposta: "Insuficiência ventricular esquerda, levando ao aumento da pressão capilar pulmonar e extravasamento de líquido para os alvéolos."
+        "pergunta": "Qual é a unidade contrátil básica e seus limites?",
+        "resposta": "O sarcômero, limitado por duas linhas Z.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Como o peptídeo natriurético atrial (ANP) regula a pressão arterial?",
-        resposta: "Promove vasodilatação e excreção de sódio e água pelos rins, reduzindo o volume sanguíneo e a pressão arterial."
+        "pergunta": "Quais proteínas formam o filamento fino e o papel da troponina?",
+        "resposta": "Actina, tropomiosina e troponinas; TnC liga Ca2+ e libera o sítio de actina para a miosina.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "O que é o reflexo barorreceptor?",
-        resposta: "Mecanismo que regula a pressão arterial em curto prazo, ajustando a atividade do sistema nervoso simpático em resposta à variação da pressão arterial."
+        "pergunta": "Como o cálcio aciona a contração no acoplamento excitação-contração?",
+        "resposta": "Entrada por canais L ativa RyR2 no RS (CICR), elevando Ca2+ citosólico que ativa TnC.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Como a hipocalemia afeta a função cardíaca?",
-        resposta: "Reduz a excitabilidade celular, podendo causar arritmias, fraqueza muscular e alterações no ECG, como a onda U proeminente."
+        "pergunta": "Qual é a função da SERCA2a e do fosfolambano na diástole?",
+        "resposta": "SERCA2a recaptura Ca2+ para o RS; fosfolambano desfosforilado a inibe, fosforilado a libera.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Qual o papel do fator de von Willebrand na coagulação?",
-        resposta: "Media a adesão plaquetária ao endotélio lesado e estabiliza o fator VIII no plasma."
+        "pergunta": "Como a Na+/K+-ATPase sustenta a homeostase iônica do miócito?",
+        "resposta": "Expulsa 3 Na+ e entra 2 K+, mantendo gradientes para NCX e excitabilidade.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "O que diferencia a fibrilação atrial do flutter atrial no ECG?",
-        resposta: "A fibrilação atrial apresenta ondas F irregulares e ausência de onda P, enquanto o flutter atrial exibe ondas F em padrão serrilhado e regular."
+        "pergunta": "Qual é o papel do trocador Na+/Ca2+ (NCX) no relaxamento?",
+        "resposta": "Remove Ca2+ citosólico para fora da célula trocando por Na+ que entra.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Como a hiperglicemia crônica afeta a microcirculação?",
-        resposta: "Promove lesão endotelial, espessamento da membrana basal capilar e redução da perfusão tecidual, resultando em complicações microvasculares."
+        "pergunta": "Como a estimulação β1-adrenérgica aumenta a inotropia?",
+        "resposta": "β1→Gs→↑AMPc/PKA→↑ICa-L, fosforila PLB e RyR2, ↑Ca2+ citosólico e recaptura mais rápida.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Qual a principal ação dos antagonistas do receptor de mineralocorticoide, como a espironolactona?",
-        resposta: "Bloqueiam a ação da aldosterona, reduzindo a retenção de sódio e água e prevenindo a fibrose miocárdica."
+        "pergunta": "O que é sensibilidade ao Ca2+ das proteínas contráteis?",
+        "resposta": "Grau de resposta da actomiosina a uma dada [Ca2+]; maior sensibilidade gera mais força com menos Ca2+.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "O que é a pré-carga no contexto da função cardíaca?",
-        resposta: "É o volume de sangue que distende os ventrículos no final da diástole, influenciando a força de contração ventricular."
+        "pergunta": "Como o comprimento inicial do sarcômero afeta a força gerada?",
+        "resposta": "Comprimento ótimo alinha pontes cruzadas, maximizando a força (base molecular de Frank-Starling).",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Como a resistência vascular periférica afeta a pressão arterial?",
-        resposta: "Aumenta a pressão arterial ao dificultar o fluxo sanguíneo, exigindo maior força de bombeamento do coração."
+        "pergunta": "Qual diferença estrutural do RS cardíaco vs esquelético relevante ao Ca2+?",
+        "resposta": "RS cardíaco é menos volumoso e depende mais do Ca2+ extracelular via canais L.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Qual a função do sistema simpático na regulação cardiovascular?",
-        resposta: "Aumenta a frequência cardíaca, a força de contração e promove vasoconstrição para elevar a pressão arterial."
+        "pergunta": "Que papel as mitocôndrias exercem na contração-relaxamento?",
+        "resposta": "Fornecem ATP para miosina-ATPase, SERCA e Na+/K+-ATPase; tamponam Ca2+.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Como a hiponatremia afeta a função cardiovascular?",
-        resposta: "Reduz a contratilidade miocárdica e pode levar à hipotensão e arritmias cardíacas."
+        "pergunta": "O que acontece com Ca2+ durante a diástole normal?",
+        "resposta": "É recaptado ao RS (SERCA) e extrudido ao exterior (NCX/Ca2+-ATPase).",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "O que caracteriza o sopro cardíaco?",
-        resposta: "Som anormal causado pelo fluxo turbulento do sangue através das válvulas cardíacas ou de defeitos estruturais."
+        "pergunta": "Como a PKA modula a lusitropia?",
+        "resposta": "Fosforila PLB e troponina I, acelerando recaptura de Ca2+ e desacoplamento actina-miosina.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
       {
-        pergunta: "Como os diuréticos de alça atuam no néfron?",
-        resposta: "Inibem a reabsorção de sódio, potássio e cloreto na alça de Henle, aumentando a diurese e reduzindo a pressão arterial."
+        "pergunta": "O que a fosforilação da miosina light chain faz no cardiomiócito?",
+        "resposta": "Modula a cinética das pontes cruzadas, ajustando a velocidade/força de contração.",
+        "assunto": "Contração/Relaxamento do Miocárdio"
       },
+
       {
-        pergunta: "Qual a principal causa de cardiomiopatia dilatada?",
-        resposta: "Doenças virais, consumo excessivo de álcool, cardiopatias isquêmicas e fatores genéticos."
+        "pergunta": "Defina débito cardíaco e cite um valor típico em repouso.",
+        "resposta": "Volume bombeado por minuto; ~5 L/min em adultos.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Como a bradicardia sinusal afeta o débito cardíaco?",
-        resposta: "Reduz o débito cardíaco devido à diminuição da frequência cardíaca, afetando a perfusão tecidual."
+        "pergunta": "O que é retorno venoso e sua relação com o débito cardíaco em estado estacionário?",
+        "resposta": "Fluxo venoso ao átrio direito; em steady state, RV = DC.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "O que é o efeito inotrópico positivo?",
-        resposta: "Aumento da força de contração do coração, geralmente mediado por estímulo simpático ou fármacos como os digitálicos."
+        "pergunta": "Explique o mecanismo de Frank–Starling.",
+        "resposta": "Maior enchimento (pré-carga) alonga sarcômeros e aumenta o volume sistólico até um limite.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Como a pressão arterial média (PAM) é calculada?",
-        resposta: "PAM = Pressão Diastólica + 1/3 (Pressão Sistólica - Pressão Diastólica)."
+        "pergunta": "O que é a pressão média de enchimento sistêmico (Pmsf)?",
+        "resposta": "Pressão no sistema circulatório parado; dirige o retorno venoso quando o coração retoma o bombeio.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Qual a principal função dos canais de cálcio tipo L no coração?",
-        resposta: "Permitir a entrada de cálcio durante a despolarização, essencial para a contração do miocárdio."
+        "pergunta": "Como a resistência venosa periférica impacta o retorno venoso?",
+        "resposta": "↑Resistência venosa ↓inclinação da curva de RV, reduzindo o retorno a uma dada pressão atrial.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "O que diferencia a hipertensão primária da secundária?",
-        resposta: "A hipertensão primária não tem causa identificável, enquanto a secundária decorre de condições específicas como doenças renais ou endócrinas."
+        "pergunta": "O que desloca a curva de retorno venoso para a direita?",
+        "resposta": "↑Volume sanguíneo/↑tônus venoso (↑Pmsf) aumenta RV a uma mesma pressão atrial.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Como a hiperglicemia crônica contribui para a aterosclerose?",
-        resposta: "Aumenta a produção de radicais livres e promove glicação avançada de proteínas, danificando o endotélio vascular."
+        "pergunta": "Como a contratilidade altera a curva de débito cardíaco?",
+        "resposta": "↑Contratilidade desloca a curva DC para cima/esquerda (↑DC para mesma pressão atrial).",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Qual a principal ação dos inibidores de SGLT2 no diabetes tipo 2?",
-        resposta: "Reduzem a reabsorção de glicose nos túbulos renais, aumentando a excreção urinária de glicose."
+        "pergunta": "O que representa o ponto de interseção das curvas DC e RV?",
+        "resposta": "O ponto operacional do sistema: DC e pressão atrial direita em equilíbrio.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Como a anemia crônica afeta a função cardiovascular?",
-        resposta: "Aumenta a frequência cardíaca e o débito cardíaco para compensar a redução do transporte de oxigênio."
+        "pergunta": "Defina coração hipereficaz e cite um determinante.",
+        "resposta": "Coração com DC acima do normal; p.ex., forte estímulo simpático.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "O que são os corpos carotídeos e aórticos?",
-        resposta: "Quimiorreceptores que detectam mudanças nos níveis de oxigênio, dióxido de carbono e pH no sangue, regulando a respiração e a pressão arterial."
+        "pergunta": "Defina coração hipoeficaz e uma causa comum.",
+        "resposta": "Capacidade reduzida de bombear; p.ex., isquemia/IC.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Qual a importância do índice tornozelo-braquial (ITB)?",
-        resposta: "Avalia a presença de doença arterial periférica, comparando a pressão arterial do tornozelo com a do braço."
+        "pergunta": "Como o tônus simpático altera DC e RV simultaneamente?",
+        "resposta": "↑Inotropismo/cronotropismo (↑DC) e venoconstrição (↑RV via ↑Pmsf).",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Como os fibratos atuam no perfil lipídico?",
-        resposta: "Reduzem os triglicerídeos e aumentam o HDL, ativando o receptor PPAR-α e promovendo a oxidação de ácidos graxos."
+        "pergunta": "Limite superior de DC em atletas treinados sob esforço máximo?",
+        "resposta": "Pode atingir 30–40 L/min.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Qual o principal mecanismo de ação da heparina?",
-        resposta: "Potencializa a ação da antitrombina III, inibindo a trombina e os fatores de coagulação Xa, prevenindo a formação de trombos."
+        "pergunta": "Como a pós-carga influencia o DC?",
+        "resposta": "↑Pós-carga reduz volume sistólico e pode diminuir DC se não houver compensação inotrópica.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Como o débito cardíaco é calculado?",
-        resposta: "Débito Cardíaco = Frequência Cardíaca × Volume Sistólico."
+        "pergunta": "O que é o mecanismo tecidual no controle do fluxo e DC?",
+        "resposta": "Autorregulação local por metabólitos/óxido nítrico ajusta perfusão e influencia retorno e DC.",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
       {
-        pergunta: "Enzima inibida pelas estatinas?",
-        resposta: "HMG-CoA redutase."
+        "pergunta": "Como hemorragia aguda altera as curvas de RV e DC?",
+        "resposta": "↓Volume desloca curva de RV para a esquerda (↓Pmsf) e reduz o ponto de equilíbrio (↓DC).",
+        "assunto": "Débito Cardíaco e Retorno Venoso"
       },
+
       {
-        pergunta: "Fármaco que inibe a enzima conversora de angiotensina?",
-        resposta: "Captopril ou Enalapril."
+        "pergunta": "O que é hipertrofia cardíaca adaptativa inicial?",
+        "resposta": "Aumento de massa miocárdica para normalizar estresse de parede ante sobrecarga.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Principal enzima envolvida na cascata de coagulação?",
-        resposta: "Trombina."
+        "pergunta": "Como a hipertrofia progride para insuficiência cardíaca?",
+        "resposta": "Sobre-estresse crônico, isquemia relativa e fibrose levam a disfunção contrátil/diastólica.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Fármaco que bloqueia canais de cálcio?",
-        resposta: "Amlodipina."
+        "pergunta": "Cite duas alterações moleculares típicas na IC.",
+        "resposta": "↓SERCA2a/↑Na+/Ca2+ disfunção e ↑colágeno intersticial (fibrose).",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Enzima responsável pela degradação de bradicinina?",
-        resposta: "ECA (Enzima Conversora de Angiotensina)."
+        "pergunta": "Diferencie IC esquerda de direita pela congestão dominante.",
+        "resposta": "Esquerda: pulmonar (dispneia); direita: sistêmica (edema periférico/TCJ).",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Fármaco que inibe a bomba de sódio e potássio no coração?",
-        resposta: "Digoxina."
+        "pergunta": "Cite fatores de risco clássicos para IC.",
+        "resposta": "HAS, DAC/IAM, valvopatias, DM, obesidade.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Enzima que converte fibrinogênio em fibrina?",
-        resposta: "Trombina."
+        "pergunta": "Quais sintomas típicos da IC esquerda?",
+        "resposta": "Dispneia aos esforços, ortopneia, PND, fadiga.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Fármaco que inibe a agregação plaquetária bloqueando o receptor P2Y12?",
-        resposta: "Clopidogrel."
+        "pergunta": "Quais achados sugerem IC direita?",
+        "resposta": "Edema, hepatomegalia dolorosa, refluxo hepatojugular, turgência jugular.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Principal fármaco inibidor da COX-1 usado como antiagregante plaquetário?",
-        resposta: "AAS (Ácido Acetilsalicílico)."
+        "pergunta": "O que é remodelamento ventricular e seu impacto?",
+        "resposta": "Mudança de geometria/tamanho do VE que piora FE e prognóstico.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Enzima responsável pela biossíntese do colesterol?",
-        resposta: "HMG-CoA redutase."
+        "pergunta": "Por que o SRAA agrava a IC?",
+        "resposta": "Vasoconstrição/retensão de Na+/água aumentam pré/pós-carga e promovem fibrose.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Fármaco que bloqueia a reabsorção de sódio no néfron distal?",
-        resposta: "Hidroclorotiazida."
+        "pergunta": "Quais mecanismos levam à intolerância ao exercício na IC?",
+        "resposta": "↓DC, hipoperfusão muscular e alterações metabólicas periféricas.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Enzima degradada pelos inibidores de DPP-4?",
-        resposta: "GLP-1."
+        "pergunta": "O que diferencia IC sistólica de diastólica em termos de FE?",
+        "resposta": "Sistólica: FE reduzida; diastólica: FE preservada com relaxamento/complacência reduzidos.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Principal mecanismo de ação dos nitratos?",
-        resposta: "Liberação de óxido nítrico, causando vasodilatação."
+        "pergunta": "Qual complicação pulmonar aguda pode surgir na IC esquerda?",
+        "resposta": "Edema agudo de pulmão (EAP).",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Enzima inibida pelos fibratos?",
-        resposta: "Lipoproteína lipase (ativada indiretamente)."
+        "pergunta": "Explique o papel do sistema simpático na progressão da IC.",
+        "resposta": "Ativação crônica causa toxicidade catecolamínica, apoptose e arritmias.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Fármaco que inibe a renina?",
-        resposta: "Alisquireno."
+        "pergunta": "Por que anemia e doença renal crônica pioram a IC?",
+        "resposta": "↓Transporte de O2 e retenção hidrossalina aumentam carga hemodinâmica.",
+        "assunto": "Fisiopatologia da Insuficiência Cardíaca"
       },
+
       {
-        pergunta: "Principal enzima envolvida no metabolismo de catecolaminas?",
-        resposta: "MAO (Monoamina Oxidase)."
+        "pergunta": "Qual o principal papel do ecocardiograma na IC?",
+        "resposta": "Avaliar FE, volumes, função diastólica e valvopatias.",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Fármaco que bloqueia a reabsorção de glicose no rim?",
-        resposta: "Empagliflozina (inibidor de SGLT2)."
+        "pergunta": "Qual valor de BNP sugere IC aguda com maior probabilidade?",
+        "resposta": "> 100 pg/mL (contexto clínico).",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Enzima inibida pelos anticoagulantes orais diretos do tipo inibidores do fator Xa?",
-        resposta: "Fator Xa."
+        "pergunta": "Quais pontos de corte comuns para NT-proBNP em adultos mais jovens?",
+        "resposta": "> 450 pg/mL (<50 anos) na IC aguda; maiores com a idade.",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Fármaco que inibe a anidrase carbônica no túbulo proximal?",
-        resposta: "Acetazolamida."
+        "pergunta": "Por que BNP/NT-proBNP podem estar elevados sem IC?",
+        "resposta": "IRC, sepse, FA rápida, idade avançada aumentam valores.",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Enzima que converte angiotensina I em angiotensina II?",
-        resposta: "ECA (Enzima Conversora de Angiotensina)."
+        "pergunta": "BNP baixo em dispneia aguda sugere o quê?",
+        "resposta": "Baixa probabilidade de IC como causa da dispneia.",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Qual fator inicia a via extrínseca da coagulação?",
-        resposta: "Fator tecidual (Fator III)."
+        "pergunta": "Qual exame avalia melhor a anatomia e fibrose miocárdica?",
+        "resposta": "Ressonância magnética cardíaca (realce tardio).",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Qual o primeiro fator ativado na via intrínseca?",
-        resposta: "Fator XII (Fator de Hageman)."
+        "pergunta": "Que achado ecocardiográfico caracteriza IC com FE preservada?",
+        "resposta": "FE normal com padrões de E/E' elevados e átrio esquerdo aumentado.",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
       {
-        pergunta: "O que ativa o Fator X na via comum?",
-        resposta: "Complexo fator IXa + fator VIIIa na via intrínseca, ou fator VIIa + fator tecidual na via extrínseca."
+        "pergunta": "Para que serve o cateterismo direito em IC?",
+        "resposta": "Mensurar pressões de enchimento e DC em casos complexos.",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Qual o papel do cálcio (Fator IV) na coagulação?",
-        resposta: "Atua como cofator nas reações de ativação de vários fatores da cascata."
+        "pergunta": "Que situação clínica torna BNP menos específico?",
+        "resposta": "Insuficiência renal crônica e idade avançada.",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
       {
-        pergunta: "Qual a função do fibrinogênio (Fator I) na coagulação?",
-        resposta: "É convertido em fibrina pela trombina, formando a malha do coágulo."
+        "pergunta": "Qual utilidade do BNP na alta hospitalar?",
+        "resposta": "Níveis mais baixos associam-se a melhor prognóstico e menor reinternação.",
+        "assunto": "Avaliação da Insuficiência Cardíaca"
       },
+
       {
-        pergunta: "Como a heparina atua na cascata de coagulação?",
-        resposta: "Potencializa a ação da antitrombina III, inibindo trombina e fator Xa."
+        "pergunta": "Propranolol: mecanismo de ação principal?",
+        "resposta": "Antagonista β1/β2; ↓FC, ↓inotropia, ↓renina.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual fator é conhecido como fator estabilizador da fibrina?",
-        resposta: "Fator XIII, que forma ligações cruzadas entre as fibras de fibrina, estabilizando o coágulo."
+        "pergunta": "Propranolol: duas indicações cardiovasculares úteis?",
+        "resposta": "Angina e controle de arritmias/taquicardias.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Que via da coagulação o tempo de protrombina (TP) avalia?",
-        resposta: "A via extrínseca e a via comum."
+        "pergunta": "Propranolol: efeitos adversos relevantes?",
+        "resposta": "Broncoespasmo, bradicardia, fadiga, pesadelos.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Que via da coagulação o tempo de tromboplastina parcial ativada (TTPa) avalia?",
-        resposta: "A via intrínseca e a via comum."
+        "pergunta": "Propranolol: interação que requer cautela?",
+        "resposta": "Com verapamil/diltiazem (bloqueio AV/insuficiência).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
+
       {
-        pergunta: "Qual a principal função da antitrombina III?",
-        resposta: "Inibir a trombina e o fator Xa, regulando a coagulação."
+        "pergunta": "Sotalol: que classe antiarrítmica adicional ele representa?",
+        "resposta": "Classe III (bloqueia K+), além de β-bloqueio.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "O que ativa a protrombina (Fator II) na cascata?",
-        resposta: "O complexo protrombinase (Fator Xa + Fator Va + Cálcio)."
+        "pergunta": "Sotalol: principal risco proarrítmico?",
+        "resposta": "Torsades de pointes por prolongar QT.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual fármaco inibe diretamente o Fator Xa?",
-        resposta: "Rivaroxabana ou Apixabana."
+        "pergunta": "Sotalol: ajuste em que condição é crítico?",
+        "resposta": "Insuficiência renal (excreção renal).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
+
       {
-        pergunta: "Como a warfarina interfere na coagulação?",
-        resposta: "Inibe a síntese hepática dos fatores dependentes de vitamina K (II, VII, IX e X)."
+        "pergunta": "Atenolol: seletividade e implicação clínica?",
+        "resposta": "β1-seletivo; menor risco de broncoespasmo que não seletivos.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual o papel do Fator V na cascata de coagulação?",
-        resposta: "Atua como cofator do Fator Xa no complexo protrombinase, facilitando a conversão de protrombina em trombina."
+        "pergunta": "Atenolol: duas indicações comuns?",
+        "resposta": "Hipertensão e angina estável/pós-IAM.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "O que desencadeia a via intrínseca da coagulação?",
-        resposta: "Contato do Fator XII com superfícies carregadas negativamente, como colágeno exposto após lesão vascular."
+        "pergunta": "Atenolol: efeito adverso típico e um cuidado?",
+        "resposta": "Bradicardia; cautela com diabéticos (mascara hipoglicemia).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
+
       {
-        pergunta: "Qual a função do complexo tenase?",
-        resposta: "Ativar o Fator X na via intrínseca (formado por Fator IXa, Fator VIIIa, Cálcio e fosfolipídios)."
+        "pergunta": "Metoprolol: alvo e benefício em IC?",
+        "resposta": "β1-seletivo; reduz mortalidade em IC com FE reduzida.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Como o sistema fibrinolítico regula a coagulação?",
-        resposta: "A plasmina degrada a fibrina, dissolvendo o coágulo quando ele não é mais necessário."
+        "pergunta": "Metoprolol: metabolismo e interação importante?",
+        "resposta": "CYP2D6; inibidores aumentam níveis (p.ex., fluoxetina).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual o produto da quebra da fibrina durante a fibrinólise?",
-        resposta: "Dímeros-D, usados como marcadores de trombose em exames laboratoriais."
+        "pergunta": "Metoprolol: estratégia de titulação na IC?",
+        "resposta": "Começar baixo, aumentar a cada 2–4 semanas conforme tolerância.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
+
       {
-        pergunta: "Qual o papel da trombomodulina na regulação da coagulação?",
-        resposta: "Modula a trombina para ativar a proteína C, que inibe os fatores Va e VIIIa, diminuindo a coagulação."
+        "pergunta": "Nebivolol: mecanismo adicional além de β1-bloqueio?",
+        "resposta": "Estimula liberação de NO endotelial (vasodilatação).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Quais são os principais componentes avaliados em um lipidograma?",
-        resposta: "Colesterol total, LDL, HDL, VLDL e triglicerídeos."
+        "pergunta": "Nebivolol: efeito metabólico benéfico potencial?",
+        "resposta": "Perfil neutro ou melhor para resistência insulínica/lipídios.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "O que significa um nível elevado de LDL no lipidograma?",
-        resposta: "Aumento do risco cardiovascular, associado à aterosclerose."
+        "pergunta": "Nebivolol: um efeito adverso comum?",
+        "resposta": "Cefaleia/ fadiga; pode causar bradicardia.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
+
       {
-        pergunta: "Qual a função principal do HDL no metabolismo lipídico?",
-        resposta: "Transporta o colesterol dos tecidos periféricos para o fígado, exercendo efeito protetor cardiovascular."
+        "pergunta": "Labetalol: que receptores bloqueia e uso clássico?",
+        "resposta": "β1/β2 e α1; crises hipertensivas e gestação.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Quais valores de triglicerídeos são considerados normais?",
-        resposta: "Menos de 150 mg/dL."
+        "pergunta": "Labetalol: efeito hemodinâmico característico?",
+        "resposta": "↓RVS com queda modesta de FC por bloqueio α1+β.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual fórmula é usada para calcular o LDL quando os triglicerídeos estão abaixo de 400 mg/dL?",
-        resposta: "Fórmula de Friedewald: LDL = Colesterol total - HDL - (Triglicerídeos/5)."
+        "pergunta": "Labetalol: cuidado ao associar com quais fármacos?",
+        "resposta": "Outros vasodilatadores/anti-hipertensivos (hipotensão).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
+
       {
-        pergunta: "O que indica um nível baixo de HDL no lipidograma?",
-        resposta: "Aumento do risco cardiovascular, pois reduz a remoção de colesterol das artérias."
+        "pergunta": "Carvedilol: alvos e benefício comprovado na IC?",
+        "resposta": "β1/β2 e α1; reduz mortalidade e hospitalizações na IC.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Como o colesterol total é interpretado no lipidograma?",
-        resposta: "Valores acima de 200 mg/dL são considerados elevados, podendo indicar risco cardiovascular aumentado."
+        "pergunta": "Carvedilol: propriedades adicionais além de bloqueio adrenérgico?",
+        "resposta": "Ação antioxidante/anti-remodelamento.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual a principal causa de hipertrigliceridemia?",
-        resposta: "Obesidade, diabetes tipo 2, consumo excessivo de álcool e dieta rica em carboidratos."
+        "pergunta": "Carvedilol: como iniciar na IC?",
+        "resposta": "Dose baixa e titulação lenta com monitorização de PA/FC.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
+
       {
-        pergunta: "O que é o índice de risco cardiovascular no lipidograma?",
-        resposta: "É a razão entre colesterol total e HDL, sendo elevado quando acima de 5 em homens e 4,5 em mulheres."
+        "pergunta": "Beta-bloqueadores: contraindicação relativa frequente?",
+        "resposta": "Asma brônquica descompensada (não seletivos).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual a importância do VLDL no lipidograma?",
-        resposta: "Transporta triglicerídeos do fígado para os tecidos e está associado a risco cardiovascular quando elevado."
+        "pergunta": "Beta-bloqueadores: efeito na demanda de O2 do miocárdio?",
+        "resposta": "Reduzem FC e contratilidade, diminuindo consumo de O2.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual enzima converte o colesterol em ácidos biliares no fígado?",
-        resposta: "Colesterol 7α-hidroxilase."
+        "pergunta": "Beta-bloqueadores: cuidado na retirada?",
+        "resposta": "Evitar suspensão abrupta (risco de rebote adrenérgico/angina).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
+
       {
-        pergunta: "Que fármaco anticoagulante atua inibindo diretamente a trombina?",
-        resposta: "Dabigatrana."
+        "pergunta": "Digoxina: mecanismo celular fundamental?",
+        "resposta": "Inibição da Na+/K+-ATPase → ↑Na+ intracelular → ↓gradiente NCX → ↑Ca2+ intracelular.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual o efeito do aumento do retorno venoso sobre o débito cardíaco?",
-        resposta: "Aumenta o débito cardíaco pelo mecanismo de Frank-Starling."
+        "pergunta": "Digoxina: dois usos principais em cardiologia?",
+        "resposta": "IC sistólica sintomática e controle de resposta ventricular na FA.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Como a hiperglicemia crônica contribui para a lesão endotelial no diabetes?",
-        resposta: "Através do estresse oxidativo e da formação de produtos finais da glicação avançada (AGEs)."
+        "pergunta": "Digoxina: faixa terapêutica sérica típica?",
+        "resposta": "0,5–2,0 ng/mL (alvos mais baixos em IC crônica).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual a principal proteína responsável pelo transporte de colesterol no plasma?",
-        resposta: "Lipoproteína de baixa densidade (LDL)."
+        "pergunta": "Digoxina: sinais clássicos de toxicidade?",
+        "resposta": "Náuseas, arritmias, confusão, xantopsia (visão amarelada).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Que fator de coagulação é deficiente na hemofilia A?",
-        resposta: "Fator VIII."
+        "pergunta": "Digoxina: condições que aumentam risco de toxicidade?",
+        "resposta": "IR, hipocalemia, hipomagnesemia, hipotireoidismo, idade avançada.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Como os nitratos aliviam a angina?",
-        resposta: "Promovem vasodilatação venosa, reduzindo a pré-carga e o consumo de oxigênio pelo miocárdio."
+        "pergunta": "Digoxina: antídoto específico em intoxicação grave?",
+        "resposta": "Fab anti-digoxina (Digibind/DigiFab).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Qual mecanismo de ação dos inibidores de SGLT2 no tratamento do diabetes tipo 2?",
-        resposta: "Reduzem a reabsorção de glicose nos túbulos renais, aumentando a excreção urinária de glicose."
+        "pergunta": "Digoxina: interação farmacológica que eleva níveis séricos?",
+        "resposta": "Amiodarona, verapamil, macrolídeos (↑níveis/risco).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "O que caracteriza a fase de platô do potencial de ação cardíaco?",
-        resposta: "Entrada de cálcio pelas células musculares cardíacas, equilibrada pela saída de potássio."
+        "pergunta": "Digoxina: efeito no tônus vagal e condução AV?",
+        "resposta": "Aumenta tônus vagal, reduz condução no nó AV (útil na FA).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
+
       {
-        pergunta: "Qual a principal causa de hipertensão secundária?",
-        resposta: "Doença renal crônica."
+        "pergunta": "Comparação: carvedilol vs metoprolol em IC – diferença-chave?",
+        "resposta": "Carvedilol tem bloqueio α1 adicional (mais vasodilatação); ambos reduzem mortalidade.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
       },
       {
-        pergunta: "Que marcador bioquímico é utilizado para monitorar o efeito da heparina não fracionada?",
-        resposta: "Tempo de tromboplastina parcial ativada (TTPa)."
+        "pergunta": "Em que pacientes evitar β-bloqueadores não seletivos?",
+        "resposta": "Asmáticos/ DPOC grave por risco de broncoespasmo.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+      {
+        "pergunta": "Qual β-bloqueador tem liberação de NO e pode melhorar função endotelial?",
+        "resposta": "Nebivolol.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Propranolol: característica farmacocinética que reduz biodisponibilidade?",
+        "resposta": "Extenso metabolismo de primeira passagem hepática.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+      {
+        "pergunta": "Metoprolol: por que genótipo CYP2D6 importa?",
+        "resposta": "Metabolizadores lentos têm níveis mais altos e mais bradicardia/hipotensão.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Sotalol: que monitorização de ECG é essencial?",
+        "resposta": "Intervalo QT; evitar se QTc prolongado/hipocalemia.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Labetalol: vantagem em emergências hipertensivas?",
+        "resposta": "Reduz PA rapidamente com menor taquicardia reflexa (β+α1).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Carvedilol: efeito na glicemia/lipídios em comparação a não seletivos?",
+        "resposta": "Perfil metabólico mais favorável/ neutro que não seletivos.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Atenolol: por que pode ter menos eventos centrais (pesadelos)?",
+        "resposta": "Baixa lipossolubilidade e menor penetração no SNC.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Beta-bloqueadores: efeito esperado na renina plasmática?",
+        "resposta": "Redução da secreção de renina (bloqueio β1 no aparelho justaglomerular).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Digoxina: ajuste posológico crítico em qual condição?",
+        "resposta": "Insuficiência renal (eliminação renal predominante).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Qual distúrbio eletrolítico potencializa arritmias com digoxina?",
+        "resposta": "Hipocalemia (↑afinidade da digoxina pela Na+/K+-ATPase).",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Sinal ECG sugestivo de intoxicação digital?",
+        "resposta": "Descenso em “colher” do ST e arritmias ventriculares/atriais variadas.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Quando preferir β-bloqueadores na IC com FE reduzida?",
+        "resposta": "Estável, sem congestão/choque; iniciar doses baixas e titular.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "pergunta": "Associação perigosa: verapamil + β-bloqueador pode causar o quê?",
+        "resposta": "Bloqueio AV/bradicardia e insuficiência cardíaca.",
+        "assunto": "Farmacologia de Beta-bloqueadores e Digitálicos"
+      },
+
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Quais são os dois tipos principais de músculo liso?",
+        "resposta": "Músculo liso unitário (visceral) e músculo liso multiunitário."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual tipo de vaso é o principal responsável pela resistência vascular?",
+        "resposta": "As arteríolas."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual tipo de vaso atua como reservatório de capacitância?",
+        "resposta": "As veias."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual é a função do endotélio na regulação vascular?",
+        "resposta": "Produzir substâncias vasoativas como óxido nítrico (vasodilatação) e endotelina (vasoconstrição)."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual parte do sistema nervoso autônomo predomina no controle vascular basal?",
+        "resposta": "O sistema nervoso simpático."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual segundo mensageiro está envolvido na vasodilatação mediada por NO?",
+        "resposta": "GMPc."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "O que desencadeia a contração do músculo liso vascular?",
+        "resposta": "Entrada de cálcio e ativação da cadeia leve da miosina por MLCK."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual é a principal diferença entre contração do músculo liso e do estriado?",
+        "resposta": "No músculo liso, a regulação é na miosina; no estriado, é na actina via troponina."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual é o papel da calmodulina no músculo liso?",
+        "resposta": "Ligar-se ao cálcio e ativar a MLCK para iniciar a contração."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual é o efeito do aumento de AMPc no músculo liso vascular?",
+        "resposta": "Promove relaxamento via inibição da MLCK."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Como a endotelina afeta o tônus vascular?",
+        "resposta": "Causa vasoconstrição potente."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual neurotransmissor simpático principal atua sobre receptores alfa1 para vasoconstrição?",
+        "resposta": "Noradrenalina."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual é o efeito da acetilcolina no endotélio saudável?",
+        "resposta": "Estimula a produção de NO e promove vasodilatação."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual proteína fosforila a cadeia leve da miosina durante a contração?",
+        "resposta": "MLCK (quinase da cadeia leve da miosina)."
+      },
+      {
+        "assunto": "Músculo Liso Vascular",
+        "pergunta": "Qual enzima é ativada para promover o relaxamento do músculo liso?",
+        "resposta": "MLCP (fosfatase da cadeia leve da miosina)."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "Qual é a velocidade média do sangue na aorta em repouso?",
+        "resposta": "Aproximadamente 30 cm/s."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "Qual é a relação entre área transversal e velocidade do fluxo?",
+        "resposta": "Quanto maior a área transversal, menor a velocidade."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "Como a pressão e o fluxo estão relacionados pela Lei de Ohm?",
+        "resposta": "Fluxo = ΔPressão / Resistência."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "O que é resistência vascular total?",
+        "resposta": "Soma das resistências de todos os vasos sistêmicos."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "O que caracteriza resistência em série?",
+        "resposta": "Resistências somadas diretamente (ex.: artérias → arteríolas → capilares)."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "O que caracteriza resistência em paralelo?",
+        "resposta": "Resistências combinadas de modo que o fluxo total é a soma dos fluxos individuais."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "O que é fluxo laminar?",
+        "resposta": "Fluxo ordenado, com camadas concêntricas e menor resistência."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "O que é fluxo turbulento?",
+        "resposta": "Fluxo desordenado, aumentando resistência e energia dissipada."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "Como o número de Reynolds é usado?",
+        "resposta": "Para prever turbulência; valores > 2000 indicam risco aumentado."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "O que é estresse de cisalhamento na parede do vaso?",
+        "resposta": "Força tangencial exercida pelo sangue sobre o endotélio."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "Como a viscosidade do sangue influencia o fluxo?",
+        "resposta": "Aumenta viscosidade → reduz fluxo para mesma pressão."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "Qual principal determinante da viscosidade sanguínea?",
+        "resposta": "Hematócrito."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "O que é complacência vascular?",
+        "resposta": "Capacidade de um vaso aumentar volume com pequena variação de pressão."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "Qual vaso apresenta maior complacência?",
+        "resposta": "As veias."
+      },
+      {
+        "assunto": "Hemodinâmica",
+        "pergunta": "Como a idade afeta a complacência arterial?",
+        "resposta": "Diminui, aumentando a pressão sistólica."
+      },
+      {
+        "pergunta": "Quais são os três principais mecanismos de controle da pressão arterial a curto, médio e longo prazo?",
+        "resposta": "Curto prazo: reflexos neurais (barorreceptores); médio prazo: hormônios vasoativos; longo prazo: regulação renal de volume.",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "Onde estão localizados os barorreceptores arteriais mais importantes?",
+        "resposta": "Seio carotídeo e arco aórtico.",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "Qual nervo leva aferências do seio carotídeo ao SNC?",
+        "resposta": "Nervo glossofaríngeo (IX par craniano).",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "Qual nervo leva aferências do arco aórtico ao SNC?",
+        "resposta": "Nervo vago (X par craniano).",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "O que é o mecanismo de Frank-Starling no controle cardiovascular?",
+        "resposta": "Aumento do retorno venoso leva a maior estiramento ventricular e maior força de contração.",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "Qual hormônio é liberado pelo átrio em resposta a aumento de pressão e volume?",
+        "resposta": "Peptídeo natriurético atrial (ANP).",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "Como a angiotensina II atua na PA?",
+        "resposta": "Vasoconstrição e estímulo à secreção de aldosterona.",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "Qual órgão é responsável pelo controle de longo prazo da PA?",
+        "resposta": "Rins, regulando volume sanguíneo.",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "O que caracteriza um coração hipereficaz no controle da PA?",
+        "resposta": "Maior contratilidade, frequentemente por estimulação simpática intensa.",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "O que caracteriza um coração hipoeficaz?",
+        "resposta": "Baixa contratilidade, como em insuficiência cardíaca.",
+        "assunto": "Controle da Pressão Arterial"
+      },
+      {
+        "pergunta": "Qual é a definição de hipertensão arterial segundo diretrizes brasileiras?",
+        "resposta": "Pressão arterial sistólica ≥ 140 mmHg e/ou diastólica ≥ 90 mmHg, medida em consultório.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "Como a hipertensão é classificada em estágios?",
+        "resposta": "Estágio 1: PAS 140-159 ou PAD 90-99 mmHg; Estágio 2: PAS ≥ 160 ou PAD ≥ 100 mmHg.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "O que é hipertensão sistólica isolada?",
+        "resposta": "PAS ≥ 140 mmHg com PAD < 90 mmHg, comum em idosos.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "Quais são os principais fatores de risco para HAS?",
+        "resposta": "Idade, história familiar, obesidade, sedentarismo, dieta rica em sal, etilismo, tabagismo.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "Quais sinais e sintomas podem sugerir hipertensão grave?",
+        "resposta": "Cefaleia intensa, alterações visuais, dor torácica, dispneia, déficit neurológico.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "O que é estratificação de risco cardiovascular na HAS?",
+        "resposta": "Classificação do risco de eventos cardiovasculares baseada em comorbidades e lesões de órgãos-alvo.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "Quais órgãos-alvo são mais afetados pela HAS?",
+        "resposta": "Coração, cérebro, rins e vasos sanguíneos.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "Qual alteração cardíaca é comum em hipertensos crônicos?",
+        "resposta": "Hipertrofia ventricular esquerda.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "Qual é a relação entre HAS e aterosclerose?",
+        "resposta": "A HAS acelera o processo aterosclerótico, aumentando risco cardiovascular.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "Como a rigidez arterial contribui para HAS em idosos?",
+        "resposta": "Diminui complacência arterial, elevando pressão sistólica.",
+        "assunto": "Fisiopatologia da HAS"
+      },
+      {
+        "pergunta": "Qual é o exame inicial recomendado para screening de HAS?",
+        "resposta": "Aferição da pressão arterial com técnica padronizada.",
+        "assunto": "Diagnóstico de HAS"
+      },
+      {
+        "pergunta": "O que é MAPA e quando é indicado?",
+        "resposta": "Monitorização Ambulatorial da Pressão Arterial, indicada para confirmar diagnóstico e investigar variações ao longo do dia.",
+        "assunto": "Diagnóstico de HAS"
+      },
+      {
+        "pergunta": "Qual é a vantagem do MAPA sobre aferições de consultório?",
+        "resposta": "Detecta hipertensão mascarada e descarta efeito do avental branco.",
+        "assunto": "Diagnóstico de HAS"
+      },
+      {
+        "pergunta": "O que é hipertensão do avental branco?",
+        "resposta": "Elevação da PA em consultório, mas valores normais fora dele.",
+        "assunto": "Diagnóstico de HAS"
+      },
+      {
+        "pergunta": "O que é hipertensão mascarada?",
+        "resposta": "PA normal em consultório, mas elevada no MAPA ou MRPA.",
+        "assunto": "Diagnóstico de HAS"
+      },
+      {
+        "pergunta": "Qual é o mecanismo de ação da hidroclorotiazida?",
+        "resposta": "Inibe o cotransporte Na+/Cl- no túbulo distal, aumentando excreção de sódio e água.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual é a farmacocinética da hidroclorotiazida?",
+        "resposta": "Absorção oral, início de ação em 2h, duração de 6-12h, excreção renal.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais são os usos terapêuticos da hidroclorotiazida?",
+        "resposta": "Hipertensão, insuficiência cardíaca leve, edema associado a doenças renais e hepáticas.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais são os principais efeitos adversos da hidroclorotiazida?",
+        "resposta": "Hipocalemia, hiponatremia, hiperglicemia, hiperuricemia.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais medicamentos interagem com a hidroclorotiazida?",
+        "resposta": "AINEs reduzem efeito anti-hipertensivo; risco aumentado de hipocalemia com corticoides.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual é o mecanismo de ação da clortalidona?",
+        "resposta": "Inibe o cotransporte Na+/Cl- no túbulo distal, similar à hidroclorotiazida, mas com meia-vida mais longa.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual a farmacocinética da clortalidona?",
+        "resposta": "Absorção oral, início de ação em 2-3h, duração de até 72h, excreção renal.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais são os usos terapêuticos da clortalidona?",
+        "resposta": "Hipertensão, edema associado a IC e doença renal.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais os principais efeitos adversos da clortalidona?",
+        "resposta": "Hipocalemia, hiponatremia, hiperuricemia, hiperglicemia.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais interações medicamentosas são importantes para a clortalidona?",
+        "resposta": "AINEs reduzem seu efeito; risco aumentado de hipocalemia com digitálicos.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual o mecanismo de ação da furosemida?",
+        "resposta": "Inibe o cotransporte Na+/K+/2Cl- na alça de Henle, promovendo diurese intensa.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual a farmacocinética da furosemida?",
+        "resposta": "Início de ação oral em 30-60min, EV em 5min; duração 6-8h; excreção renal.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais os usos terapêuticos da furosemida?",
+        "resposta": "Edema de IC, cirrose, síndrome nefrótica, hipertensão resistente.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais efeitos adversos estão associados à furosemida?",
+        "resposta": "Hipocalemia, hiponatremia, alcalose metabólica, ototoxicidade.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais interações medicamentosas da furosemida devem ser lembradas?",
+        "resposta": "Aminoglicosídeos aumentam ototoxicidade; lítio aumenta toxicidade.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual o mecanismo de ação da espironolactona?",
+        "resposta": "Antagonista da aldosterona nos túbulos coletores, poupando potássio.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual a farmacocinética da espironolactona?",
+        "resposta": "Absorção oral, metabolismo hepático, início de ação em 24-48h, duração 48-72h.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais usos terapêuticos da espironolactona?",
+        "resposta": "Hipertensão, IC, hiperaldosteronismo primário, ascite.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais efeitos adversos da espironolactona?",
+        "resposta": "Hipercalemia, ginecomastia, irregularidades menstruais.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais interações medicamentosas da espironolactona?",
+        "resposta": "Risco aumentado de hipercalemia com IECA/BRA; AINEs reduzem efeito.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual o mecanismo de ação do captopril?",
+        "resposta": "Inibe a enzima conversora de angiotensina, reduzindo níveis de angiotensina II e aldosterona.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual a farmacocinética do captopril?",
+        "resposta": "Absorção oral, início em 15-30min, duração 6-8h, excreção renal.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais os usos terapêuticos do captopril?",
+        "resposta": "Hipertensão, IC, nefropatia diabética, pós-IAM.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais efeitos adversos do captopril?",
+        "resposta": "Tosse seca, hipercalemia, angioedema, insuficiência renal.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais interações medicamentosas do captopril?",
+        "resposta": "AINEs reduzem efeito; risco de hipercalemia com poupadores de potássio.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual o mecanismo de ação do enalapril?",
+        "resposta": "Inibe a ECA, reduzindo formação de angiotensina II e secreção de aldosterona.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual a farmacocinética do enalapril?",
+        "resposta": "Profármaco, convertido em enalaprilato no fígado; início 1h, duração 12-24h.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais usos terapêuticos do enalapril?",
+        "resposta": "Hipertensão, IC, prevenção de nefropatia diabética.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais efeitos adversos do enalapril?",
+        "resposta": "Tosse seca, hipercalemia, angioedema.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais interações medicamentosas do enalapril?",
+        "resposta": "Semelhantes ao captopril: risco de hipercalemia com poupadores de potássio e redução do efeito com AINEs.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual o mecanismo de ação da losartana?",
+        "resposta": "Antagonista do receptor AT1 da angiotensina II, promovendo vasodilatação e redução da aldosterona.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual a farmacocinética da losartana?",
+        "resposta": "Absorção oral, metabolismo hepático para metabólito ativo, meia-vida 2h (losartana) e 6-9h (metabólito).",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais usos terapêuticos da losartana?",
+        "resposta": "Hipertensão, proteção renal em diabéticos, IC.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais efeitos adversos da losartana?",
+        "resposta": "Tontura, hipercalemia, raramente angioedema.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais interações medicamentosas da losartana?",
+        "resposta": "Risco de hipercalemia com poupadores de potássio; AINEs reduzem eficácia.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual o mecanismo de ação da valsartana?",
+        "resposta": "Antagonista seletivo do receptor AT1 da angiotensina II.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual a farmacocinética da valsartana?",
+        "resposta": "Absorção oral, biodisponibilidade baixa, excreção biliar predominante.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais usos terapêuticos da valsartana?",
+        "resposta": "Hipertensão, IC, pós-IAM.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais efeitos adversos da valsartana?",
+        "resposta": "Tontura, hipotensão, hipercalemia.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais interações medicamentosas da valsartana?",
+        "resposta": "Semelhantes a outros BRAs, com risco de hipercalemia e redução de eficácia com AINEs.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual o mecanismo de ação da nifedipina?",
+        "resposta": "Bloqueia canais de cálcio do tipo L em músculo liso vascular, promovendo vasodilatação.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Qual a farmacocinética da nifedipina?",
+        "resposta": "Absorção oral, metabolismo hepático, início rápido e duração de 4-6h.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais usos terapêuticos da nifedipina?",
+        "resposta": "Hipertensão, angina estável e vasoespástica.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais efeitos adversos da nifedipina?",
+        "resposta": "Cefaleia, rubor, taquicardia reflexa, edema periférico.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
+      },
+      {
+        "pergunta": "Quais interações medicamentosas da nifedipina?",
+        "resposta": "Metabolismo via CYP3A4; interage com cetoconazol, suco de grapefruit.",
+        "assunto": "Farmacologia Anti-Hipertensivos"
       }
+
+
 
 
     ];
 
+    // ======= UI Setup =======
     document.addEventListener('DOMContentLoaded', () => {
-        setupMobileInputs();
-        setupCardInteractions();
-        adjustCardHeight();
-        window.addEventListener('resize', adjustCardHeight);
+      setupMobileInputs();
+      setupCardInteractions();
+      adjustCardHeight();
+      window.addEventListener('resize', adjustCardHeight);
+      hydrateUser();
+      buildSubjects();
+      document.getElementById('userName').addEventListener('input', onNameInput);
     });
 
+    function hydrateUser() {
+      const saved = localStorage.getItem('usuarioNome');
+      if (saved) {
+        document.getElementById('userName').value = saved;
+        document.getElementById('startBtn').disabled = false;
+      }
+    }
+
+    function onNameInput(e) {
+      const name = e.target.value.trim();
+      document.getElementById('startBtn').disabled = !name;
+      if (name) { localStorage.setItem('usuarioNome', name); }
+    }
+
+    function buildSubjects() {
+      // Coleta assuntos únicos (com fallback "Geral")
+      const subjects = [...new Set(allFlashcards.map(fc => fc.assunto || 'Geral'))].sort();
+      const grid = document.getElementById('subjectsGrid');
+      grid.innerHTML = subjects.map(sub => `
+        <label class="tag">
+          <input type="checkbox" value="${sub}" style="accent-color:#6A8EDD"> ${sub}
+        </label>
+      `).join('');
+    }
+
     function setupMobileInputs() {
-        const inputs = document.querySelectorAll('.info-input');
-        inputs.forEach(input => {
-            input.addEventListener('touchstart', function() {
-                this.style.fontSize = '16px';
-                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            });
+      const inputs = document.querySelectorAll('.info-input');
+      inputs.forEach(input => {
+        input.addEventListener('touchstart', function () {
+          this.style.fontSize = '16px';
+          this.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
+      });
     }
 
     function setupCardInteractions() {
-        const flashcard = document.getElementById('flashcard');
-        flashcard.addEventListener('click', toggleCard);
-        flashcard.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            toggleCard();
-        });
+      const flashcard = document.getElementById('flashcard');
+      flashcard.addEventListener('click', toggleCard);
+      flashcard.addEventListener('touchstart', function (e) { e.preventDefault(); toggleCard(); });
     }
 
     function startReview() {
-        const userName = document.getElementById('userName').value.trim();
-        const userMatricula = document.getElementById('userMatricula').value.trim();
+      const userName = document.getElementById('userName').value.trim();
+      if (!userName) { alert('Informe seu nome para começar.'); return; }
 
-        if (!userName || !userMatricula) {
-            alert('Por favor, preencha todos os campos!');
-            return;
-        }
+      // Salva como "usuário"
+      localStorage.setItem('usuarioNome', userName);
 
-        sessionFlashcards = shuffleArray(allFlashcards).slice(0, 20);
-        currentCardIndex = 0;
-        results = [];
-        totalTime = 0;
-        if(timerInterval) clearInterval(timerInterval);
+      // Filtra assuntos selecionados
+      const selected = Array.from(document.querySelectorAll('#subjectsGrid input:checked')).map(i => i.value);
+      let pool = allFlashcards.filter(fc => !selected.length || selected.includes(fc.assunto || 'Geral'));
+      if (!pool.length) { alert('Não há cards para os assuntos selecionados.'); return; }
 
-        document.getElementById('startScreen').style.display = 'none';
-        document.getElementById('reviewInterface').style.display = 'block';
-        showCard(currentCardIndex);
+      // Quantidade desejada
+      const qtyInput = document.getElementById('qty');
+      let qty = parseInt(qtyInput.value, 10);
+      if (isNaN(qty) || qty < 1) qty = 10;
+      if (qty > pool.length) qty = pool.length;
+
+      sessionFlashcards = shuffleArray(pool).slice(0, qty);
+      currentCardIndex = 0; results = []; totalTime = 0; if (timerInterval) clearInterval(timerInterval);
+
+      document.getElementById('startScreen').style.display = 'none';
+      document.getElementById('reviewInterface').style.display = 'block';
+      showCard(currentCardIndex);
     }
 
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
+    function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[array[i], array[j]] = [array[j], array[i]]; } return array; }
 
     function showCard(index) {
-        if (index < 0 || index >= sessionFlashcards.length) return;
-        
-        if(timerInterval) clearInterval(timerInterval);
-        
-        const card = sessionFlashcards[index];
-        document.getElementById('question').textContent = card.pergunta;
-        document.getElementById('answer').textContent = card.resposta;
-        document.getElementById('cardCounter').textContent = `Card ${index + 1}/${sessionFlashcards.length}`;
-        updateProgress(index);
-        startCardTimer();
+      if (index < 0 || index >= sessionFlashcards.length) return;
+      if (timerInterval) clearInterval(timerInterval);
+      const card = sessionFlashcards[index];
+      document.getElementById('question').textContent = card.pergunta;
+      document.getElementById('answer').textContent = card.resposta;
+      document.getElementById('cardCounter').textContent = `Card ${index + 1}/${sessionFlashcards.length}`;
+      updateProgress(index);
+      startCardTimer();
     }
 
-    function startCardTimer() {
-        cardStartTime = Date.now();
-        timerInterval = setInterval(updateTimer, 1000);
-    }
-
-    function updateTimer() {
-        const timeElapsed = Math.floor((Date.now() - cardStartTime) / 1000);
-        document.getElementById('timer').textContent = formatTime(timeElapsed);
-    }
+    function startCardTimer() { cardStartTime = Date.now(); timerInterval = setInterval(updateTimer, 1000); }
+    function updateTimer() { const t = Math.floor((Date.now() - cardStartTime) / 1000); document.getElementById('timer').textContent = formatTime(t); }
 
     function toggleCard() {
-        const front = document.getElementById('front');
-        const back = document.getElementById('back');
-        const responseButtons = document.getElementById('responseButtons');
-
-        if (front.style.display === 'none') {
-            front.style.display = 'flex';
-            back.style.display = 'none';
-            responseButtons.style.display = 'none';
-        } else {
-            front.style.display = 'none';
-            back.style.display = 'flex';
-            responseButtons.style.display = 'flex';
-            window.scrollTo(0, 0);
-        }
+      const front = document.getElementById('front');
+      const back = document.getElementById('back');
+      const responseButtons = document.getElementById('responseButtons');
+      if (front.style.display === 'none') { front.style.display = 'flex'; back.style.display = 'none'; responseButtons.style.display = 'none'; }
+      else { front.style.display = 'none'; back.style.display = 'flex'; responseButtons.style.display = 'flex'; window.scrollTo(0, 0); }
     }
 
     function handleAnswer(isCorrect) {
-        if(timerInterval) clearInterval(timerInterval);
-        
-        const timeSpent = Math.floor((Date.now() - cardStartTime) / 1000);
-        totalTime += timeSpent;
-
-        results.push({
-            card: sessionFlashcards[currentCardIndex],
-            isCorrect,
-            timeSpent,
-            timestamp: new Date().toLocaleTimeString()
-        });
-
-        if (currentCardIndex < sessionFlashcards.length - 1) {
-            currentCardIndex++;
-            resetCard();
-            showCard(currentCardIndex);
-        } else {
-            finishReview();
-        }
+      if (timerInterval) clearInterval(timerInterval);
+      const timeSpent = Math.floor((Date.now() - cardStartTime) / 1000);
+      totalTime += timeSpent;
+      results.push({ card: sessionFlashcards[currentCardIndex], isCorrect, timeSpent, timestamp: new Date().toLocaleTimeString() });
+      if (currentCardIndex < sessionFlashcards.length - 1) { currentCardIndex++; resetCard(); showCard(currentCardIndex); } else { finishReview(); }
     }
 
     function resetCard() {
-        document.getElementById('front').style.display = 'flex';
-        document.getElementById('back').style.display = 'none';
-        document.getElementById('responseButtons').style.display = 'none';
-        document.getElementById('flashcard').scrollTop = 0;
+      document.getElementById('front').style.display = 'flex';
+      document.getElementById('back').style.display = 'none';
+      document.getElementById('responseButtons').style.display = 'none';
+      document.getElementById('flashcard').scrollTop = 0;
     }
 
-    function updateProgress(index) {
-        const progress = ((index + 1) / sessionFlashcards.length) * 100;
-        document.getElementById('progress').style.width = `${progress}%`;
-    }
-
-    function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    }
+    function updateProgress(index) { const progress = ((index + 1) / sessionFlashcards.length) * 100; document.getElementById('progress').style.width = `${progress}%`; }
+    function formatTime(seconds) { const m = Math.floor(seconds / 60); const s = seconds % 60; return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`; }
 
     function finishReview() {
-        clearInterval(timerInterval);
-        document.getElementById('reviewInterface').style.display = 'none';
-        document.getElementById('statsReport').style.display = 'block';
+      clearInterval(timerInterval);
+      document.getElementById('reviewInterface').style.display = 'none';
+      document.getElementById('statsReport').style.display = 'block';
 
-        const userData = {
-            name: document.getElementById('userName').value.trim(),
-            matricula: document.getElementById('userMatricula').value.trim()
-        };
+      const user = localStorage.getItem('usuarioNome') || '-';
+      const total = results.length;
+      const correct = results.filter(r => r.isCorrect).length;
+      const avg = total > 0 ? Math.floor(totalTime / total) : 0;
 
-        const total = results.length;
-        const correct = results.filter(r => r.isCorrect).length;
-        const averageTime = total > 0 ? Math.floor(totalTime / total) : 0;
+      document.getElementById('statsName').textContent = user;
+      document.getElementById('statsTotal').textContent = total;
+      document.getElementById('statsCorrect').textContent = correct;
+      document.getElementById('statsIncorrect').textContent = total - correct;
+      document.getElementById('statsTotalTime').textContent = formatTime(totalTime);
+      document.getElementById('statsAverageTime').textContent = formatTime(avg);
+      document.getElementById('statsAccuracy').textContent = total ? `${((correct / total) * 100).toFixed(1)}%` : '0%';
 
-        document.getElementById('statsName').textContent = userData.name;
-        document.getElementById('statsMatricula').textContent = userData.matricula;
-        document.getElementById('statsTotal').textContent = total;
-        document.getElementById('statsCorrect').textContent = correct;
-        document.getElementById('statsIncorrect').textContent = total - correct;
-        document.getElementById('statsTotalTime').textContent = formatTime(totalTime);
-        document.getElementById('statsAverageTime').textContent = formatTime(averageTime);
-        document.getElementById('statsAccuracy').textContent = total > 0 ?
-            `${((correct / total) * 100).toFixed(1)}%` : '0%';
+      const timeDetails = document.getElementById('timeDetails');
+      timeDetails.innerHTML = results.map((r, i) => `
+        <div class="question-item ${r.isCorrect ? 'correct' : 'incorrect'}" onclick="toggleQuestionDetails(${i})">
+          <div class="question-header"><span>#${i + 1}</span>
+            <div class="status-indicator">${r.isCorrect ? '✅' : '❌'} <span>${formatTime(r.timeSpent)}</span></div>
+          </div>
+          <div class="question-details" id="details-${i}">
+            <div class="detail-row"><span>Pergunta:</span><p>${r.card.pergunta}</p></div>
+            <div class="detail-row"><span>Resposta Correta:</span><p class="correct-answer">${r.card.resposta}</p></div>
+            <div class="detail-row"><span>Assunto:</span><p>${r.card.assunto || 'Geral'}</p></div>
+          </div>
+        </div>`).join('');
 
-        const timeDetails = document.getElementById('timeDetails');
-        timeDetails.innerHTML = results.map((result, index) => `
-            <div class="question-item ${result.isCorrect ? 'correct' : 'incorrect'}" 
-                 onclick="toggleQuestionDetails(${index})">
-                <div class="question-header">
-                    <span>#${index + 1}</span>
-                    <div class="status-indicator">
-                        ${result.isCorrect ? '✅' : '❌'}
-                        <span>${formatTime(result.timeSpent)}</span>
-                    </div>
-                </div>
-                <div class="question-details" id="details-${index}">
-                    <div class="detail-row">
-                        <span>Pergunta:</span>
-                        <p>${result.card.pergunta}</p>
-                    </div>
-                    <div class="detail-row">
-                        <span>Resposta Correta:</span>
-                        <p class="correct-answer">${result.card.resposta}</p>
-                    </div>
-                    <div class="detail-row">
-                        <span>Tempo Gasto:</span>
-                        <span>${formatTime(result.timeSpent)}</span>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-
-        savePerformanceData(userData);
+      savePerformanceData(user);
     }
 
-    function toggleQuestionDetails(index) {
-        const details = document.getElementById(`details-${index}`);
-        details.classList.toggle('show-details');
-    }
+    function toggleQuestionDetails(index) { const d = document.getElementById(`details-${index}`); d.classList.toggle('show-details'); }
 
     function adjustCardHeight() {
-        const flashcard = document.getElementById('flashcard');
-        flashcard.style.height = window.innerHeight < 768 ? 
-            `${window.innerHeight * 0.6}px` : 
-            '75vh';
+      const flashcard = document.getElementById('flashcard');
+      if (!flashcard) return;
+      flashcard.style.height = window.innerHeight < 768 ? `${window.innerHeight * 0.6}px` : '75vh';
     }
 
-    function savePerformanceData(userData) {
-        const performanceData = {
-            user: userData,
-            date: new Date().toISOString(),
-            stats: {
-                total: results.length,
-                correct: results.filter(r => r.isCorrect).length,
-                totalTime: totalTime,
-                accuracy: (results.filter(r => r.isCorrect).length / results.length * 100).toFixed(1) + '%'
-            },
-            details: results
-        };
-
-        const allData = JSON.parse(localStorage.getItem('performanceData')) || [];
-        allData.push(performanceData);
-        localStorage.setItem('performanceData', JSON.stringify(allData));
+    function savePerformanceData(user) {
+      const performanceData = {
+        user,
+        date: new Date().toISOString(),
+        stats: {
+          total: results.length,
+          correct: results.filter(r => r.isCorrect).length,
+          totalTime: totalTime,
+          accuracy: (results.filter(r => r.isCorrect).length / results.length * 100).toFixed(1) + '%'
+        },
+        details: results
+      };
+      const allData = JSON.parse(localStorage.getItem('performanceData') || '[]');
+      allData.push(performanceData);
+      localStorage.setItem('performanceData', JSON.stringify(allData));
     }
-    
   </script>
 </body>
 

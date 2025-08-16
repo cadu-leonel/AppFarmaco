@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulos de Tutoria </title>
+    <link rel="shortcut icon" type="image/jpg" href="assets/images/icone.ico" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #0a192f;
+            color: #ccd6f6;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8892b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(17, 34, 64, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+            border: 1px solid #233554;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: #8892b0;
+            font-size: 0.95rem;
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #112240;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid #233554;
+            animation: modalOpen 0.3s ease;
+        }
+
+        @keyframes modalOpen {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #64ffda;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .modal-body {
+            color: #a8b2d1;
+            line-height: 1.8;
+        }
+
+        .modal-body h3 {
+            color: #64ffda;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .modal-body ul {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .highlight {
+            color: #64ffda;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            /* Adicione isto ao final do CSS existente */
+            .vascular-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 1.5rem 0;
+                background: rgba(23, 42, 69, 0.8);
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .vascular-table th {
+                background-color: #1a2f4d;
+                color: #64ffda;
+                padding: 12px;
+                text-align: left;
+                font-weight: 600;
+                border-bottom: 2px solid #64ffda;
+            }
+
+            .vascular-table td {
+                padding: 10px 12px;
+                border-bottom: 1px solid #233554;
+                color: #a8b2d1;
+            }
+
+            .vascular-table tr:last-child td {
+                border-bottom: none;
+            }
+
+            .vascular-table tr:hover {
+                background-color: rgba(26, 47, 79, 0.4);
+            }
+
+            .vascular-table td:first-child {
+                font-weight: 500;
+                color: #8892b0;
+            }
+
+            /* Responsividade para tabelas */
+            @media (max-width: 600px) {
+                .vascular-table {
+                    display: block;
+                    overflow-x: auto;
+                    white-space: nowrap;
+                }
+
+                .vascular-table th,
+                .vascular-table td {
+                    min-width: 120px;
+                }
+            }
+
+            /* Estilo adicional para detalhes anatômicos */
+            .anatomy-details h4 {
+                color: #64ffda;
+                margin: 1.2rem 0 0.8rem;
+                font-size: 1.1rem;
+                border-left: 3px solid #64ffda;
+                padding-left: 0.8rem;
+            }
+
+            .physio-data ul {
+                background: rgba(23, 42, 69, 0.4);
+                padding: 1rem;
+                border-radius: 8px;
+                border: 1px solid #233554;
+            }
+
+            .physio-data li {
+                margin: 0.5rem 0;
+                padding: 0.3rem 0;
+                border-bottom: 1px dashed #233554;
+            }
+
+            .physio-data li:last-child {
+                border-bottom: none;
+            }
+
+            .highlight {
+                color: #64ffda;
+                background-color: rgba(100, 255, 218, 0.1);
+                padding: 0.2rem 0.4rem;
+                border-radius: 4px;
+                font-style: italic;
+                font-size: 0.9rem;
+                margin: 0.5rem 0;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Conteúdo Biológico (Oculto por padrão) -->
+    <div id="biologico-content" class="module-content" style="display: none;">
+        <!-- Seu conteúdo para Funções Biológicas aqui -->
+        <div class="container">
+            <header>
+                <h1>🧬 Funções Biológicas</h1>
+                <p class="subtitle">Compreenda os processos fundamentais que sustentam a vida em nível molecular e
+                    celular
+                </p>
+            </header>
+
+            <div class="grid">
+                <div class="card" onclick="showModal('cardio')">
+                    <span class="icon">💓</span>
+                    <h2>Sistema Cardiovascular</h2>
+                    <p>Estudo da rede complexa de vasos sanguíneos e do coração que mantém a circulação contínua do
+                        sangue.
+                    </p>
+                </div>
+
+                <div class="card" onclick="showModal('dislipidemia')">
+                    <span class="icon">🩸</span>
+                    <h2>Dislipidemia</h2>
+                    <p>Análise dos distúrbios nos níveis de lipídios sanguíneos e seu impacto na saúde cardiovascular.
+                    </p>
+                </div>
+
+                <div class="card" onclick="showModal('diabetes')">
+                    <span class="icon">🩺</span>
+                    <h2>Diabetes</h2>
+                    <p>Compreensão dos mecanismos de regulação glicêmica e suas alterações patológicas.</p>
+                </div>
+
+                <div class="card" onclick="showModal('sinalizacao')">
+                    <span class="icon">📡</span>
+                    <h2>Transdução de Sinais</h2>
+                    <p>Processos de comunicação celular através de mensageiros químicos e vias de sinalização.</p>
+                </div>
+
+                <div class="card" onclick="showModal('imunologia')">
+                    <span class="icon">⚔️</span>
+                    <h2>Relação Antígeno-Anticorpo</h2>
+                    <p>Mecanismos de reconhecimento imunológico e resposta específica a agentes patogênicos.</p>
+                </div>
+
+                <div class="card" onclick="showModal('insuficiencia')">
+                    <span class="icon">💔</span>
+                    <h2>Insuficiência Cardíaca</h2>
+                    <p>Estudo das disfunções na capacidade de bombeamento cardíaco e suas consequências sistêmicas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+
+
+
+    </div>
+
+    <!-- Conteúdo Vital (Oculto por padrão) -->
+    <div id="vital-content" class="module-content" style="display: none;">
+        <div class="container">
+            <header>
+                <h1>🌟 Funções Vitais</h1>
+                <p class="subtitle">Domine a fisiologia dos sistemas orgânicos e seus mecanismos integrados</p>
+            </header>
+
+            <div class="grid">
+                <div class="card" onclick="showModal('respiratorio')">
+                    <span class="icon">🌬️</span>
+                    <h2>Sistema Respiratório</h2>
+                    <p>Análise das trocas gasosas e mecanismos de regulação da ventilação pulmonar.</p>
+                </div>
+
+                <div class="card" onclick="showModal('nervoso')">
+                    <span class="icon">🧠</span>
+                    <h2>Sistema Nervoso</h2>
+                    <p>Estudo da transmissão sináptica e integração de estímulos neurais.</p>
+                </div>
+
+                <div class="card" onclick="showModal('imune')">
+                    <span class="icon">🛡️</span>
+                    <h2>Resposta Imune</h2>
+                    <p>Mecanismos de defesa inata e adaptativa contra patógenos.</p>
+                </div>
+
+                <div class="card" onclick="showModal('neurofisiologia')">
+                    <span class="icon">⚡</span>
+                    <h2>Neurofisiologia</h2>
+                    <p>Processos de geração e propagação do potencial de ação.</p>
+                </div>
+
+                <div class="card" onclick="showModal('asma')">
+                    <span class="icon">🦠</span>
+                    <h2>Asma</h2>
+                    <p>Fisiopatologia da asma e tratamento geral.</p>
+                </div>
+
+                <div class="card" onclick="showModal('aines')">
+                    <span class="icon">🔬</span>
+                    <h2>AINEs</h2>
+                    <p>Farmacologia dos AINEs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const modalContents = {
+            cardio: {
+                title: '💓 Sistema Cardiovascular',
+                content: `
+<h3>Função Principal</h3>
+<p>O sistema cardiovascular atua como um <span class="highlight">sistema de transporte fechado</span> responsável por:</p>
+<ul>
+    <li>🔁 Distribuição de oxigênio (O₂) e nutrientes para tecidos</li>
+    <li>🗑️ Remoção de dióxido de carbono (CO₂) e resíduos metabólicos</li>
+    <li>📦 Transporte de hormônios e células imunológicas</li>
+    <li>🌡️ Regulação da temperatura corporal</li>
+    <li>⚖️ Manutenção da homeostase hidroeletrolítica</li>
+</ul>
+<p class="highlight">Referência: Guyton & Hall, "Tratado de Fisiologia Médica", 14ª ed.</p>
+
+<h3>Componentes Principais</h3>
+<div class="anatomy-details">
+    <h4>🫀 Coração (Bomba Muscular)</h4>
+    <ul>
+        <li>Peso médio: 250-350g (adulto)</li>
+        <li>4 câmaras: 2 átrios (receptores) + 2 ventrículos (ejetores)</li>
+        <li>Válvulas cardíacas: Tricúspide, Mitral, Pulmonar e Aórtica</li>
+        <li>Sistema de condução: Nó sinoatrial (marcapasso natural)</li>
+    </ul>
+    <p class="highlight">Referência: Netter, "Atlas de Anatomia Humana", 7ª ed.</p>
+
+    <h4>🩸 Vasos Sanguíneos (Rede Vascular)</h4>
+    <table class="vascular-table">
+        <tr>
+            <th>Tipo</th>
+            <th>Diâmetro</th>
+            <th>Função</th>
+            <th>Pressão (mmHg)</th>
+        </tr>
+        <tr>
+            <td>Artérias</td>
+            <td>0.1-2.5 cm</td>
+            <td>Condução de sangue sob alta pressão</td>
+            <td>120/80</td>
+        </tr>
+        <tr>
+            <td>Arteríolas</td>
+            <td>10-100 μm</td>
+            <td>Principal sítio de resistência vascular</td>
+            <td>60-30</td>
+        </tr>
+        <tr>
+            <td>Capilares</td>
+            <td>5-10 μm</td>
+            <td>Trocas transcapilares (Lei de Starling)</td>
+            <td>20-10</td>
+        </tr>
+        <tr>
+            <td>Vênulas</td>
+            <td>10-200 μm</td>
+            <td>Drenagem e migração leucocitária</td>
+            <td>10-5</td>
+        </tr>
+        <tr>
+            <td>Veias</td>
+            <td>0.5-3 cm</td>
+            <td>Reservatório de sangue (capacitância)</td>
+            <td><15</td>
+        </tr>
+    </table>
+    <p class="highlight">Fonte: Berne & Levy, "Fisiologia", 7ª ed.</p>
+
+    <h4>🧪 Sangue (Tecido Fluido)</h4>
+    <ul>
+        <li>Volume sanguíneo total: ~5L (70kg adulto)</li>
+        <li>Componentes:
+            <ul>
+                <li>Plasma (55%): Água (92%), Proteínas (7%), Outros (1%)</li>
+                <li>Elementos figurados (45%): Eritrócitos (99%), Leucócitos e Plaquetas (1%)</li>
+            </ul>
+        </li>
+        <li>Hematócrito: 40-54% (♂), 36-48% (♀)</li>
+    </ul>
+    <p class="highlight">Referência: Hoffbrand, "Hematologia Essencial", 7ª ed.</p>
+</div>
+
+<h3>Dados Fisiológicos</h3>
+<div class="physio-data">
+    <ul>
+        <li>📈 Débito cardíaco: 5 L/min (repouso) → 25 L/min (exercício máximo)</li>
+        <li>💓 Frequência cardíaca: 60-100 bpm (adulto em repouso)</li>
+        <li>🔄 Volume sistólico: 70 mL/batimento</li>
+        <li>📊 Pressão arterial:
+            <ul>
+                <li>Sistólica: 90-120 mmHg</li>
+                <li>Diastólica: 60-80 mmHg</li>
+                <li>Pressão de pulso: 30-40 mmHg</li>
+            </ul>
+        </li>
+        <li>⏳ Tempo de circulação: ~1 minuto (ciclo completo)</li>
+        <li>🩸 Velocidade sanguínea:
+            <ul>
+                <li>Aorta: 40 cm/s</li>
+                <li>Capilares: 0.03 cm/s</li>
+            </ul>
+        </li>
+    </ul>
+    <p class="highlight">Fonte: Levick, "An Introduction to Cardiovascular Physiology", 5th ed.</p>
+</div>
+
+<h3>Regulação Cardiovascular</h3>
+<ul>
+    <li>🧠 Controle neural: Centro vasomotor (bulbo) + Sistema nervoso autônomo</li>
+    <li>💊 Controle hormonal: Sistema Renina-Angiotensina-Aldosterona (SRAA)</li>
+    <li>🧪 Controle local: Mecanismo miogênico + Fatores parácrinos (NO, endotelinas)</li>
+</ul>
+<p class="highlight">Referência: Boron & Boulpaep, "Medical Physiology", 3rd ed.</p>
+
+<h3>Ciclo Cardíaco</h3>
+<ol>
+    <li>Sístole atrial (0.1s): Completa enchimento ventricular</li>
+    <li>Sístole ventricular (0.3s): Ejeção sanguínea</li>
+    <li>Diástole (0.4s): Relaxamento e enchimento</li>
+</ol>
+<p>⚡ Duração total: 0.8s (75 bpm)</p>
+<p class="highlight">Fonte: Klabunde, "Cardiovascular Physiology Concepts", 3rd ed.</p>
+
+<h3>Patologias Relevantes</h3>
+<ul>
+    <li>🫁 Hipertensão arterial: >140/90 mmHg (ACC/AHA 2017)</li>
+    <li>🩸 Aterosclerose: Acúmulo de LDL na íntima arterial</li>
+    <li>💔 Infarto do miocárdio: Oclusão coronariana >20min</li>
+</ul>
+<p class="highlight">Referência: Braunwald, "Heart Disease", 11th ed.</p>
+
+<h3>Curiosidades Científicas</h3>
+<ul>
+    <li>🔋 O coração produz energia suficiente para dirigir um caminhão por 32km/dia</li>
+    <li>🔄 A rede vascular humana estendida mediria ~100,000 km</li>
+    <li>⏳ Um glóbulo vermelho completa o circuito cardiovascular em ~20 segundos</li>
+</ul>
+<p class="highlight">Fonte: National Geographic, "The Heart", 2019</p>
+`
+            },
+            dislipidemia: {
+                title: '🩸 Dislipidemia',
+                content: `
+    <h3>Definição e Classificação</h3>
+    <p>Distúrbio metabólico caracterizado por alterações nas concentrações de <span class="highlight">lipoproteínas plasmáticas</span>, classificada segundo a OMS em:</p>
+    <ul>
+        <li>🔴 Tipo I: Quilomicrons elevados (deficiência de LPL)</li>
+        <li>🟠 Tipo IIa: LDL elevado (Hipercolesterolemia familiar)</li>
+        <li>🟡 Tipo IIb: LDL + VLDL elevados</li>
+        <li>🟢 Tipo III: Remnants elevados (Disbetalipoproteinemia)</li>
+        <li>🔵 Tipo IV: VLDL elevada</li>
+        <li>🟣 Tipo V: Quilomicrons + VLDL elevados</li>
+    </ul>
+    <p class="highlight">Referência: WHO, Classification of Hyperlipidaemias, 1970</p>
+
+    <h3>Fisiopatologia Chave</h3>
+    <div class="pathophysiology">
+        <ul>
+            <li>🧬 Mecanismos de transporte reverso de colesterol</li>
+            <li>⚖️ Desequilíbrio apoB/apoA-1</li>
+            <li>🔥 Oxidação de LDL na íntima arterial</li>
+            <li>🩸 Disfunção endotelial por acumulação lipídica</li>
+        </ul>
+        <p class="highlight">Fonte: Libby P. "Aterosclerose na Inflamação", Nature 2002</p>
+    </div>
+
+    <h3>Critérios Diagnósticos (ATP III)</h3>
+    <table class="lipid-table">
+        <tr>
+            <th>Parâmetro</th>
+            <th>Desejável</th>
+            <th>Limítrofe</th>
+            <th>Alto Risco</th>
+        </tr>
+        <tr>
+            <td>LDL-C</td>
+            <td>< 100 mg/dL</td>
+            <td>130-159 mg/dL</td>
+            <td>≥ 160 mg/dL</td>
+        </tr>
+        <tr>
+            <td>HDL-C</td>
+            <td>> 60 mg/dL</td>
+            <td>40-59 mg/dL</td>
+            <td>< 40 mg/dL</td>
+        </tr>
+        <tr>
+            <td>Triglicerídeos</td>
+            <td>< 150 mg/dL</td>
+            <td>150-199 mg/dL</td>
+            <td>≥ 200 mg/dL</td>
+        </tr>
+    </table>
+    <p class="highlight">Fonte: NCEP ATP III Guidelines, 2004</p>
+
+    <h3>Abordagem Terapêutica</h3>
+    <div class="treatment">
+        <h4>🎯 Metas de Tratamento (ESC/EAS 2021)</h4>
+        <ul>
+            <li>Risco muito alto: LDL-C < 55 mg/dL</li>
+            <li>Risco alto: LDL-C < 70 mg/dL</li>
+            <li>Risco moderado: LDL-C < 100 mg/dL</li>
+        </ul>
+
+        <h4>💊 Fármacos Principais</h4>
+        <ul>
+            <li>Estatinas (Inibidores da HMG-CoA redutase)</li>
+            <li>Ezetimiba (Inibidor absorção colesterol)</li>
+            <li>Inclisiran (RNAi anti-PCSK9)</li>
+            <li>Ácido bempedoico (Inibidor ATP-citrato liase)</li>
+        </ul>
+        <p class="highlight">Referência: Mach F. et al. European Heart Journal 2020</p>
+    </div>
+
+    <h3>Complicações Cardiometabólicas</h3>
+    <ul>
+        <li>🩺 Síndrome metabólica (Critérios NCEP-ATP III):
+            <ul>
+                <li>Circunferência abdominal >102cm (♂) / >88cm (♀)</li>
+                <li>TG ≥ 150 mg/dL</li>
+                <li>HDL < 40 mg/dL (♂) / < 50 mg/dL (♀)</li>
+            </ul>
+        </li>
+        <li>🩸 Esteatose hepática não alcoólica (EHNA)</li>
+        <li>🧠 Acidente vascular cerebral isquêmico</li>
+    </ul>
+
+    <h3>Curiosidades Científicas</h3>
+    <ul>
+        <li>📉 1 mmol/L de redução de LDL-C reduz 22% risco cardiovascular (CTTC Collaboration)</li>
+        <li>🧬 1:500 pessoas têm Hipercolesterolemia Familiar (Mutações LDLR)</li>
+        <li>🌍 Prevalência global: 39% dos adultos (WHO 2021)</li>
+    </ul>
+    <p class="highlight">Fonte: Ference BA. et al. JAMA 2017</p>
+`
+            },
+            diabetes: {
+                title: '🩺 Diabetes Mellitus',
+                content: `
+    <h3>Classificação e Fisiopatologia</h3>
+    <div class="diabetes-classification">
+        <ul>
+            <li>🔵 Tipo 1: Destruição autoimune de células β (anti-GAD65+)</li>
+            <li>🔴 Tipo 2: Resistência à insulina + disfunção β-cell</li>
+            <li>🟢 Gestacional: Hiperglicemia diagnosticada no 2º/3º trimestre</li>
+            <li>🟡 Outros tipos:
+                <ul>
+                    <li>MODY (Maturity-Onset Diabetes of the Young)</li>
+                    <li>Diabetes induzido por medicamentos (ex: glucocorticoides)</li>
+                    <li>Pancreatopatias</li>
+                </ul>
+            </li>
+        </ul>
+        <p class="highlight">Referência: ADA Standards of Care, 2023</p>
+    </div>
+
+    <h3>Critérios Diagnósticos (ADA 2023)</h3>
+    <table class="diabetes-table">
+        <tr>
+            <th>Parâmetro</th>
+            <th>Valor</th>
+            <th>Confirmação</th>
+        </tr>
+        <tr>
+            <td>Glicemia em jejum</td>
+            <td>≥ 126 mg/dL</td>
+            <td>2 medidas</td>
+        </tr>
+        <tr>
+            <td>HbA1c</td>
+            <td>≥ 6.5%</td>
+            <td>Método NGSP</td>
+        </tr>
+        <tr>
+            <td>Glicemia casual</td>
+            <td>≥ 200 mg/dL + sintomas</td>
+            <td>Teste único</td>
+        </tr>
+        <tr>
+            <td>TOTG 75g</td>
+            <td>≥ 200 mg/dL (2h)</td>
+            <td>2 medidas</td>
+        </tr>
+    </table>
+    <p class="highlight">Fonte: American Diabetes Association, 2023</p>
+
+    <h3>Mecanismos Patogênicos</h3>
+    <div class="patho-mechanisms">
+        <ul>
+            <li>🧪 Síndrome Ominosa (Tipo 2):
+                <ul>
+                    <li>Hepático: Produção excessiva de glicose</li>
+                    <li>Muscular: Resistência à insulina</li>
+                    <li>Pancreático: Falência de células β</li>
+                </ul>
+            </li>
+            <li>⚡ Fatores de Risco:
+                <ul>
+                    <li>IMC ≥ 25 kg/m²</li>
+                    <li>Histórico familiar</li>
+                    <li>Sedentarismo</li>
+                </ul>
+            </li>
+        </ul>
+        <p class="highlight">Referência: DeFronzo RA, Diabetes Care 2009</p>
+    </div>
+
+    <h3>Abordagem Terapêutica</h3>
+    <div class="treatment-protocol">
+        <h4>🎯 Metas Glicêmicas</h4>
+        <ul>
+            <li>HbA1c: < 7% (individualizado)</li>
+            <li>Glicemia pré-prandial: 80-130 mg/dL</li>
+            <li>Pós-prandial: < 180 mg/dL</li>
+        </ul>
+
+        <h4>💊 Fármacos (ADA/EASD 2022)</h4>
+        <table class="meds-table">
+            <tr>
+                <th>Classe</th>
+                <th>Mecanismo</th>
+                <th>Exemplos</th>
+            </tr>
+            <tr>
+                <td>Biguanidas</td>
+                <td>↓ Produção hepática de glicose</td>
+                <td>Metformina</td>
+            </tr>
+            <tr>
+                <td>iSGLT2</td>
+                <td>↑ Excreção urinária de glicose</td>
+                <td>Empagliflozina</td>
+            </tr>
+            <tr>
+                <td>Agonistas GLP-1</td>
+                <td>↑ Secreção de insulina dependente de glicose</td>
+                <td>Semaglutida</td>
+            </tr>
+            <tr>
+                <td>Insulinas</td>
+                <td>Substituição hormonal</td>
+                <td>Glargina, Lispro</td>
+            </tr>
+        </table>
+        <p class="highlight">Fonte: Davies MJ et al., Diabetologia 2022</p>
+    </div>
+
+    <h3>Complicações Crônicas</h3>
+    <div class="complications">
+        <ul>
+            <li>👁️ Retinopatia (Estágios ETDRS):
+                <ul>
+                    <li>Não proliferativa</li>
+                    <li>Proliferativa</li>
+                    <li>Edema macular</li>
+                </ul>
+            </li>
+            <li>🩺 Nefropatia (Critérios KDIGO):
+                <ul>
+                    <li>Albuminúria ≥ 30 mg/g creatinina</li>
+                    <li>TFG < 60 mL/min/1.73m²</li>
+                </ul>
+            </li>
+            <li>🦶 Neuropatia periférica:
+                <ul>
+                    <li>Monofilamento 10g</li>
+                    <li>Escala MNSI</li>
+                </ul>
+            </li>
+        </ul>
+        <p class="highlight">Referência: ADA "Standards of Care in Diabetes", 2023</p>
+    </div>
+
+    <h3>Dados Epidemiológicos</h3>
+    <ul>
+        <li>🌍 Prevalência global: 537 milhões (IDF 2021)</li>
+        <li>📈 Projeção 2045: 783 milhões</li>
+        <li>💸 Custo anual EUA: $327 bilhões (CDC 2022)</li>
+    </ul>
+
+    <h3>Tecnologias Emergentes</h3>
+    <div class="tech">
+        <ul>
+            <li>📟 Sistemas de monitoramento contínuo (CGM)</li>
+            <li>💉 Bombas de insulina com circuito fechado</li>
+            <li>🧬 Terapias celulares (células-tronco encapsuladas)</li>
+        </ul>
+        <p class="highlight">Fonte: Battelino T et al., Lancet 2023</p>
+    </div>
+`
+            },
+            sinalizacao: {
+                title: '📡 Transdução de Sinais Celular',
+                content: `
+    <h3>Princípios Fundamentais</h3>
+    <div class="signaling-principles">
+        <ol>
+            <li>📡 <strong>Recepção:</strong> Ligante-receptor específico (Lock & Key)</li>
+            <li>⚡ <strong>Transdução:</strong> Amplificação do sinal (1 ligante → 10^8 moléculas efetoras)</li>
+            <li>🎯 <strong>Resposta:</strong> Alterações metabólicas/transcricionais</li>
+        </ol>
+        <p class="highlight">Referência: Alberts B. "Molecular Biology of the Cell", 6ª ed.</p>
+    </div>
+
+    <h3>Classificação de Receptores</h3>
+    <table class="receptor-table">
+        <tr>
+            <th>Tipo</th>
+            <th>Estrutura</th>
+            <th>Mecanismo</th>
+            <th>Exemplos</th>
+        </tr>
+        <tr>
+            <td>GPCR</td>
+            <td>7TM + Proteína G</td>
+            <td>Ativação de segundos mensageiros</td>
+            <td>β-adrenérgicos, Rodopsina</td>
+        </tr>
+        <tr>
+            <td>Tirosina Quinase</td>
+            <td>Dímero com domínio TK</td>
+            <td>Auto-fosforilação</td>
+            <td>Insulina, EGFR</td>
+        </tr>
+        <tr>
+            <td>Ionotrópico</td>
+            <td>Canais iônicos</td>
+            <td>Fluxo iônico direto</td>
+            <td>nAChR, GABA-A</td>
+        </tr>
+        <tr>
+            <td>Nuclear</td>
+            <td>Ligante-dependente</td>
+            <td>Regulação transcricional</td>
+            <td>Receptores de esteroides</td>
+        </tr>
+    </table>
+    <p class="highlight">Fonte: Lodish H. "Molecular Cell Biology", 9ª ed.</p>
+
+    <h3>Principais Vias de Sinalização</h3>
+    <div class="pathways">
+        <div class="pathway-box camp">
+            <h4>🔄 Via cAMP/PKA</h4>
+            <ul>
+                <li>Ativação: GPCR → Gαs → Adenilato ciclase</li>
+                <li>Efeitos: Glicogenólise, Lipólise</li>
+                <li>Regulação: Fosfodiesterases</li>
+            </ul>
+        </div>
+
+        <div class="pathway-box mapk">
+            <h4>📈 Via MAPK/ERK</h4>
+            <ul>
+                <li>Ativação: Ras → Raf → MEK → ERK</li>
+                <li>Efeitos: Proliferação celular</li>
+                <li>Alvo nuclear: c-Fos, c-Jun</li>
+            </ul>
+        </div>
+
+        <div class="pathway-box pi3k">
+            <h4>🔋 Via PI3K/Akt</h4>
+            <ul>
+                <li>Ativação: RTK → PI3K → PIP3</li>
+                <li>Efeitos: Sobrevida celular</li>
+                <li>Regulador negativo: PTEN</li>
+            </ul>
+        </div>
+    </div>
+    <p class="highlight">Referência: Manning BD, Toker A. Cell 2017</p>
+
+    <h3>Segundos Mensageiros</h3>
+    <table class="messenger-table">
+        <tr>
+            <th>Mensageiro</th>
+            <th>Via</th>
+            <th>Alvo</th>
+            <th>Função</th>
+        </tr>
+        <tr>
+            <td>cAMP</td>
+            <td>PKA</td>
+            <td>CREB</td>
+            <td>Metabolismo energético</td>
+        </tr>
+        <tr>
+            <td>Ca²⁺</td>
+            <td>Calmodulina</td>
+            <td>PKC</td>
+            <td>Contração muscular</td>
+        </tr>
+        <tr>
+            <td>DAG</td>
+            <td>PKC</td>
+            <td>NF-κB</td>
+            <td>Inflamação</td>
+        </tr>
+        <tr>
+            <td>IP3</td>
+            <td>ER Ca²⁺</td>
+            <td>SERCA</td>
+            <td>Sinalização celular</td>
+        </tr>
+    </table>
+    <p class="highlight">Fonte: Berridge MJ. Nature Reviews Molecular Cell Biology 2012</p>
+
+    <h3>Regulação da Sinalização</h3>
+    <ul>
+        <li>🛑 Dessensibilização (β-arrestinas)</li>
+        <li>♻️ Retroalimentação negativa (IRS-1)</li>
+        <li>🔁 Cross-talk entre vias</li>
+        <li>🧪 Modificação pós-traducional (Ubiquitinação)</li>
+    </ul>
+
+    <h3>Implicações Clínicas</h3>
+    <div class="clinical">
+        <ul>
+            <li>💊 Fármacos:
+                <ul>
+                    <li>β-bloqueadores (GPCR)</li>
+                    <li>Imatinibe (Inibidor TK)</li>
+                    <li>Forskolina (Ativador cAMP)</li>
+                </ul>
+            </li>
+            <li>🦠 Patologias:
+                <ul>
+                    <li>Câncer (Mutação Ras)</li>
+                    <li>Diabetes (Resistência insulina)</li>
+                    <li>Colera (Ativação Gαs)</li>
+                </ul>
+            </li>
+        </ul>
+        <p class="highlight">Referência: Santos R et al. Nature Reviews Drug Discovery 2017</p>
+    </div>
+
+    <h3>Técnicas de Estudo</h3>
+    <div class="techniques">
+        <ul>
+            <li>🧫 FRET (Transferência de energia)</li>
+            <li>🔍 Microscopia de TIRF</li>
+            <li>🧬 CRISPR-Cas9 (Knockout gênico)</li>
+            <li>📊 Western Blot (Fosforilação)</li>
+        </ul>
+    </div>
+`
+            },
+            imunologia: {
+                title: '⚔️ Imunologia: Interação Antígeno-Anticorpo',
+                content: `
+    <h3>Estrutura Molecular dos Anticorpos</h3>
+    <div class="antibody-structure">
+        <ul>
+            <li>🏛️ Arquitetura IgG:
+                <ul>
+                    <li>2 cadeias pesadas (γ) + 2 leves (κ/λ)</li>
+                    <li>Domínios V<sub>H</sub>/C<sub>H</sub>1 (Fab)</li>
+                    <li>Região bisagra (flexibilidade)</li>
+                    <li>Domínios Fc (C<sub>H</sub>2/C<sub>H</sub>3)</li>
+                </ul>
+            </li>
+            <li>🧬 Hipervariabilidade:
+                <ul>
+                    <li>CDR1, CDR2, CDR3 (Complementarity Determining Regions)</li>
+                    <li>6 CDRs por Fab (≈15 aminoácidos cada)</li>
+                </ul>
+            </li>
+        </ul>
+        <p class="highlight">Referência: Janeway's Immunobiology, 9ª ed.</p>
+    </div>
+
+    <h3>Classes de Imunoglobulinas</h3>
+    <table class="ig-classes">
+        <tr>
+            <th>Classe</th>
+            <th>Estrutura</th>
+            <th>Localização</th>
+            <th>Função</th>
+        </tr>
+        <tr>
+            <td>IgG</td>
+            <td>Monômero</td>
+            <td>Sangue/tecidos</td>
+            <td>Neutralização, Opsonização</td>
+        </tr>
+        <tr>
+            <td>IgM</td>
+            <td>Pentâmero</td>
+            <td>Sangue</td>
+            <td>Ativação de complemento</td>
+        </tr>
+        <tr>
+            <td>IgA</td>
+            <td>Dímero</td>
+            <td>Mucosas</td>
+            <td>Imunidade mucosal</td>
+        </tr>
+        <tr>
+            <td>IgE</td>
+            <td>Monômero</td>
+            <td>Mastócitos</td>
+            <td>Alergias/helmintos</td>
+        </tr>
+    </table>
+    <p class="highlight">Fonte: Abbas AK, "Cellular and Molecular Immunology", 10ª ed.</p>
+
+    <h3>Mecanismos de Ação</h3>
+    <div class="mechanisms">
+        <div class="mechanism-box neutralization">
+            <h4>🛡️ Neutralização</h4>
+            <ul>
+                <li>Bloqueio de domínios virais (ex: Spike do SARS-CoV-2)</li>
+                <li>Inibição de toxinas bacterianas</li>
+            </ul>
+        </div>
+
+        <div class="mechanism-box opsonization">
+            <h4>📌 Opsonização</h4>
+            <ul>
+                <li>Ligação FcγR em fagócitos</li>
+                <li>Eficiência aumentada em 1.000x</li>
+            </ul>
+        </div>
+
+        <div class="mechanism-box complement">
+            <h4>💥 Complemento</h4>
+            <ul>
+                <li>Via clássica (C1q ligação Fc)</li>
+                <li>MAC (Complexo de Ataque à Membrana)</li>
+            </ul>
+        </div>
+    </div>
+    <p class="highlight">Referência: Nimmerjahn F, Ravetch JV. Science 2005</p>
+
+    <h3>Diversidade Antigênica</h3>
+    <ul>
+        <li>🧬 Recombinação V(D)J:
+            <ul>
+                <li>Variação combinatorial (>10<sup>11</sup> combinações)</li>
+                <li>Hipermutação somática (centro germinativo)</li>
+            </ul>
+        </li>
+        <li>🧪 Seleção clonal (timócitos/médula óssea)</li>
+    </ul>
+    <p class="highlight">Fonte: Tonegawa S. Nature 1983 (Prêmio Nobel 1987)</p>
+
+    <h3>Memória Imunológica</h3>
+    <div class="memory">
+        <ul>
+            <li>🧠 Células B de memória:
+                <ul>
+                    <li>CD27+ CD38-</li>
+                    <li>Vida longa (>50 anos)</li>
+                </ul>
+            </li>
+            <li>💉 Bases vacinais:
+                <ul>
+                    <li>Vacinas mRNA (COVID-19)</li>
+                    <li>Adjuvantes (alumínio)</li>
+                </ul>
+            </li>
+        </ul>
+        <p class="highlight">Referência: Plotkin SA. Vaccines 7ª ed.</p>
+    </div>
+
+    <h3>Aplicações Clínicas</h3>
+    <table class="clinical-apps">
+        <tr>
+            <th>Aplicação</th>
+            <th>Mecanismo</th>
+            <th>Exemplo</th>
+        </tr>
+        <tr>
+            <td>Terapia monoclonal</td>
+            <td>Anti-CD20 (B cells)</td>
+            <td>Rituximabe</td>
+        </tr>
+        <tr>
+            <td>Imunoterapia</td>
+            <td>Checkpoint inhibitors</td>
+            <td>Pembrolizumabe</td>
+        </tr>
+        <tr>
+            <td>Diagnóstico</td>
+            <td>ELISA/Western blot</td>
+            <td>Teste HIV</td>
+        </tr>
+    </table>
+
+    <h3>Dados Relevantes</h3>
+    <ul>
+        <li>⏳ Tempo de resposta: 5-7 dias (primária) vs 2-3 dias (secundária)</li>
+        <li>🦠 Eficácia vacinal COVID-19: 95% (Pfizer-BioNTech)</li>
+        <li>🧫 Produção de anticorpos: 2.000 moléculas/segundo por plasmócito</li>
+    </ul>
+    <p class="highlight">Fonte: Polack FP et al. NEJM 2020</p>
+`
+            },
+            insuficiencia: {
+                title: '💔 Insuficiência Cardíaca',
+                content: `
+    <h3>Definição e Classificação</h3>
+    <div class="heart-failure">
+        <ul>
+            <li>🏥 Síndrome clínica complexa com:
+                <ul>
+                    <li>FEVE ≤ 40% (ICrFE)</li>
+                    <li>FEVE preservada (ICFEp) ≥ 50%</li>
+                </ul>
+            </li>
+            <li>📊 Classificações:
+                <ul>
+                    <li>NYHA (funcional)</li>
+                    <li>ACC/AHA (estágios)</li>
+                    <li>ESC (fenótipos)</li>
+                </ul>
+            </li>
+        </ul>
+        <p class="highlight">Referência: McDonagh TA et al. ESC Guidelines 2021</p>
+    </div>
+
+    <h3>Classificação NYHA + ACC/AHA</h3>
+    <table class="classification-table">
+        <tr>
+            <th>NYHA</th>
+            <th>Sintomas</th>
+            <th>ACC/AHA</th>
+            <th>Intervenção</th>
+        </tr>
+        <tr>
+            <td>I</td>
+            <td>Assintomático</td>
+            <td>Estágio B</td>
+            <td>Prevenção primária</td>
+        </tr>
+        <tr>
+            <td>II</td>
+            <td>Limitação leve</td>
+            <td>Estágio C</td>
+            <td>Terapia guideline-directed</td>
+        </tr>
+        <tr>
+            <td>III</td>
+            <td>Limitação marcada</td>
+            <td>Estágio C</td>
+            <td>Otimização tratamento</td>
+        </tr>
+        <tr>
+            <td>IV</td>
+            <td>Sintomas em repouso</td>
+            <td>Estágio D</td>
+            <td>Terapia avançada</td>
+        </tr>
+    </table>
+    <p class="highlight">Fonte: Yancy CW et al. Circulation 2017</p>
+
+    <h3>Fisiopatologia Avançada</h3>
+    <div class="patho-mechanisms">
+        <div class="mechanism-box neurohormonal">
+            <h4>🧠 Ativação Neurohormonal</h4>
+            <ul>
+                <li>Sistema Renina-Angiotensina-Aldosterona (SRAA)</li>
+                <li>Simpático (Norepinefrina ↑)</li>
+                <li>Peptídeos Natriuréticos (BNP > 400 pg/mL)</li>
+            </ul>
+        </div>
+
+        <div class="mechanism-box remodeling">
+            <h4>🫀 Remodelamento Ventricular</h4>
+            <ul>
+                <li>Hipertrofia concêntrica/excêntrica</li>
+                <li>Fibrose intersticial</li>
+                <li>Apoptose de cardiomiócitos</li>
+            </ul>
+        </div>
+    </div>
+    <p class="highlight">Referência: Braunwald E. NEJM 2022</p>
+
+    <h3>Abordagem Diagnóstica</h3>
+    <ul>
+        <li>📈 Ecocardiograma:
+            <ul>
+                <li>FEVE (Simpson biplano)</li>
+                <li>E/e' ≥ 13 (Disfunção diastólica)</li>
+            </ul>
+        </li>
+        <li>🧪 Biomarcadores:
+            <ul>
+                <li>BNP ≥ 100 pg/mL</li>
+                <li>NT-proBNP ≥ 300 pg/mL</li>
+                <li>Troponina ultrasensível</li>
+            </ul>
+        </li>
+        <li>💓 Teste de Esforço:
+            <ul>
+                <li>VO<sub>2</sub> máx < 14 mL/kg/min</li>
+                <li>Inclinação 6-min</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Terapêutica Baseada em Evidências</h3>
+    <table class="treatment-table">
+        <tr>
+            <th>Classe</th>
+            <th>Mecanismo</th>
+            <th>Exemplos</th>
+            <th>Redução Mortalidade</th>
+        </tr>
+        <tr>
+            <td>ARNI</td>
+            <td>Inibição receptores angiotensina + neprilisina</td>
+            <td>Sacubitril/Valsartan</td>
+            <td>20% (PARADIGM-HF)</td>
+        </tr>
+        <tr>
+            <td>Betabloqueadores</td>
+            <td>↓ Atividade simpática</td>
+            <td>Carvedilol, Bisoprolol</td>
+            <td>35% (CIBIS-II)</td>
+        </tr>
+        <tr>
+            <td>MRA</td>
+            <td>Antagonista aldosterona</td>
+            <td>Espironolactona</td>
+            <td>30% (RALES)</td>
+        </tr>
+        <tr>
+            <td>SGLT2i</td>
+            <td>↑ Excreção urinária glicose</td>
+            <td>Dapagliflozina</td>
+            <td>26% (DAPA-HF)</td>
+        </tr>
+    </table>
+    <p class="highlight">Fonte: McMurray JJV et al. NEJM 2014</p>
+
+    <h3>Dispositivos e Terapias Avançadas</h3>
+    <div class="advanced-therapies">
+        <ul>
+            <li>⚡ CRT (Terapia de Ressincronização):
+                <ul>
+                    <li>QRS ≥ 150ms + BBD</li>
+                    <li>Melhora FEVE 8-10%</li>
+                </ul>
+            </li>
+            <li>🩺 ICD (Desfibrilador):
+                <ul>
+                    <li>Prevenção morte súbita</li>
+                    <li>Indicação: FEVE ≤35%</li>
+                </ul>
+            </li>
+            <li>💓 Assistência Ventricular (LVAD):
+                <ul>
+                    <li>HeartMate 3™</li>
+                    <li>Ponte para transplante</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <h3>Prognóstico e Epidemiologia</h3>
+    <ul>
+        <li>📉 Sobrevida em 5 anos: 50% (IC grave)</li>
+        <li>🌍 Prevalência global: 64 milhões</li>
+        <li>💸 Custo anual EUA: $30.7 bilhões</li>
+    </ul>
+    <p class="highlight">Fonte: Savarese G et al. JACC 2022</p>
+
+    <h3>Pesquisas Emergentes</h3>
+    <div class="research">
+        <ul>
+            <li>🧬 Terapia gênica (SERCA2a)</li>
+            <li>🦠 Microbioma intestinal (TMAO)</li>
+            <li>📈 Inteligência Artificial (Predição risco)</li>
+        </ul>
+    </div>
+`
+            },
+            respiratorio: {
+                title: '🌬️ Sistema Respiratório',
+                content: `
+    <h3>Função Principal</h3>
+    <p>O sistema respiratório realiza as <span class="highlight">trocas gasosas</span> essenciais através de:</p>
+    <ul>
+        <li>🔄 Ventilação pulmonar (inspiração/expiração)</li>
+        <li>🌡️ Regulação do pH sanguíneo</li>
+        <li>🎯 Hematose (difusão alveolocapilar)</li>
+        <li>🛡️ Defesa contra patógenos inalados</li>
+        <li>💧 Produção de surfactante pulmonar</li>
+    </ul>
+    <p class="highlight">Referência: West, "Fisiologia Respiratória", 9ª ed.</p>
+
+    <h3>Anatomia Funcional</h3>
+    <table class="anatomy-table">
+        <tr>
+            <th>Estrutura</th>
+            <th>Diâmetro</th>
+            <th>Função</th>
+            <th>Zona</th>
+        </tr>
+        <tr>
+            <td>Traqueia</td>
+            <td>2-2.5 cm</td>
+            <td>Condução de ar</td>
+            <td>Condutora</td>
+        </tr>
+        <tr>
+            <td>Bronquíolos</td>
+            <td>1-0.5 mm</td>
+            <td>Regulação fluxo aéreo</td>
+            <td>Transição</td>
+        </tr>
+        <tr>
+            <td>Alvéolos</td>
+            <td>200-300 μm</td>
+            <td>Trocas gasosas</td>
+            <td>Respiratória</td>
+        </tr>
+    </table>
+    <p class="highlight">Fonte: Netter, "Atlas de Anatomia Humana", 7ª ed.</p>
+
+    <h3>Mecânica Ventilatória</h3>
+    <div class="physiology">
+        <ul>
+            <li>📊 Volumes pulmonares:
+                <ul>
+                    <li>CRF: 2,400 mL</li>
+                    <li>VR: 1,200 mL</li>
+                    <li>CV: 4,800 mL</li>
+                </ul>
+            </li>
+            <li>📈 Pressões:
+                <ul>
+                    <li>Intrapleural: -5 cmH₂O</li>
+                    <li>Transpulmonar: +5 cmH₂O</li>
+                </ul>
+            </li>
+            <li>🌀 Compliance pulmonar: 200 mL/cmH₂O</li>
+        </ul>
+        <p class="highlight">Referência: Levitzky, "Pulmonary Physiology", 8th ed.</p>
+    </div>
+
+    <h3>Transporte de Gases</h3>
+    <div class="gas-transport">
+        <h4>🩸 Oxigênio</h4>
+        <ul>
+            <li>97% ligado à hemoglobina (HbO₂)</li>
+            <li>3% dissolvido no plasma</li>
+            <li>Curva de dissociação: P50 = 26 mmHg</li>
+        </ul>
+
+        <h4>🌫️ Dióxido de Carbono</h4>
+        <ul>
+            <li>70% como bicarbonato (HCO₃⁻)</li>
+            <li>23% ligado à Hb (carbaminohemoglobina)</li>
+            <li>7% dissolvido</li>
+        </ul>
+        <p class="highlight">Fonte: Tortora, "Princípios de Anatomia e Fisiologia", 14ª ed.</p>
+    </div>
+
+    <h3>Regulação Neural</h3>
+    <div class="regulation">
+        <ul>
+            <li>🧠 Centro respiratório (bulbo e ponte)</li>
+            <li>⚡ Quimiorreceptores:
+                <ul>
+                    <li>Centrais: LCR (pH)</li>
+                    <li>Periféricos: Corpos carotídeos/aórticos (PaO₂)</li>
+                </ul>
+            </li>
+            <li>⏱️ Ritmo básico: Pre-Bötzinger complex</li>
+        </ul>
+        <p class="highlight">Referência: Guyton, "Tratado de Fisiologia Médica", 14ª ed.</p>
+    </div>
+
+    <h3>Patologias Relevantes</h3>
+    <div class="pathology">
+        <ul>
+            <li>🫁 DPOC (VEMS1/CVF < 0.7)</li>
+            <li>🌫️ Asma (Hiper-responsividade brônquica)</li>
+            <li>🩸 SDRA (PaO₂/FiO₂ ≤ 300)</li>
+            <li>🦠 Pneumonia (Critérios de CURB-65)</li>
+        </ul>
+        <p class="highlight">Fonte: Global Initiative for Chronic Obstructive Lung Disease 2023</p>
+    </div>
+
+    <h3>Dados Fisiológicos</h3>
+    <table class="data-table">
+        <tr>
+            <th>Parâmetro</th>
+            <th>Valor Normal</th>
+            <th>Unidade</th>
+        </tr>
+        <tr>
+            <td>Frequência Respiratória</td>
+            <td>12-20</td>
+            <td>rpm</td>
+        </tr>
+        <tr>
+            <td>PaO₂</td>
+            <td>80-100</td>
+            <td>mmHg</td>
+        </tr>
+        <tr>
+            <td>PaCO₂</td>
+            <td>35-45</td>
+            <td>mmHg</td>
+        </tr>
+        <tr>
+            <td>Shunt Fisiológico</td>
+            <td>2-5</td>
+            <td>%</td>
+        </tr>
+    </table>
+`
+            },
+            nervoso: {
+                title: '🧠 Sistema Nervoso',
+                content: `
+        <h3>Função Principal</h3>
+        <p>O sistema nervoso atua como <span class="highlight">centro de controle e integração</span> através de:</p>
+        <ul>
+            <li>⚡ Transmissão de impulsos elétricos (potenciais de ação)</li>
+            <li>🔄 Processamento de informações sensoriais</li>
+            <li>🤝 Integração interneuronal (sinapses)</li>
+            <li>🎯 Coordenação de respostas motoras</li>
+            <li>🧠 Suporte a funções cognitivas superiores</li>
+        </ul>
+        <p class="highlight">Referência: Kandel, "Principles of Neural Science", 6ª ed.</p>
+
+        <h3>Anatomia Funcional</h3>
+        <table class="anatomy-table">
+            <tr>
+                <th>Divisão</th>
+                <th>Componentes</th>
+                <th>Função</th>
+            </tr>
+            <tr>
+                <td>SN Central</td>
+                <td>Encéfalo + Medula</td>
+                <td>Processamento informações</td>
+            </tr>
+            <tr>
+                <td>SN Periférico</td>
+                <td>Nervos + Gânglios</td>
+                <td>Condução de sinais</td>
+            </tr>
+        </table>
+        <p class="highlight">Fonte: Netter, "Atlas de Neuroanatomia", 3ª ed.</p>
+
+        <h3>Principais Estruturas Encefálicas</h3>
+        <div class="brain-structures">
+            <ul>
+                <li>🧠 Cérebro (Telencéfalo):
+                    <ul>
+                        <li>Córtex cerebral (6 camadas)</li>
+                        <li>Núcleos da base</li>
+                    </ul>
+                </li>
+                <li>⚖️ Cerebelo:
+                    <ul>
+                        <li>Coordenação motora</li>
+                        <li>Equilíbrio</li>
+                    </ul>
+                </li>
+                <li>🩸 Tronco Encefálico:
+                    <ul>
+                        <li>Bulbo: Funções vitais</li>
+                        <li>Ponte: Conexões</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <h3>Transmissão Neural</h3>
+        <div class="neurotransmission">
+            <h4>⚡ Potencial de Ação</h4>
+            <ul>
+                <li>Fases:
+                    <ol>
+                        <li>Repouso (-70mV)</li>
+                        <li>Despolarização (+30mV)</li>
+                        <li>Repolarização</li>
+                        <li>Hiperpolarização</li>
+                    </ol>
+                </li>
+                <li>Velocidade: 0.5-120 m/s</li>
+            </ul>
+
+            <h4>🧪 Sinapses</h4>
+            <table class="synapse-table">
+                <tr>
+                    <th>Tipo</th>
+                    <th>Transmissor</th>
+                    <th>Exemplos</th>
+                </tr>
+                <tr>
+                    <td>Química</td>
+                    <td>Neurotransmissores</td>
+                    <td>Glutamato, GABA</td>
+                </tr>
+                <tr>
+                    <td>Elétrica</td>
+                    <td>Junções comunicantes</td>
+                    <td>Coração, Encéfalo</td>
+                </tr>
+            </table>
+            <p class="highlight">Fonte: Purves, "Neuroscience", 6ª ed.</p>
+        </div>
+
+        <h3>Neurotransmissores Principais</h3>
+        <div class="neurotransmitters">
+            <ul>
+                <li>🔋 Excitatórios:
+                    <ul>
+                        <li>Glutamato</li>
+                        <li>Noradrenalina</li>
+                    </ul>
+                </li>
+                <li>🛑 Inibitórios:
+                    <ul>
+                        <li>GABA</li>
+                        <li>Glicina</li>
+                    </ul>
+                </li>
+                <li>💊 Moduladores:
+                    <ul>
+                        <li>Dopamina</li>
+                        <li>Serotonina</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <h3>Regulação Neural</h3>
+        <div class="regulation">
+            <h4>🧬 Sistema Nervoso Autônomo</h4>
+            <table class="ans-table">
+                <tr>
+                    <th>Divisão</th>
+                    <th>Neurotransmissor</th>
+                    <th>Resposta</th>
+                </tr>
+                <tr>
+                    <td>Simpático</td>
+                    <td>Noradrenalina</td>
+                    <td>Luta/Fuga</td>
+                </tr>
+                <tr>
+                    <td>Parassimpático</td>
+                    <td>Acetilcolina</td>
+                    <td>Repouso</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>Patologias Relevantes</h3>
+        <div class="pathology">
+            <ul>
+                <li>🩺 AVC (NIH Stroke Scale):
+                    <ul>
+                        <li>Isquêmico (87%)</li>
+                        <li>Hemorrágico (13%)</li>
+                    </ul>
+                </li>
+                <li>🧠 Alzheimer (Critérios NIA-AA):
+                    <ul>
+                        <li>Proteína Tau</li>
+                        <li>Placas β-amiloide</li>
+                    </ul>
+                </li>
+                <li>⚡ Epilepsia (Classificação ILAE)</li>
+            </ul>
+            <p class="highlight">Fonte: WHO Neurological Disorders Report 2023</p>
+        </div>
+
+        <h3>Dados Fisiológicos</h3>
+        <table class="data-table">
+            <tr>
+                <th>Parâmetro</th>
+                <th>Valor</th>
+                <th>Unidade</th>
+            </tr>
+            <tr>
+                <td>Neurônios no cérebro</td>
+                <td>86 bilhões</td>
+                <td>neurônios</td>
+            </tr>
+            <tr>
+                <td>Velocidade condução</td>
+                <td>0.5-120</td>
+                <td>m/s</td>
+            </tr>
+            <tr>
+                <td>Peso médio cérebro</td>
+                <td>1.3-1.4</td>
+                <td>kg</td>
+            </tr>
+        </table>
+
+        <h3>Pesquisas Emergentes</h3>
+        <div class="research">
+            <ul>
+                <li>🧠 Neuroplasticidade (BDNF)</li>
+                <li>💻 Interfaces cérebro-computador</li>
+                <li>🧬 Terapia gênica em doenças neurodegenerativas</li>
+            </ul>
+            <p class="highlight">Fonte: Nature Neuroscience 2023</p>
+        </div>
+    `
+            },
+            imune: {
+                title: '🛡️ Resposta Imune',
+                content: `
+        <h3>Componentes Principais</h3>
+        <div class="immune-components">
+            <ul>
+                <li>🛡️ Imunidade Inata:
+                    <ul>
+                        <li>Barreiras físicas (pele, mucosas)</li>
+                        <li>Células NK e fagócitos</li>
+                    </ul>
+                </li>
+                <li>🎯 Imunidade Adaptativa:
+                    <ul>
+                        <li>Linfócitos B e T</li>
+                        <li>Resposta antígeno-específica</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="highlight">Referência: Janeway's Immunobiology, 9ª ed.</p>
+        </div>
+
+        <h3>Células Chave</h3>
+        <table class="cells-table">
+            <tr>
+                <th>Célula</th>
+                <th>Marcadores</th>
+                <th>Função</th>
+            </tr>
+            <tr>
+                <td>Linfócito T CD4+</td>
+                <td>CD3+, CD4+</td>
+                <td>Coordenação da resposta</td>
+            </tr>
+            <tr>
+                <td>Linfócito T CD8+</td>
+                <td>CD3+, CD8+</td>
+                <td>Citotoxicidade</td>
+            </tr>
+            <tr>
+                <td>Linfócito B</td>
+                <td>CD19+, CD20+</td>
+                <td>Produção de anticorpos</td>
+            </tr>
+        </table>
+        <p class="highlight">Fonte: Abbas AK, "Cellular and Molecular Immunology"</p>
+
+        <h3>Resposta Inflamatória</h3>
+        <div class="inflammation">
+            <ul>
+                <li>🔥 Mediadores:
+                    <ul>
+                        <li>Histamina (mastócitos)</li>
+                        <li>Prostaglandinas (COX-2)</li>
+                    </ul>
+                </li>
+                <li>🩸 Sinais Cardinais:
+                    <ol>
+                        <li>Rubor</li>
+                        <li>Calor</li>
+                        <li>Tumor</li>
+                        <li>Dor</li>
+                    </ol>
+                </li>
+            </ul>
+            <p class="highlight">Referência: Kumar, "Robbins Basic Pathology"</p>
+        </div>
+
+        <h3>Tipos de Imunidade</h3>
+        <div class="immunity-types">
+            <div class="type-box active">
+                <h4>🛡️ Ativa</h4>
+                <ul>
+                    <li>Natural: Infecção</li>
+                    <li>Artificial: Vacinas</li>
+                </ul>
+            </div>
+
+            <div class="type-box passive">
+                <h4>🛑 Passiva</h4>
+                <ul>
+                    <li>Natural: Placental</li>
+                    <li>Artificial: Soroterapia</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>Processos Chave</h3>
+        <div class="key-processes">
+            <h4>🧬 Recombinação V(D)J</h4>
+            <ul>
+                <li>Diversidade: 10¹¹ receptores</li>
+                <li>Enzimas: RAG-1/RAG-2</li>
+            </ul>
+
+            <h4>⚔️ Apresentação Antigênica</h4>
+            <ul>
+                <li>MHC I: Todas células nucleadas</li>
+                <li>MHC II: Células apresentadoras</li>
+            </ul>
+        </div>
+
+        <h3>Citocinas Principais</h3>
+        <table class="cytokines-table">
+            <tr>
+                <th>Citocina</th>
+                <th>Fonte</th>
+                <th>Ação</th>
+            </tr>
+            <tr>
+                <td>IL-2</td>
+                <td>T cells</td>
+                <td>Proliferação linfócitos</td>
+            </tr>
+            <tr>
+                <td>IFN-γ</td>
+                <td>Th1 cells</td>
+                <td>Ativação macrófagos</td>
+            </tr>
+            <tr>
+                <td>IL-4</td>
+                <td>Th2 cells</td>
+                <td>Resposta alérgica</td>
+            </tr>
+        </table>
+        <p class="highlight">Fonte: Murphy K, "Janeway's Immunobiology"</p>
+
+        <h3>Patologias Imunológicas</h3>
+        <div class="immunopathology">
+            <ul>
+                <li>⚖️ Autoimunidade:
+                    <ul>
+                        <li>Lúpus (anti-dsDNA)</li>
+                        <li>Diabetes tipo 1</li>
+                    </ul>
+                </li>
+                <li>🛑 Imunodeficiências:
+                    <ul>
+                        <li>HIV/AIDS (CD4+ < 200)</li>
+                        <li>SCID ("bubble boy")</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="highlight">Referência: WHO Immunodeficiency Report</p>
+        </div>
+
+        <h3>Dados Epidemiológicos</h3>
+        <div class="epidemiology">
+            <ul>
+                <li>🌍 Vacinação previne 2-3 milhões de mortes/ano (WHO)</li>
+                <li>📈 Prevalência de alergias: 30% população mundial</li>
+                <li>💉 Eficácia vacina HPV: >90% (CDC 2023)</li>
+            </ul>
+        </div>
+
+        <h3>Tecnologias Emergentes</h3>
+        <div class="emerging-tech">
+            <ul>
+                <li>🧬 Terapia CAR-T (CD19)</li>
+                <li>💊 Checkpoint inhibitors (anti-PD1)</li>
+                <li>🦠 Vacinas mRNA (COVID-19)</li>
+            </ul>
+            <p class="highlight">Fonte: Nature Immunology 2023</p>
+        </div>
+    `
+            },
+            neurofisiologia: {
+                title: '⚡ Neurofisiologia',
+                content: `
+        <h3>Princípios Fundamentais</h3>
+        <div class="neurophysio-principles">
+            <ul>
+                <li>🧠 <span class="highlight">Potencial de membrana:</span> -70mV (repouso)</li>
+                <li>⚡ <span class="highlight">Lei do Tudo ou Nada:</span> Limiar de -55mV</li>
+                <li>🔄 <span class="highlight">Bomba Na+/K+:</span> 3 Na+ out / 2 K+ in</li>
+                <li>📈 <span class="highlight">Condução Saltatória:</span> Nós de Ranvier</li>
+            </ul>
+            <p class="highlight">Referência: Kandel, "Principles of Neural Science", 6ª ed.</p>
+        </div>
+
+        <h3>Transmissão Sináptica</h3>
+        <table class="synapse-table">
+            <tr>
+                <th>Processo</th>
+                <th>Duração</th>
+                <th>Mecanismo</th>
+            </tr>
+            <tr>
+                <td>Liberação vesicular</td>
+                <td>0.5-2 ms</td>
+                <td>Entrada de Ca²⁺ via canais VG</td>
+            </tr>
+            <tr>
+                <td>Ativação pós-sináptica</td>
+                <td>2-5 ms</td>
+                <td>Receptores AMPA/NMDA</td>
+            </tr>
+            <tr>
+                <td>Plasticidade sináptica</td>
+                <td>Minutos-anos</td>
+                <td>LTP/LTD</td>
+            </tr>
+        </table>
+        <p class="highlight">Fonte: Purves, "Neuroscience", 6ª ed.</p>
+
+        <h3>Potencial de Ação</h3>
+        <div class="action-potential">
+            <h4>📊 Fases do Potencial</h4>
+            <ol>
+                <li>Repouso (-70mV)</li>
+                <li>Despolarização (Na+ in)</li>
+                <li>Pico (+30mV)</li>
+                <li>Repolarização (K+ out)</li>
+                <li>Hiperpolarização</li>
+            </ol>
+            
+            <h4>⚡ Velocidades de Condução</h4>
+            <ul>
+                <li>Fibras Aα: 120 m/s</li>
+                <li>Fibras C: 0.5-2 m/s</li>
+            </ul>
+        </div>
+
+        <h3>Ondas Cerebrais</h3>
+        <table class="brainwaves-table">
+            <tr>
+                <th>Onda</th>
+                <th>Frequência</th>
+                <th>Estado</th>
+            </tr>
+            <tr>
+                <td>Delta</td>
+                <td>0.5-4 Hz</td>
+                <td>Sono profundo</td>
+            </tr>
+            <tr>
+                <td>Theta</td>
+                <td>4-8 Hz</td>
+                <td>Meditação</td>
+            </tr>
+            <tr>
+                <td>Alpha</td>
+                <td>8-12 Hz</td>
+                <td>Relaxamento</td>
+            </tr>
+            <tr>
+                <td>Beta</td>
+                <td>12-30 Hz</td>
+                <td>Vigília ativa</td>
+            </tr>
+            <tr>
+                <td>Gamma</td>
+                <td>30-100 Hz</td>
+                <td>Processamento cognitivo</td>
+            </tr>
+        </table>
+        <p class="highlight">Fonte: Niedermeyer's Electroencephalography, 6ª ed.</p>
+
+        <h3>Plasticidade Neural</h3>
+        <div class="plasticity">
+            <h4>🔁 LTP (Long-Term Potentiation)</h4>
+            <ul>
+                <li>Receptores NMDA-dependente</li>
+                <li>Aumento densidade sináptica</li>
+                <li>Base da memória</li>
+            </ul>
+
+            <h4>🧬 Fatores Neurotróficos</h4>
+            <ul>
+                <li>BDNF: Plasticidade sináptica</li>
+                <li>NGF: Sobrevida neuronal</li>
+            </ul>
+            <p class="highlight">Referência: Bear, "Neurociências", 4ª ed.</p>
+        </div>
+
+        <h3>Neurotransmissores</h3>
+        <div class="neurotransmitters">
+            <div class="nt-box excitatory">
+                <h4>🔋 Excitatórios</h4>
+                <ul>
+                    <li>Glutamato</li>
+                    <li>Noradrenalina</li>
+                </ul>
+            </div>
+
+            <div class="nt-box inhibitory">
+                <h4>🛑 Inibitórios</h4>
+                <ul>
+                    <li>GABA</li>
+                    <li>Glicina</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>Patologias Relacionadas</h3>
+        <div class="pathology">
+            <ul>
+                <li>⚡ Epilepsia:
+                    <ul>
+                        <li>Crise focal/generalizada</li>
+                        <li>EEG: Spike-and-wave</li>
+                    </ul>
+                </li>
+                <li>🧠 Doença de Parkinson:
+                    <ul>
+                        <li>Degeneração nigroestriatal</li>
+                        <li>Terapia: L-DOPA</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="highlight">Fonte: WHO Neurological Disorders Report</p>
+        </div>
+
+        <h3>Dados Experimentais</h3>
+        <div class="experimental-data">
+            <ul>
+                <li>⏳ Constante de tempo de membrana: 10-20 ms</li>
+                <li>🔋 Potencial de equilíbrio:
+                    <ul>
+                        <li>Na+: +60 mV</li>
+                        <li>K+: -90 mV</li>
+                    </ul>
+                </li>
+                <li>🧠 Densidade sináptica cortical: ~10⁸ sinapses/mm³</li>
+            </ul>
+        </div>
+
+        <h3>Técnicas de Estudo</h3>
+        <div class="techniques">
+            <ul>
+                <li>📊 Eletrofisiologia:
+                    <ul>
+                        <li>Patch-clamp</li>
+                        <li>Registro extracelular</li>
+                    </ul>
+                </li>
+                <li>🧬 Optogenética (Channelrhodopsin)</li>
+                <li>💻 Modelagem computacional NEURON</li>
+            </ul>
+            <p class="highlight">Fonte: Nature Neuroscience Methods 2023</p>
+        </div>
+    `
+            },
+            asma: {
+                title: '🌬️ Asma',
+                content: `
+        <h3>Definição e Importância Clínica</h3>
+        <div class="definition">
+            <p>Doença inflamatória crônica das vias aéreas caracterizada por:</p>
+            <ul>
+                <li>🔁 Hiperresponsividade brônquica</li>
+                <li>🌀 Obstrução variável do fluxo aéreo</li>
+                <li>🔥 Inflamação eosinofílica (Th2)</li>
+            </ul>
+            <p class="highlight">Referência: GINA 2023</p>
+        </div>
+
+        <h3>Fisiopatologia Chave</h3>
+        <div class="pathophysiology">
+            <ul>
+                <li>🧬 Mecanismos imunológicos:
+                    <ul>
+                        <li>Ativação Th2 (IL-4, IL-5, IL-13)</li>
+                        <li>Infiltração eosinofílica</li>
+                    </ul>
+                </li>
+                <li>🔄 Remodelamento das vias aéreas:
+                    <ul>
+                        <li>Hipertrofia muscular lisa</li>
+                        <li>Fibrose subepitelial</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="highlight">Fonte: Nature Reviews Immunology 2023</p>
+        </div>
+
+        <h3>Classificação da Gravidade (GINA 2023)</h3>
+        <table class="severity-table">
+            <tr>
+                <th>Tipo</th>
+                <th>Sintomas</th>
+                <th>FEV1</th>
+            </tr>
+            <tr>
+                <td>Intermittente</td>
+                <td>≤2/semana</td>
+                <td>≥80%</td>
+            </tr>
+            <tr>
+                <td>Persistente Leve</td>
+                <td>3-6/semana</td>
+                <td>70-79%</td>
+            </tr>
+            <tr>
+                <td>Persistente Moderada</td>
+                <td>Diários</td>
+                <td>60-69%</td>
+            </tr>
+            <tr>
+                <td>Persistente Grave</td>
+                <td>Contínuos</td>
+                <td>&lt;60%</td>
+            </tr>
+        </table>
+
+        <h3>Critérios Diagnósticos</h3>
+        <div class="diagnosis">
+            <ul>
+                <li>📊 Espirometria:
+                    <ul>
+                        <li>VEF1/CVF &lt; 0.7</li>
+                        <li>Reversibilidade ≥12% (400mL)</li>
+                    </ul>
+                </li>
+                <li>🔍 Testes Adicionais:
+                    <ul>
+                        <li>Óxido nítrico exalado (FeNO) &gt;50 ppb</li>
+                        <li>Teste de broncoprovocação</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="highlight">Fonte: American Thoracic Society 2023</p>
+        </div>
+
+        <h3>Abordagem Terapêutica (Step-up GINA)</h3>
+        <div class="treatment">
+            <table class="treatment-table">
+                <tr>
+                    <th>Step</th>
+                    <th>Medicamentos</th>
+                    <th>Dose</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>SABA sob demanda</td>
+                    <td>100-200μg</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>ICS + LABA</td>
+                    <td>Ex: Budesonida/Formoterol</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Biológicos (anti-IL5)</td>
+                    <td>Mepolizumab 100mg/mês</td>
+                </tr>
+            </table>
+            <p class="highlight">Referência: Global Initiative for Asthma 2023</p>
+        </div>
+
+        <h3>Dados Epidemiológicos</h3>
+        <div class="epidemiology">
+            <ul>
+                <li>🌍 Prevalência global: 262 milhões (WHO 2023)</li>
+                <li>📈 Incidência anual: 3-5% adultos</li>
+                <li>💸 Custo anual EUA: $82 bilhões</li>
+            </ul>
+        </div>
+
+        <h3>Fatores Desencadeantes</h3>
+        <div class="triggers">
+            <div class="trigger-box allergic">
+                <h4>🦠 Alérgenos</h4>
+                <ul>
+                    <li>Ácaros (Der p1)</li>
+                    <li>Pólen (Bet v1)</li>
+                </ul>
+            </div>
+
+            <div class="trigger-box non-allergic">
+                <h4>🌫️ Não-Alérgicos</h4>
+                <ul>
+                    <li>Exercício</li>
+                    <li>Aspirina</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>Emergências Asmáticas</h3>
+        <div class="emergency">
+            <ul>
+                <li>🚨 Critérios de Gravidade:
+                    <ul>
+                        <li>Fala fragmentada</li>
+                        <li>FR &gt;30 rpm</li>
+                        <li>SaO2 &lt;90%</li>
+                    </ul>
+                </li>
+                <li>💉 Tratamento Agudo:
+                    <ul>
+                        <li>O₂ alto fluxo</li>
+                        <li>SABA nebulizado</li>
+                        <li>MgSO₄ IV</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="highlight">Fonte: ERJ Guidelines 2023</p>
+        </div>
+
+        <h3>Biológicos Disponíveis</h3>
+        <table class="biologics-table">
+            <tr>
+                <th>Alvo</th>
+                <th>Medicamento</th>
+                <th>Dose</th>
+            </tr>
+            <tr>
+                <td>IgE</td>
+                <td>Omalizumab</td>
+                <td>75-600mg/4 semanas</td>
+            </tr>
+            <tr>
+                <td>IL-5</td>
+                <td>Mepolizumab</td>
+                <td>100mg SC/mês</td>
+            </tr>
+            <tr>
+                <td>IL-4Rα</td>
+                <td>Dupilumab</td>
+                <td>300mg/2 semanas</td>
+            </tr>
+        </table>
+        <p class="highlight">Fonte: NEJM Biologics in Asthma 2023</p>
+
+        <h3>Pesquisas Emergentes</h3>
+        <div class="research">
+            <ul>
+                <li>🧬 Terapia gênica (CRISPR-Cas9)</li>
+                <li>🔋 Broncodilatadores ultra-longos (24h+)</li>
+                <li>🧪 Biomarcadores:
+                    <ul>
+                        <li>Periostina sérica</li>
+                        <li>MicroRNA-145</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="highlight">Fonte: Lancet Respiratory Medicine 2024</p>
+        </div>
+    `
+            },
+            aines: {
+    title: '💊 AINEs (Anti-inflamatórios Não Esteroides)',
+    content: `
+        <h3>Mecanismo de Ação</h3>
+        <div class="mechanism">
+            <ul>
+                <li>🎯 Inibição das ciclo-oxigenases (COX):
+                    <ul>
+                        <li>COX-1: Constitutiva (proteção gástrica)</li>
+                        <li>COX-2: Induzida (inflamação)</li>
+                    </ul>
+                </li>
+                <li>🛑 Redução de prostaglandinas (PGE2, PGI2)</li>
+                <li>🔥 Supressão da síntese de tromboxano A2</li>
+            </ul>
+            <p class="highlight">Referência: Goodman & Gilman's Pharmacological Basis, 14ª ed.</p>
+        </div>
+
+        <h3>Classificação por Seletividade</h3>
+        <table class="cox-table">
+            <tr>
+                <th>Tipo</th>
+                <th>Exemplos</th>
+                <th>COX-1/COX-2 Ratio</th>
+            </tr>
+            <tr>
+                <td>Não seletivos</td>
+                <td>Ibuprofeno, Naproxeno</td>
+                <td>1:1</td>
+            </tr>
+            <tr>
+                <td>Preferenciais COX-2</td>
+                <td>Meloxicam, Nimesulida</td>
+                <td>1:5-10</td>
+            </tr>
+            <tr>
+                <td>Seletivos COX-2</td>
+                <td>Celecoxibe, Etoricoxibe</td>
+                <td>1:30+</td>
+            </tr>
+        </table>
+        <p class="highlight">Fonte: NEJM 2023</p>
+
+        <h3>Farmacocinética Comparativa</h3>
+        <table class="pk-table">
+            <tr>
+                <th>Droga</th>
+                <th>Meia-vida (h)</th>
+                <th>Dose Diária Máxima</th>
+            </tr>
+            <tr>
+                <td>Diclofenaco</td>
+                <td>1-2</td>
+                <td>150 mg</td>
+            </tr>
+            <tr>
+                <td>Celecoxibe</td>
+                <td>11</td>
+                <td>400 mg</td>
+            </tr>
+            <tr>
+                <td>Naproxeno</td>
+                <td>14</td>
+                <td>1500 mg</td>
+            </tr>
+        </table>
+
+        <h3>Indicações Clínicas</h3>
+        <div class="indications">
+            <div class="indication-box">
+                <h4>🩺 Analgesia</h4>
+                <ul>
+                    <li>Cefaleia tensional</li>
+                    <li>Dor pós-operatória</li>
+                </ul>
+            </div>
+            <div class="indication-box">
+                <h4>🔥 Anti-inflamatório</h4>
+                <ul>
+                    <li>Artrite reumatoide</li>
+                    <li>Osteoartrite</li>
+                </ul>
+            </div>
+            <p class="highlight">Fonte: ACR Guidelines 2023</p>
+        </div>
+
+        <h3>Efeitos Adversos</h3>
+        <div class="side-effects">
+            <div class="effect-box gi">
+                <h4>💢 Gastrointestinais</h4>
+                <ul>
+                    <li>Úlcera péptica (RR 4-5x)</li>
+                    <li>Hemorragia digestiva</li>
+                </ul>
+            </div>
+            <div class="effect-box cv">
+                <h4>❤️ Cardiovasculares</h4>
+                <ul>
+                    <li>↑ Risco trombótico (COX-2)</li>
+                    <li>Hipertensão</li>
+                </ul>
+            </div>
+            <p class="highlight">Fonte: Lancet 2023 Meta-analysis</p>
+        </div>
+
+        <h3>Contraindicações</h3>
+        <div class="contraindications">
+            <ul>
+                <li>🚫 Úlcera péptica ativa</li>
+                <li>🚫 Insuficiência renal grave (TFG <30)</li>
+                <li>🚫 Terceiro trimestre gestacional</li>
+                <li>🚫 Hipersensibilidade a AAS</li>
+            </ul>
+            <p class="highlight">Referência: FDA Drug Safety Communication</p>
+        </div>
+
+        <h3>Interações Medicamentosas</h3>
+        <table class="interactions-table">
+            <tr>
+                <th>Classe</th>
+                <th>Exemplo</th>
+                <th>Efeito</th>
+            </tr>
+            <tr>
+                <td>Anticoagulantes</td>
+                <td>Varfarina</td>
+                <td>↑ Risco hemorrágico</td>
+            </tr>
+            <tr>
+                <td>Anti-hipertensivos</td>
+                <td>IECA</td>
+                <td>↓ Eficácia</td>
+            </tr>
+            <tr>
+                <td>Corticosteroides</td>
+                <td>Prednisona</td>
+                <td>↑ Toxicidade GI</td>
+            </tr>
+        </table>
+
+        <h3>Dados de Segurança</h3>
+        <div class="safety">
+            <ul>
+                <li>📉 Risco CV:
+                    <ul>
+                        <li>Celecoxibe: HR 1.3</li>
+                        <li>Diclofenaco: HR 1.6</li>
+                    </ul>
+                </li>
+                <li>📌 Perfil mais seguro:
+                    <ul>
+                        <li>Naproxeno (CV)</li>
+                        <li>Celecoxibe (GI)</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="highlight">Fonte: PRECISION Trial (NEJM)</p>
+        </div>
+
+        <h3>Manejo de Overdose</h3>
+        <div class="overdose">
+            <ul>
+                <li>⚠️ Sintomas:
+                    <ul>
+                        <li>Náuseas/vômitos</li>
+                        <li>Acidose metabólica</li>
+                    </ul>
+                </li>
+                <li>⛑️ Tratamento:
+                    <ul>
+                        <li>Carvão ativado (<1h)</li>
+                        <li>Hemodiálise (salicilatos)</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="highlight">Fonte: Poison Control Guidelines</p>
+        </div>
+
+        <h3>Pesquisas Emergentes</h3>
+        <div class="research">
+            <ul>
+                <li>🧪 Inibidores COX/LOX duais</li>
+                <li>🔬 Formulações tópicas (↓ efeitos sistêmicos)</li>
+                <li>🧬 Farmacogenômica (polimorfismos CYP2C9)</li>
+            </ul>
+            <p class="highlight">Fonte: Nature Reviews Drug Discovery 2024</p>
+        </div>
+    `
+}
+        };
+
+        function showModal(topic) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+
+            title.innerHTML = modalContents[topic].title;
+            content.innerHTML = modalContents[topic].content;
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+
+</body>
+
+<script>
+    // Captura o parâmetro da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const modulo = urlParams.get('modulo');
+
+    // Exibe o conteúdo correto
+    if (modulo === 'biologico') {
+        document.getElementById('biologico-content').style.display = 'block';
+    } else if (modulo === 'vital') {
+        document.getElementById('vital-content').style.display = 'block';
+    }
+</script>

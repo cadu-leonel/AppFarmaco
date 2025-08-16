@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
+        rel="stylesheet">
 
     <title>Flashcards & Farmaco</title>
 
@@ -113,17 +114,6 @@
             display: flex;
         }
 
-        /* ===== Responsividade ===== */
-        @media (max-width: 992px) {
-            .module-card {
-                min-height: auto;
-            }
-            
-            .row.equal-height {
-                display: block;
-            }
-        }
-
         @media (max-width: 768px) {
             .modules-section {
                 padding: 60px 0;
@@ -185,10 +175,6 @@
             min-width: 120px;
             -webkit-tap-highlight-color: transparent;
         }
-
-        .main-menu li {
-            padding: 10px 0;
-        }
     </style>
 </head>
 
@@ -199,8 +185,7 @@
         <div class="logo">
             <a href="#top"><em>⚕️ Tutoria</em> App</a>
         </div>
-        <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
-        <nav id="menu" class="main-nav" role="navigation">
+        <nav class="main-nav" role="navigation">
             <ul class="main-menu">
                 <li><a href="#top">Home</a></li>
                 <li><a href="#section4">Módulos</a></li>
@@ -264,9 +249,9 @@
                                 <h4><i class="fa fa-book"></i>Flashcards</h4>
                             </div>
                             <div class="content-hide">
-                                <p>Implementação futura</p>
-                                <p class="hidden-sm">Implementação futura</p>
-                                <div><a href="#">Visualizar</a></div>
+                                <p>Flashcards sobre os assuntos de tutoria</p>
+                                <p class="hidden-sm">Acesse os flashcards</p>
+                                <div><a href="visualizar.html">Visualizar</a></div>
                             </div>
                         </div>
                     </div>
@@ -295,15 +280,16 @@
                         <div class="module-topics">
                             <h5 class="mb-3 text-light">Tópicos Incluídos:</h5>
                             <ul class="topic-list">
-                                <li>Metabolismo celular</li>
-                                <li>Síntese proteica</li>
-                                <li>Homeostase</li>
+                                <li>Sistema Cardiovascular</li>
+                                <li>Dislipidemia</li>
+                                <li>Diabetes</li>
                                 <li>Transdução de sinais</li>
-                                <li>Expressão gênica</li>
-                                <li>Ciclo energético</li>
+                                <li>Relação antígeno-anticorpo</li>
+                                <li>Insuficiência Cardíaca</li>
                             </ul>
                         </div>
-                        <a href="visualizar.html"><button class="btn btn-neon mt-3">Iniciar Módulo</button> </a>
+                        <button class="btn btn-neon mt-3" onclick="redirectToModule('biologico')">Iniciar
+                            Módulo</button>
                     </div>
                 </div>
 
@@ -319,15 +305,15 @@
                         <div class="module-topics">
                             <h5 class="mb-3 text-light">Tópicos Incluídos:</h5>
                             <ul class="topic-list">
-                                <li>Sistema cardiovascular</li>
-                                <li>Respiração celular</li>
-                                <li>Função renal</li>
+                                <li>Sistema respiratório</li>
+                                <li>Sistema Nervoso</li>
+                                <li>Resposta Imune</li>
                                 <li>Neurofisiologia</li>
-                                <li>Termorregulação</li>
+                                <li>COVID-19</li>
                                 <li>Processos imunitários</li>
                             </ul>
                         </div>
-                        <button class="btn btn-neon mt-3">Iniciar Módulo</button>
+                        <button class="btn btn-neon mt-3" onclick="redirectToModule('vital')">Iniciar Módulo</button>
                     </div>
                 </div>
             </div>
@@ -376,7 +362,7 @@
                     <div id="map">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3932.757133678472!2d-36.68969942497296!3d-9.701757790388937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7067f023c719fb3%3A0x5c6622165cf49eae!2sUniversidade%20Federal%20de%20Alagoas%20-%20Campus%20de%20Arapiraca!5e0!3m2!1spt-BR!2sbr!4v1739668910904!5m2!1spt-BR!2sbr"
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
@@ -406,7 +392,28 @@
     <script src="assets/js/custom.js"></script>
 
     <script>
+        function redirectToModule(modulo) {
+            window.location.href = `modulos.html?modulo=${modulo}`;
+        }
+    </script>
+
+    <script>
         $(document).ready(function () {
+            // Toggle do menu mobile
+            $('.menu-link').on('click', function (e) {
+                e.preventDefault();
+                $('.main-nav').slideToggle(300);
+                $(this).toggleClass('active');
+            });
+
+            // Fechar menu ao clicar fora
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.main-nav, .menu-link').length) {
+                    $('.main-nav').slideUp(300);
+                    $('.menu-link').removeClass('active');
+                }
+            });
+
             // Navegação suave
             $('a[href^="#"]').on('click', function (e) {
                 e.preventDefault();
@@ -415,13 +422,6 @@
                     $('html, body').animate({
                         scrollTop: target.offset().top - 70
                     }, 1000);
-                }
-            });
-
-            // Fechar menu mobile após clique
-            $('.main-menu a').on('click', function() {
-                if($(window).width() < 992) {
-                    $('.main-nav').hide();
                 }
             });
 
@@ -440,7 +440,7 @@
             });
 
             // Otimização para mobile
-            if($(window).width() < 768) {
+            if ($(window).width() < 768) {
                 $('#bg-video').attr('muted', 'true');
             }
         });
